@@ -1,0 +1,11 @@
+Home.jsx:41 Uncaught ReferenceError: Sky is not defined
+    at Home (Home.jsx:41:14)
+    at renderWithHooks (chunk-YI7ZP7WZ.js?v=1d2b6453:11568:26)
+    at mountIndeterminateComponent (chunk-YI7ZP7WZ.js?v=1d2b6453:14946:21)
+    at beginWork (chunk-YI7ZP7WZ.js?v=1d2b6453:15934:22)
+    at HTMLUnknownElement.callCallback2 (chunk-YI7ZP7WZ.js?v=1d2b6453:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-YI7ZP7WZ.js?v=1d2b6453:3699:24)
+    at invokeGuardedCallback (chunk-YI7ZP7WZ.js?v=1d2b6453:3733:39)
+    at beginWork$1 (chunk-YI7ZP7WZ.js?v=1d2b6453:19793:15)
+    at performUnitOfWork (chunk-YI7ZP7WZ.js?v=1d2b6453:19226:20)
+    at workLoopSync (chunk-YI7ZP7WZ.js?v=1d2b6453:19165:13)
