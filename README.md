@@ -6,7 +6,7 @@
 [![Lighthouse](https://img.shields.io/badge/Lighthouse-95+-00C853?style=flat&logo=lighthouse&logoColor=white)](#)
 [![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat&logo=vercel&logoColor=white)](#)
 
-Modern portfolio showcasing full-stack engineering skills with enterprise-grade practices.
+Modern 2025 portfolio with minimal brutalist design, showcasing full-stack engineering skills through performance and accessibility.
 
 ## Quick Start
 
@@ -27,26 +27,32 @@ npm run build                 # Production build
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── Hero.tsx        # Landing page hero section
-│   └── Hero.test.tsx   # Component tests
-├── pages/              # Route components  
-├── hooks/              # Custom React hooks
-└── constants/          # Static data and config
+├── components/         # Reusable UI components
+│   ├── Hero.tsx       # Landing page hero section
+│   └── Resume.tsx     # Interactive resume modal
+├── sections/          # Page sections (single-page app)
+│   ├── Hero.tsx       # Hero section with typing animation
+│   └── Projects.tsx   # Project showcase with bento grid
+├── tests/             # Test-driven development suite
+│   ├── sections/      # Section component tests
+│   └── components/    # Reusable component tests
+├── hooks/             # Custom React hooks
+└── constants/         # Static data and configuration
 
 docs/
-├── adr/               # Architecture Decision Records
-├── SITEMAP.md         # Site structure and navigation
-├── TECHNICAL.md       # Performance specs and requirements  
-└── CONTRIBUTING.md    # Development workflow
+├── adr/              # Architecture Decision Records (2025)
+├── SITEMAP.md        # Site structure and navigation
+├── TECHNICAL.md      # Performance specs and requirements  
+└── CONTRIBUTING.md   # Development workflow
 ```
 
-## Performance Budget
+## 2025 Architecture Highlights
 
-- **Load Time**: <2s on 3G
-- **Lighthouse**: 95+ all metrics
-- **Bundle Size**: <500KB gzipped
-- **Accessibility**: WCAG 2.1 AA compliant
+- **Design Philosophy**: Minimal brutalist inspired by Linear.app/Stripe
+- **Single Page**: Smooth scroll sections (Hero → Experience → Projects → Contact)
+- **Core Web Vitals**: LCP <1.5s, CLS <0.1, FID <100ms
+- **Quality Focus**: Max 4 projects with metrics and live demos
+- **Resume Strategy**: Interactive web view + native PDF export
 
 ## Links
 
