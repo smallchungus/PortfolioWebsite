@@ -1,46 +1,55 @@
 # Will Chen - Portfolio
 
-[![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Vitest](https://img.shields.io/badge/-Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)](https://vitest.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![Vitest](https://img.shields.io/badge/Tested-Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-95+-00C853?style=flat&logo=lighthouse&logoColor=white)](#)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat&logo=vercel&logoColor=white)](#)
 
-Modern, performant portfolio website built with React, TypeScript, and professional engineering practices.
+Modern portfolio showcasing full-stack engineering skills with enterprise-grade practices.
+
+## Quick Start
+
+```bash
+npm install && npm run dev    # Start development
+npm test                      # Run test suite  
+npm run build                 # Production build
+```
 
 ## Tech Stack
 
-- **React 18** - Component-based UI library
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vitest** - Unit testing framework
-- **React Testing Library** - Component testing utilities
+- **Frontend**: React 18, TypeScript, Tailwind CSS
+- **Build**: Vite with HMR and optimized bundling  
+- **Testing**: Vitest, React Testing Library (80%+ coverage)
+- **Deploy**: Vercel with automatic previews
 
-## Development
+## Project Structure
 
-```bash
-# Install dependencies
-npm install
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Hero.tsx        # Landing page hero section
+│   └── Hero.test.tsx   # Component tests
+├── pages/              # Route components  
+├── hooks/              # Custom React hooks
+└── constants/          # Static data and config
 
-# Start development server
-npm run dev
-
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Build for production
-npm run build
+docs/
+├── adr/               # Architecture Decision Records
+├── SITEMAP.md         # Site structure and navigation
+├── TECHNICAL.md       # Performance specs and requirements  
+└── CONTRIBUTING.md    # Development workflow
 ```
 
-## Features
+## Performance Budget
 
-- ⚡ Minimal, professional design
-- 🧪 80%+ test coverage
-- 📱 Mobile-first responsive design
-- ⚙️ TypeScript strict mode
-- 🎯 Lighthouse 95+ performance score
-- ♿ Accessible with semantic HTML
+- **Load Time**: <2s on 3G
+- **Lighthouse**: 95+ all metrics
+- **Bundle Size**: <500KB gzipped
+- **Accessibility**: WCAG 2.1 AA compliant
+
+## Links
+
+- **Live Site**: [willchen.dev](#) *(Coming soon)*
+- **Design System**: [Figma](docs/TECHNICAL.md#design-tokens) *(Internal)*
+- **Architecture**: [ADR Documents](docs/adr/)
