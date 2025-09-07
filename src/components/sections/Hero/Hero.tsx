@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import { useTypingAnimation } from '../../../hooks/useTypingAnimation'
 import { Badge } from '../../ui/Badge'
 
-const ROLES = ['Software Engineer', 'Full-Stack Developer', 'Problem Solver']
+const ROLES = ['Software Engineer', 'Full-Stack Developer', 'MS CS Student @ ASU', 'May 2025 Graduate']
 const TECH_STACK = ['React', 'TypeScript', 'Python', 'Node.js', 'SQL']
 
 export const Hero = () => {

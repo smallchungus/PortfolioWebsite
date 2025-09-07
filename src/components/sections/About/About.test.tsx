@@ -317,6 +317,58 @@ describe('About Section', () => {
     })
   })
 
+  describe('Real Resume Content', () => {
+    it('displays correct bio from resume', () => {
+      render(<About />)
+      
+      expect(screen.getByText(/Master's in Computer Science/i)).toBeInTheDocument()
+      expect(screen.getByText(/Arizona State University/i)).toBeInTheDocument()
+      expect(screen.getByText(/GPA 4\.0/i)).toBeInTheDocument()
+    })
+    
+    it('shows relevant experience highlights', () => {
+      render(<About />)
+      
+      expect(screen.getByText(/TD Securities/i)).toBeInTheDocument()
+      expect(screen.getByText(/investment banking/i)).toBeInTheDocument()
+      expect(screen.getByText(/Panasonic/i)).toBeInTheDocument()
+      expect(screen.getByText(/Research Assistant/i)).toBeInTheDocument()
+      expect(screen.getByText(/Rutgers/i)).toBeInTheDocument()
+    })
+
+    it('displays specific internship details', () => {
+      render(<About />)
+      
+      // TD Securities details
+      expect(screen.getByText(/DataMart features/i)).toBeInTheDocument()
+      expect(screen.getByText(/200\+ investment bankers/i)).toBeInTheDocument()
+      expect(screen.getByText(/35%.*time reduction/i)).toBeInTheDocument()
+      
+      // Panasonic details
+      expect(screen.getByText(/AWS ETL pipelines/i)).toBeInTheDocument()
+      expect(screen.getByText(/USDA cloud spending/i)).toBeInTheDocument()
+      
+      // Research details
+      expect(screen.getByText(/protein patterns/i)).toBeInTheDocument()
+      expect(screen.getByText(/89%.*accuracy/i)).toBeInTheDocument()
+    })
+
+    it('shows correct technology stack', () => {
+      render(<About />)
+      
+      const expectedTech = [
+        'Java', 'Python', 'JavaScript', 'TypeScript', 'SQL',
+        'Spring Boot', 'Node.js', 'PostgreSQL', 'AWS Glue',
+        'React', 'Tailwind CSS', 'Tableau',
+        'AWS', 'Redshift', 'Athena'
+      ]
+      
+      expectedTech.forEach(tech => {
+        expect(screen.getByText(tech)).toBeInTheDocument()
+      })
+    })
+  })
+
   describe('Minimal Design Requirements', () => {
     it('avoids decorative elements', () => {
       render(<About />)

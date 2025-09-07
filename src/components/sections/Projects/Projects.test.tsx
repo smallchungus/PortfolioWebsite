@@ -311,4 +311,66 @@ describe('Projects Section', () => {
       })
     })
   })
+
+  describe('Real Projects Content', () => {
+    it('displays actual GitHub projects', () => {
+      render(<Projects />)
+      
+      expect(screen.getByText(/DataMart Platform Features/i)).toBeInTheDocument()
+      expect(screen.getByText(/USDA Cloud Spending Pipeline/i)).toBeInTheDocument()
+      expect(screen.getByText(/Protein Pattern Analysis/i)).toBeInTheDocument()
+      expect(screen.getByText(/Portfolio Website/i)).toBeInTheDocument()
+    })
+
+    it('shows correct project details and impacts', () => {
+      render(<Projects />)
+      
+      // TD Securities DataMart
+      expect(screen.getByText(/TD Securities internal banking application/i)).toBeInTheDocument()
+      expect(screen.getByText(/200\+ daily users/i)).toBeInTheDocument()
+      expect(screen.getByText(/35% time reduction/i)).toBeInTheDocument()
+      
+      // Panasonic USDA project  
+      expect(screen.getByText(/government cloud spending data/i)).toBeInTheDocument()
+      expect(screen.getByText(/Processing 100GB\+ daily data/i)).toBeInTheDocument()
+      
+      // Research project
+      expect(screen.getByText(/bacterial protein classification/i)).toBeInTheDocument()
+      expect(screen.getByText(/89% classification accuracy/i)).toBeInTheDocument()
+    })
+
+    it('displays correct tech stacks for each project', () => {
+      render(<Projects />)
+      
+      // DataMart tech stack
+      expect(screen.getByText('Java')).toBeInTheDocument()
+      expect(screen.getByText('Spring Boot')).toBeInTheDocument()
+      expect(screen.getByText('JavaScript')).toBeInTheDocument()
+      expect(screen.getByText('PostgreSQL')).toBeInTheDocument()
+      
+      // USDA pipeline tech stack
+      expect(screen.getByText('AWS Glue')).toBeInTheDocument()
+      expect(screen.getByText('Python')).toBeInTheDocument()
+      expect(screen.getByText('Tableau')).toBeInTheDocument()
+      expect(screen.getByText('Redshift')).toBeInTheDocument()
+      
+      // Research tech stack
+      expect(screen.getByText('Pandas')).toBeInTheDocument()
+      expect(screen.getByText('Scikit-learn')).toBeInTheDocument()
+    })
+
+    it('includes portfolio project with live links', () => {
+      render(<Projects />)
+      
+      expect(screen.getByText(/Modern, minimal portfolio/i)).toBeInTheDocument()
+      expect(screen.getByText(/95\+ Lighthouse score/i)).toBeInTheDocument()
+      
+      // Should have links to GitHub and live site
+      const githubLink = screen.getByRole('link', { name: /github/i })
+      expect(githubLink).toHaveAttribute('href', 'https://github.com/smallchungus/PortfolioWebsite')
+      
+      const liveLink = screen.getByRole('link', { name: /live/i })
+      expect(liveLink).toHaveAttribute('href', 'https://willchennn.com')
+    })
+  })
 })

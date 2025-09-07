@@ -7,28 +7,49 @@ interface SkillCategory {
 
 const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    title: 'Frontend',
-    skills: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS']
+    title: 'Languages',
+    skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'SQL']
   },
   {
     title: 'Backend', 
-    skills: ['Node.js', 'Python', 'Express', 'Flask', 'REST APIs', 'GraphQL']
+    skills: ['Spring Boot', 'Node.js', 'PostgreSQL', 'AWS Glue']
   },
   {
-    title: 'Database',
-    skills: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'SQLite', 'Prisma']
+    title: 'Frontend',
+    skills: ['React', 'Tailwind CSS', 'Tableau']
   },
   {
-    title: 'Tools',
-    skills: ['Git', 'Docker', 'AWS', 'Vercel', 'Vite', 'Webpack']
+    title: 'Cloud',
+    skills: ['AWS', 'Redshift', 'Athena']
   }
 ]
 
-const EXPERIENCE_HIGHLIGHTS = [
-  "Built scalable full-stack applications serving thousands of users with React, Node.js, and PostgreSQL",
-  "Developed RESTful APIs and microservices with comprehensive test coverage and documentation", 
-  "Implemented CI/CD pipelines and deployed applications to cloud platforms like AWS and Vercel",
-  "Collaborated with cross-functional teams using Agile methodologies and version control best practices"
+interface ExperienceItem {
+  title: string
+  company: string
+  period: string
+  description: string
+}
+
+const EXPERIENCE_HIGHLIGHTS: ExperienceItem[] = [
+  {
+    title: "Software Engineer Intern",
+    company: "TD Securities",
+    period: "June 2024 - Aug 2024",
+    description: "Built DataMart features for 200+ investment bankers, reducing expense categorization time by 35%"
+  },
+  {
+    title: "Software Engineer Intern", 
+    company: "Panasonic",
+    period: "July 2023 - April 2024",
+    description: "Developed AWS ETL pipelines for USDA cloud spending analytics"
+  },
+  {
+    title: "Research Assistant",
+    company: "Rutgers Chlamydia Lab", 
+    period: "Aug 2023 - Present",
+    description: "Analyzing protein patterns with 89% accuracy using Python ML libraries"
+  }
 ]
 
 export const About = () => {
@@ -51,19 +72,18 @@ export const About = () => {
             className="text-lg text-gray-600 leading-relaxed max-w-4xl"
             data-testid="professional-summary"
           >
-            I'm a passionate software engineer with over 3 years of experience building modern web applications. 
-            I specialize in full-stack development using React, TypeScript, and Node.js, with a strong focus on 
-            creating clean, maintainable code and exceptional user experiences. I thrive in collaborative 
-            environments and enjoy solving complex problems through innovative technical solutions.
+            I'm a software engineer pursuing my Master's in Computer Science at Arizona State University 
+            (GPA 4.0). Currently working as a Research Assistant at Rutgers, I've built data pipelines 
+            that process 5TB of protein data and developed features for investment banking platforms at TD Securities.
           </p>
 
           {/* Education */}
           <div className="mt-12" data-testid="education-section">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">Education</h3>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900">Bachelor of Science in Computer Science</h4>
-              <p className="text-gray-600 mt-1">University of California, Berkeley</p>
-              <p className="text-sm text-gray-500 mt-2">Graduated Magna Cum Laude • GPA: 3.8/4.0</p>
+              <h4 className="font-semibold text-gray-900">Master's in Computer Science</h4>
+              <p className="text-gray-600 mt-1">Arizona State University</p>
+              <p className="text-sm text-gray-500 mt-2">Current Student • GPA 4.0</p>
             </div>
           </div>
         </div>
@@ -100,19 +120,26 @@ export const About = () => {
 
       {/* Experience Highlights */}
       <div className="mt-16">
-        <h3 className="text-xl font-semibold text-gray-900 mb-8 text-center">Experience Highlights</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-8 text-center">Experience</h3>
         <div 
           className="max-w-4xl mx-auto"
           data-testid="experience-highlights"
           aria-label="Professional experience highlights"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {EXPERIENCE_HIGHLIGHTS.map((highlight, index) => (
+          <div className="space-y-6">
+            {EXPERIENCE_HIGHLIGHTS.map((experience, index) => (
               <div
                 key={index}
                 className="bg-gray-50 border border-gray-200 rounded-lg p-6"
               >
-                <p className="text-gray-700 leading-relaxed">{highlight}</p>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="font-semibold text-gray-900">{experience.title}</h4>
+                    <p className="text-gray-700 font-medium">{experience.company}</p>
+                  </div>
+                  <span className="text-sm text-gray-500">{experience.period}</span>
+                </div>
+                <p className="text-gray-700 leading-relaxed">{experience.description}</p>
               </div>
             ))}
           </div>
