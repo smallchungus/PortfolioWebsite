@@ -45,7 +45,7 @@ export const Hero = () => {
   )
 
   return (
-    <main role="main" className="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section aria-label="Hero wrapper" className="bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Theme toggle in top right */}
       <div className="fixed top-6 right-6 z-50">
         <ThemeToggle />
@@ -106,6 +106,6 @@ export const Hero = () => {
           </div>
         </div>
       </section>
-    </main>
+    </section>
   )
 }
