@@ -23,7 +23,14 @@
       "Bash(npm run validate:*)",
       "Bash(curl:*)",
       "Bash(npm run test:run:*)",
-      "Bash(gh repo list:*)"
+      "Bash(gh repo list:*)",
+      "Bash(git restore:*)",
+      "Bash(gh run list:*)",
+      "Bash(git tag:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(git rm:*)",
+      "Bash(npm ci:*)"
     ],
     "deny": [],
     "ask": []

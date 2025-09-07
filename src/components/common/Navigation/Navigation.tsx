@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getActiveSection, scrollToElement } from '../../../lib/navigation';
+import { getActiveSection } from '../../../lib/navigation';
 import type { NavItem } from '../../../types/navigation';
 
 const NAV_ITEMS: NavItem[] = [
