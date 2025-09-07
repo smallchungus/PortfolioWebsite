@@ -10,9 +10,9 @@ export interface BadgeProps {
 }
 
 const badgeVariants = {
-  default: 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-50',
-  secondary: 'bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-50',
-  outline: 'bg-transparent text-gray-700 border border-gray-300 hover:bg-gray-50',
+  default: 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700',
+  secondary: 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-800',
+  outline: 'bg-transparent text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800',
 }
 
 const badgeSizes = {

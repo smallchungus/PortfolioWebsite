@@ -10,10 +10,14 @@ export const SITE_CONFIG = {
 } as const
 
 export const CONTACT_INFO = {
-  email: 'will@willchennn.com',
-  linkedin: 'https://linkedin.com/in/willchennn',
+  email: 'wchen1396@gmail.com',
+  linkedin: 'https://linkedin.com/in/willchenn',
   github: 'https://github.com/smallchungus',
-  location: 'Phoenix, AZ'
+  location: 'Phoenix, AZ',
+  resume: {
+    url: '/WillChen_Resume.pdf',
+    filename: 'WillChen_Resume.pdf'
+  }
 } as const
 
 export const SKILLS = {

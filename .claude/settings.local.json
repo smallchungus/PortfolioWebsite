@@ -20,7 +20,9 @@
       "Bash(npm run test:ci:*)",
       "Bash(npm update)",
       "Bash(npm audit:*)",
-      "Bash(npm run validate:*)"
+      "Bash(npm run validate:*)",
+      "Bash(curl:*)",
+      "Bash(npm run test:run:*)"
     ],
     "deny": [],
     "ask": []
