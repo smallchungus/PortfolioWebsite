@@ -239,9 +239,10 @@ describe('Hero Section', () => {
       expect(heroSection.tagName).toBe('SECTION')
       expect(heroSection).toHaveAttribute('aria-label', 'Hero section')
       
-      // Main content should be in a proper landmark
-      const main = screen.getByRole('main')
-      expect(main).toContainElement(heroSection)
+      // Hero should be wrapped in a section with proper aria-label
+      const outerSection = screen.getByRole('region', { name: 'Hero wrapper' })
+      expect(outerSection).toBeInTheDocument()
+      expect(outerSection).toContainElement(heroSection)
     })
   })
 
@@ -331,11 +332,11 @@ describe('Hero Section', () => {
       document.documentElement.classList.remove('dark')
     })
 
-    it('applies dark mode classes to main section', () => {
+    it('applies dark mode classes to wrapper section', () => {
       render(<Hero />)
       
-      const main = screen.getByRole('main')
-      expect(main).toHaveClass('bg-white', 'dark:bg-gray-900', 'transition-colors')
+      const wrapper = screen.getByRole('region', { name: 'Hero wrapper' })
+      expect(wrapper).toHaveClass('bg-white', 'dark:bg-gray-900', 'transition-colors')
     })
 
     it('applies dark mode to main heading', () => {
