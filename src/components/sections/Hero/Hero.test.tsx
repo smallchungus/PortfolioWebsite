@@ -135,7 +135,7 @@ describe('Hero Section', () => {
     it('prevents horizontal scrolling at all breakpoints', () => {
       const viewports = [375, 768, 1024, 1440]
       
-      viewports.forEach((width, index) => {
+      viewports.forEach((width) => {
         Object.defineProperty(window, 'innerWidth', {
           writable: true,
           configurable: true,
@@ -280,7 +280,6 @@ describe('Hero Section', () => {
       render(<Hero />)
       
       const heroSection = screen.getByTestId('hero-section')
-      const techBadges = screen.getAllByTestId('tech-badge')
       const ctaButtons = screen.getByTestId('cta-buttons')
       
       // Check for proper spacing classes (multiples of 0.5rem/8px)
