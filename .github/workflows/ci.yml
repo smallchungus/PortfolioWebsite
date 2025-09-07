@@ -79,6 +79,33 @@ jobs:
       - name: Check for critical vulnerabilities
         run: npm audit --audit-level=high
 
+  auto-merge-to-main:
+    name: Auto-merge dev → main
+    runs-on: ubuntu-latest
+    needs: [test-and-build, security]
+    if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge dev to main
+        run: |
+          echo "🔄 All quality gates passed on dev branch"
+          echo "🚀 Auto-merging dev → main"
+          git checkout main
+          git merge --no-ff origin/dev -m "chore: auto-merge dev to main after CI success"
+          git push origin main
+          echo "✅ Successfully merged to main"
+
   deployment-ready:
     name: Deployment Ready
     runs-on: ubuntu-latest
@@ -88,6 +115,6 @@ jobs:
     steps:
       - name: Deployment notification
         run: |
-          echo "🎉 All quality checks passed!"
+          echo "🎉 All quality checks passed on main!"
           echo "🚀 Vercel will auto-deploy to: https://willchennn.com"
           echo "📊 View deployment status at: https://vercel.com/dashboard"

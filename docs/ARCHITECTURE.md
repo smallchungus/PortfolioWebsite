@@ -44,11 +44,25 @@ src/
 - Tree shaking enabled
 - Bundle analysis with Vite
 
+## CI/CD Pipeline
+- **Flow**: feature → dev → main (auto-merge)
+- **Quality Gates**: Type check, lint, test, security audit, build
+- **Deployment**: Auto-deploy to Vercel on main
+- **Coverage**: Codecov integration with 80%+ target
+
 ## Code Quality
 - ESLint + Prettier configuration
 - Pre-commit hooks for formatting
 - TypeScript strict mode enabled
 - Conventional commit messages
+
+## Deployment Flow
+```
+1. Push to dev branch
+2. CI runs all quality gates
+3. If all pass → auto-merge to main  
+4. Vercel deploys main → https://willchennn.com
+```
 
 ## Architecture Decisions
 See `docs/adr/` for detailed architectural decisions and rationale.
