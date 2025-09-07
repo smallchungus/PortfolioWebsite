@@ -13,35 +13,36 @@ interface ProjectData {
 
 const FEATURED_PROJECTS: ProjectData[] = [
   {
+    id: 'portfolio',
+    title: 'Portfolio Website',
+    description: 'Modern, responsive portfolio with dark mode, CI/CD pipeline, and comprehensive testing',
+    impact: 'FAANG-standard development with 85+ tests',
+    techStack: ['React', 'TypeScript', 'Tailwind', 'Vite', 'Vitest'],
+    githubUrl: 'https://github.com/smallchungus/PortfolioWebsite',
+    liveUrl: 'https://willchennn.com',
+    featured: true
+  },
+  {
     id: 'datamart',
-    title: 'DataMart Platform Features',
-    description: 'Full-stack development for TD Securities internal banking application',
-    impact: '200+ daily users, 35% time reduction',
+    title: 'DataMart Platform (TD Securities)',
+    description: 'Enterprise banking application features for investment bankers',
+    impact: '200+ daily users, 35% efficiency improvement',
     techStack: ['Java', 'Spring Boot', 'JavaScript', 'PostgreSQL'],
     featured: true
   },
   {
     id: 'cloud-analytics',
-    title: 'USDA Cloud Spending Pipeline',
-    description: 'ETL pipeline processing government cloud spending data for executive dashboards',
-    impact: 'Processing 100GB+ daily data',
+    title: 'USDA Cloud Analytics (Panasonic)',
+    description: 'AWS ETL pipelines for government cloud spending analysis',
+    impact: 'Processing 100GB+ daily data for executive dashboards',
     techStack: ['AWS Glue', 'Python', 'Tableau', 'Redshift']
   },
   {
     id: 'protein-analysis',
-    title: 'Protein Pattern Analysis',
-    description: 'ML system for bacterial protein classification from mass spectrometry data',
-    impact: '89% classification accuracy',
+    title: 'Protein Analysis ML (Rutgers)',
+    description: 'Machine learning system for bacterial protein classification',
+    impact: '89% accuracy on 5TB+ protein dataset',
     techStack: ['Python', 'PostgreSQL', 'Pandas', 'Scikit-learn']
-  },
-  {
-    id: 'portfolio',
-    title: 'Portfolio Website',
-    description: 'Modern, minimal portfolio with 95+ Lighthouse score',
-    impact: 'TDD approach with 98% test coverage',
-    techStack: ['React', 'TypeScript', 'Tailwind', 'Vite'],
-    githubUrl: 'https://github.com/smallchungus/PortfolioWebsite',
-    liveUrl: 'https://willchennn.com'
   }
 ]
 
@@ -53,7 +54,7 @@ export const Projects = () => {
       aria-label="Featured projects showcase"
     >
       {/* Section Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-16 text-center">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center">
         Featured Projects
       </h2>
 
@@ -65,25 +66,25 @@ export const Projects = () => {
         {FEATURED_PROJECTS.map((project) => (
           <article
             key={project.id}
-            className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors duration-200"
+            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200"
             data-testid={`project-card-${project.id}`}
             role="article"
           >
             {/* Project Title */}
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               {project.title}
             </h3>
 
             {/* Project Description */}
             <p 
-              className="text-gray-600 mb-4 leading-relaxed"
+              className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed"
               data-testid={`project-description-${project.id}`}
             >
               {project.description}
             </p>
 
             {/* Impact */}
-            <p className="text-sm text-gray-500 mb-6 font-medium">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium">
               {project.impact}
             </p>
 
@@ -109,7 +110,7 @@ export const Projects = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 bg-gray-900 text-white text-center font-medium rounded hover:bg-gray-800 transition-colors duration-200"
+                    className="flex-1 px-4 py-2 bg-gray-900 dark:bg-blue-600 text-white text-center font-medium rounded hover:bg-gray-800 dark:hover:bg-blue-700 transition-colors duration-200"
                     aria-label={`View ${project.title} source code on GitHub`}
                     tabIndex={0}
                   >
@@ -121,7 +122,7 @@ export const Projects = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-900 text-center font-medium rounded hover:border-gray-400 transition-colors duration-200"
+                    className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300 text-center font-medium rounded hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200"
                     aria-label={`View ${project.title} live demo`}
                     tabIndex={0}
                   >
