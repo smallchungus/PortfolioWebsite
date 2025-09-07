@@ -55,6 +55,7 @@ const EXPERIENCE_HIGHLIGHTS: ExperienceItem[] = [
 export const About = () => {
   return (
     <section 
+      id="about"
       className="py-20 px-6 max-w-6xl mx-auto"
       role="region"
       aria-label="About Will Chen - Professional background and skills"

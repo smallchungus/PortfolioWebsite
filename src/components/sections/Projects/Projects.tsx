@@ -27,6 +27,7 @@ const PROJECT_DATA: ProjectData[] = [
 export const Projects = () => {
   return (
     <section 
+      id="projects"
       className="py-20 px-6 max-w-7xl mx-auto"
       role="region"
       aria-label="Featured projects showcase"
