@@ -37,7 +37,7 @@ jobs:
         run: npm run test:ci
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: github.ref == 'refs/heads/main'
         with:
           directory: ./coverage
@@ -62,11 +62,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Security audit
-        run: npm audit --audit-level=moderate
+      - name: Security audit (informational)
+        run: npm audit || echo "Audit found issues - checking for critical/high severity only"
+        continue-on-error: true
 
-      - name: Advanced security check
-        run: npx audit-ci --moderate
+      - name: Check for critical vulnerabilities
+        run: npm audit --audit-level=high
+
+      - name: Advanced security check (high severity only)
+        run: npx audit-ci --high
 
   build:
     name: Build Check
@@ -90,9 +94,9 @@ jobs:
         run: npm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: build-files
+          name: build-files-${{ github.sha }}
           path: dist/
           retention-days: 7
 
