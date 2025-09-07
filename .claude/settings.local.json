@@ -22,7 +22,8 @@
       "Bash(npm audit:*)",
       "Bash(npm run validate:*)",
       "Bash(curl:*)",
-      "Bash(npm run test:run:*)"
+      "Bash(npm run test:run:*)",
+      "Bash(gh repo list:*)"
     ],
     "deny": [],
     "ask": []

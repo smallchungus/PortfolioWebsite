@@ -73,10 +73,10 @@ describe('Projects Section', () => {
       render(<Projects />)
       
       // Our real projects show impact instead of GitHub stats
-      expect(screen.getByText('200+ daily users, 35% time reduction')).toBeInTheDocument()
-      expect(screen.getByText('Processing 100GB+ daily data')).toBeInTheDocument()
-      expect(screen.getByText('89% classification accuracy')).toBeInTheDocument()
-      expect(screen.getByText('TDD approach with 98% test coverage')).toBeInTheDocument()
+      expect(screen.getByText('200+ daily users, 35% efficiency improvement')).toBeInTheDocument()
+      expect(screen.getByText('Processing 100GB+ daily data for executive dashboards')).toBeInTheDocument()
+      expect(screen.getByText('89% accuracy on 5TB+ protein dataset')).toBeInTheDocument()
+      expect(screen.getByText('FAANG-standard development with 85+ tests')).toBeInTheDocument()
     })
   })
 
@@ -268,9 +268,9 @@ describe('Projects Section', () => {
       render(<Projects />)
       
       const expectedProjects = [
-        'DataMart Platform Features',
-        'USDA Cloud Spending Pipeline', 
-        'Protein Pattern Analysis',
+        'DataMart Platform (TD Securities)',
+        'USDA Cloud Analytics (Panasonic)', 
+        'Protein Analysis ML (Rutgers)',
         'Portfolio Website'
       ]
       
@@ -308,9 +308,9 @@ describe('Projects Section', () => {
     it('displays actual GitHub projects', () => {
       render(<Projects />)
       
-      expect(screen.getByText(/DataMart Platform Features/i)).toBeInTheDocument()
-      expect(screen.getByText(/USDA Cloud Spending Pipeline/i)).toBeInTheDocument()
-      expect(screen.getByText(/Protein Pattern Analysis/i)).toBeInTheDocument()
+      expect(screen.getByText(/DataMart Platform \(TD Securities\)/i)).toBeInTheDocument()
+      expect(screen.getByText(/USDA Cloud Analytics \(Panasonic\)/i)).toBeInTheDocument()
+      expect(screen.getByText(/Protein Analysis ML \(Rutgers\)/i)).toBeInTheDocument()
       expect(screen.getByText(/Portfolio Website/i)).toBeInTheDocument()
     })
 
@@ -318,17 +318,17 @@ describe('Projects Section', () => {
       render(<Projects />)
       
       // TD Securities DataMart
-      expect(screen.getByText(/TD Securities internal banking application/i)).toBeInTheDocument()
+      expect(screen.getByText(/Enterprise banking application features for investment bankers/i)).toBeInTheDocument()
       expect(screen.getByText(/200\+ daily users/i)).toBeInTheDocument()
-      expect(screen.getByText(/35% time reduction/i)).toBeInTheDocument()
+      expect(screen.getByText(/35% efficiency improvement/i)).toBeInTheDocument()
       
       // Panasonic USDA project  
-      expect(screen.getByText(/government cloud spending data/i)).toBeInTheDocument()
+      expect(screen.getByText(/AWS ETL pipelines for government cloud spending analysis/i)).toBeInTheDocument()
       expect(screen.getByText(/Processing 100GB\+ daily data/i)).toBeInTheDocument()
       
       // Research project
-      expect(screen.getByText(/bacterial protein classification/i)).toBeInTheDocument()
-      expect(screen.getByText(/89% classification accuracy/i)).toBeInTheDocument()
+      expect(screen.getByText(/Machine learning system for bacterial protein classification/i)).toBeInTheDocument()
+      expect(screen.getByText(/89% accuracy on 5TB\+ protein dataset/i)).toBeInTheDocument()
     })
 
     it('displays correct tech stacks for each project', () => {
@@ -354,8 +354,8 @@ describe('Projects Section', () => {
     it('includes portfolio project with live links', () => {
       render(<Projects />)
       
-      expect(screen.getByText(/Modern, minimal portfolio/i)).toBeInTheDocument()
-      expect(screen.getByText(/95\+ Lighthouse score/i)).toBeInTheDocument()
+      expect(screen.getByText(/Modern, responsive portfolio with dark mode, CI\/CD pipeline, and comprehensive testing/i)).toBeInTheDocument()
+      expect(screen.getByText(/FAANG-standard development with 85\+ tests/i)).toBeInTheDocument()
       
       // Should have links to GitHub and live site
       const githubLink = screen.getByRole('link', { name: /github/i })
@@ -363,6 +363,92 @@ describe('Projects Section', () => {
       
       const liveLink = screen.getByRole('link', { name: /live/i })
       expect(liveLink).toHaveAttribute('href', 'https://willchennn.com')
+    })
+  })
+
+  describe('Dark Mode Support', () => {
+    beforeEach(() => {
+      document.documentElement.classList.add('dark')
+    })
+
+    afterEach(() => {
+      document.documentElement.classList.remove('dark')
+    })
+
+    it('applies dark mode to section heading', () => {
+      render(<Projects />)
+      
+      const heading = screen.getByText('Featured Projects')
+      expect(heading).toHaveClass('text-gray-900', 'dark:text-white')
+    })
+
+    it('applies dark mode to project cards', () => {
+      render(<Projects />)
+      
+      const cards = screen.getAllByTestId(/project-card/)
+      cards.forEach(card => {
+        expect(card).toHaveClass('bg-white', 'dark:bg-gray-800')
+        expect(card).toHaveClass('border-gray-200', 'dark:border-gray-700')
+        expect(card).toHaveClass('hover:border-gray-300', 'dark:hover:border-gray-600')
+      })
+    })
+
+    it('applies dark mode to project titles', () => {
+      render(<Projects />)
+      
+      const titles = screen.getAllByRole('heading', { level: 3 })
+      titles.forEach(title => {
+        expect(title).toHaveClass('text-gray-900', 'dark:text-white')
+      })
+    })
+
+    it('applies dark mode to project descriptions', () => {
+      render(<Projects />)
+      
+      const descriptions = screen.getAllByTestId(/project-description/)
+      descriptions.forEach(description => {
+        expect(description).toHaveClass('text-gray-600', 'dark:text-gray-300')
+      })
+    })
+
+    it('applies dark mode to impact text', () => {
+      render(<Projects />)
+      
+      const impactElements = screen.getAllByText(/daily users|data|accuracy|tests/)
+      impactElements.forEach(element => {
+        expect(element).toHaveClass('text-gray-500', 'dark:text-gray-400')
+      })
+    })
+
+    it('applies dark mode to action buttons', () => {
+      render(<Projects />)
+      
+      const githubButtons = screen.getAllByText('GitHub')
+      const liveButtons = screen.getAllByText('Live')
+      
+      githubButtons.forEach(button => {
+        expect(button).toHaveClass('bg-gray-900', 'dark:bg-blue-600')
+        expect(button).toHaveClass('hover:bg-gray-800', 'dark:hover:bg-blue-700')
+      })
+      
+      liveButtons.forEach(button => {
+        expect(button).toHaveClass('border-gray-300', 'dark:border-gray-600')
+        expect(button).toHaveClass('text-gray-900', 'dark:text-gray-300')
+        expect(button).toHaveClass('hover:border-gray-400', 'dark:hover:border-gray-500')
+      })
+    })
+
+    it('maintains accessibility in dark mode', () => {
+      render(<Projects />)
+      
+      const section = screen.getByRole('region')
+      expect(section).toHaveAttribute('aria-label', 'Featured projects showcase')
+      
+      // All buttons should maintain proper aria-labels
+      const githubButtons = screen.getAllByText('GitHub')
+      githubButtons.forEach(button => {
+        expect(button).toHaveAttribute('aria-label')
+      })
     })
   })
 })

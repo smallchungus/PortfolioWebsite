@@ -9,14 +9,14 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
   return (
     <section 
       id="contact" 
-      className={`py-20 bg-white ${className}`}
+      className={`py-20 bg-white dark:bg-gray-900 ${className}`}
       role="region"
       aria-label="Contact information"
     >
       <div className="container mx-auto px-4 max-w-2xl text-center">
-        <h2 className="text-4xl font-bold mb-8 text-gray-900">Let's Connect</h2>
+        <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Let's Connect</h2>
         
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
           I'm currently seeking full-time opportunities starting May 2025.
         </p>
         
@@ -24,7 +24,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           <a 
             href={`mailto:${CONTACT_INFO.email}`} 
             aria-label="Email Will Chen" 
-            className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -36,7 +36,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           <a 
             href={CONTACT_INFO.linkedin} 
             aria-label="LinkedIn Profile"
-            className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -48,7 +48,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           <a 
             href={CONTACT_INFO.github} 
             aria-label="GitHub Profile"
-            className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -62,7 +62,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           href={CONTACT_INFO.resume.url} 
           download={CONTACT_INFO.resume.filename}
           aria-label="Download Will Chen's resume as PDF"
-          className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105"
+          className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 dark:bg-blue-700 text-white rounded-full hover:bg-blue-700 dark:hover:bg-blue-800 transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

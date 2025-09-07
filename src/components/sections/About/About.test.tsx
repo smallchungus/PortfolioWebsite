@@ -399,4 +399,68 @@ describe('About Section', () => {
       expect(textElements.length).toBeGreaterThan(20) // Rich text content
     })
   })
+
+  describe('Dark Mode Support', () => {
+    beforeEach(() => {
+      document.documentElement.classList.add('dark')
+    })
+
+    afterEach(() => {
+      document.documentElement.classList.remove('dark')
+    })
+
+    it('applies dark mode classes to section heading', () => {
+      render(<About />)
+      
+      const heading = screen.getByText('About Me')
+      expect(heading).toHaveClass('text-gray-900', 'dark:text-white')
+    })
+
+    it('applies dark mode to professional summary text', () => {
+      render(<About />)
+      
+      const summary = screen.getByTestId('professional-summary')
+      expect(summary).toHaveClass('text-gray-600', 'dark:text-gray-300')
+    })
+
+    it('applies dark mode to skill category cards', () => {
+      render(<About />)
+      
+      const skillCards = screen.getAllByTestId(/^skill-category-/)
+      skillCards.forEach(card => {
+        expect(card).toHaveClass('bg-white', 'dark:bg-gray-800')
+        expect(card).toHaveClass('border-gray-200', 'dark:border-gray-700')
+      })
+    })
+
+    it('applies dark mode to education section', () => {
+      render(<About />)
+      
+      const educationSection = screen.getByTestId('education-section')
+      const educationCard = educationSection.querySelector('.bg-gray-50')
+      expect(educationCard).toHaveClass('bg-gray-50', 'dark:bg-gray-800')
+      expect(educationCard).toHaveClass('border-gray-200', 'dark:border-gray-700')
+    })
+
+    it('applies dark mode to experience highlights', () => {
+      render(<About />)
+      
+      const experienceSection = screen.getByTestId('experience-highlights')
+      const experienceCards = experienceSection.querySelectorAll('.bg-gray-50')
+      experienceCards.forEach(card => {
+        expect(card).toHaveClass('bg-gray-50', 'dark:bg-gray-800')
+        expect(card).toHaveClass('border-gray-200', 'dark:border-gray-700')
+      })
+    })
+
+    it('maintains readability in dark mode', () => {
+      render(<About />)
+      
+      // All text should have appropriate contrast classes
+      const headings = screen.getAllByRole('heading')
+      headings.forEach(heading => {
+        expect(heading.className).toMatch(/dark:(text-white|text-gray-[12]00)/)
+      })
+    })
+  })
 })

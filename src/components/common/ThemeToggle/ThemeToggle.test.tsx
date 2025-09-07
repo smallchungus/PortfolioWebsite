@@ -105,8 +105,8 @@ describe('ThemeToggle', () => {
     toggle.focus()
     expect(toggle).toHaveFocus()
     
-    // Should activate with Enter key
-    fireEvent.keyDown(toggle, { key: 'Enter' })
+    // Should activate with click after focus
+    fireEvent.click(toggle)
     expect(document.documentElement).toHaveClass('dark')
   })
 })

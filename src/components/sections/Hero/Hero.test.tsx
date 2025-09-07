@@ -192,10 +192,15 @@ describe('Hero Section', () => {
       const user = userEvent.setup()
       render(<Hero />)
       
-      // Tab through interactive elements
+      // Tab through interactive elements - first tab goes to theme toggle
+      await user.tab()
+      expect(screen.getByRole('button', { name: /switch to dark mode/i })).toHaveFocus()
+      
+      // Second tab goes to View Projects button
       await user.tab()
       expect(screen.getByRole('button', { name: /view projects/i })).toHaveFocus()
       
+      // Third tab goes to Download Resume button
       await user.tab()
       expect(screen.getByRole('button', { name: /download resume/i })).toHaveFocus()
       
@@ -314,6 +319,86 @@ describe('Hero Section', () => {
       
       // H2 should be smaller but prominent
       expect(h2).toHaveClass('text-2xl', 'md:text-3xl', 'lg:text-4xl')
+    })
+  })
+
+  describe('Dark Mode Support', () => {
+    beforeEach(() => {
+      document.documentElement.classList.add('dark')
+    })
+
+    afterEach(() => {
+      document.documentElement.classList.remove('dark')
+    })
+
+    it('applies dark mode classes to main section', () => {
+      render(<Hero />)
+      
+      const main = screen.getByRole('main')
+      expect(main).toHaveClass('bg-white', 'dark:bg-gray-900', 'transition-colors')
+    })
+
+    it('applies dark mode to main heading', () => {
+      render(<Hero />)
+      
+      const heading = screen.getByText('Will Chen')
+      expect(heading).toHaveClass('text-gray-900', 'dark:text-white')
+    })
+
+    it('applies dark mode to typing animation text', () => {
+      render(<Hero />)
+      
+      const typingText = screen.getByTestId('typing-role')
+      expect(typingText.parentElement).toHaveClass('text-gray-600', 'dark:text-gray-300')
+    })
+
+    it('applies dark mode to description text', () => {
+      render(<Hero />)
+      
+      const description = screen.getByText(/Building scalable applications/i)
+      expect(description).toHaveClass('text-gray-600', 'dark:text-gray-400')
+    })
+
+    it('applies dark mode to CTA buttons', () => {
+      render(<Hero />)
+      
+      const viewProjectsBtn = screen.getByText('View Projects')
+      const downloadBtn = screen.getByText('Download Resume')
+      
+      // Primary button (View Projects)
+      expect(viewProjectsBtn).toHaveClass('bg-gray-900', 'dark:bg-blue-600')
+      expect(viewProjectsBtn).toHaveClass('hover:bg-gray-800', 'dark:hover:bg-blue-700')
+      expect(viewProjectsBtn).toHaveClass('focus:ring-gray-500', 'dark:focus:ring-blue-500')
+      expect(viewProjectsBtn).toHaveClass('dark:focus:ring-offset-gray-900')
+      
+      // Secondary button (Download Resume)
+      expect(downloadBtn).toHaveClass('border-gray-300', 'dark:border-gray-600')
+      expect(downloadBtn).toHaveClass('text-gray-700', 'dark:text-gray-300')
+      expect(downloadBtn).toHaveClass('hover:bg-gray-50', 'dark:hover:bg-gray-800')
+      expect(downloadBtn).toHaveClass('focus:ring-gray-500', 'dark:focus:ring-gray-400')
+      expect(downloadBtn).toHaveClass('dark:focus:ring-offset-gray-900')
+    })
+
+    it('maintains proper contrast ratios in dark mode', () => {
+      render(<Hero />)
+      
+      // Check all text elements have proper dark mode contrast
+      const heading = screen.getByText('Will Chen')
+      const description = screen.getByText(/Building scalable applications/i)
+      
+      expect(heading.className).toMatch(/dark:text-white/)
+      expect(description.className).toMatch(/dark:text-gray-[34]00/)
+    })
+
+    it('theme toggle is visible in dark mode', () => {
+      render(<Hero />)
+      
+      // Theme toggle starts in light mode by default, but should have dark mode classes
+      const themeToggle = screen.getByRole('button', { name: /switch to dark mode/i })
+      expect(themeToggle).toBeInTheDocument()
+      expect(themeToggle).toHaveClass('dark:bg-gray-800')
+      expect(themeToggle).toHaveClass('dark:hover:bg-gray-700')
+      expect(themeToggle).toHaveClass('dark:text-gray-400')
     })
   })
 })
