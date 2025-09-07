@@ -79,58 +79,15 @@ jobs:
       - name: Check for critical vulnerabilities
         run: npm audit --audit-level=high
 
-  deploy-preview:
-    name: Deploy Preview
+  deployment-ready:
+    name: Deployment Ready
     runs-on: ubuntu-latest
     needs: [test-and-build, security]
-    if: github.event_name == 'pull_request'
+    if: github.ref == 'refs/heads/main'
     
     steps:
-      - name: Deploy to Vercel Preview
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-
-  deploy-production:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: [test-and-build, security]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: production
-    
-    steps:
-      - name: Deploy to Vercel Production
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-          alias-domains: |
-            willchennn.com
-            www.willchennn.com
-
-  notify:
-    name: Deployment Notification
-    runs-on: ubuntu-latest
-    needs: [deploy-production]
-    if: always() && (github.ref == 'refs/heads/main')
-    
-    steps:
-      - name: Success notification
-        if: needs.deploy-production.result == 'success'
+      - name: Deployment notification
         run: |
-          echo "🎉 Production deployment successful!"
-          echo "🚀 Site live at: https://willchennn.com"
-          
-      - name: Failure notification  
-        if: needs.deploy-production.result == 'failure'
-        run: |
-          echo "❌ Production deployment failed!"
-          echo "🔍 Check logs for details"
+          echo "🎉 All quality checks passed!"
+          echo "🚀 Vercel will auto-deploy to: https://willchennn.com"
+          echo "📊 View deployment status at: https://vercel.com/dashboard"
