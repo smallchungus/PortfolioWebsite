@@ -11,44 +11,23 @@ interface ProjectData {
   featured?: boolean
 }
 
-const FEATURED_PROJECTS: ProjectData[] = [
+const PROJECT_DATA: ProjectData[] = [
   {
     id: 'portfolio',
     title: 'Portfolio Website',
-    description: 'Modern, responsive portfolio with dark mode, CI/CD pipeline, and comprehensive testing',
-    impact: 'FAANG-standard development with 85+ tests',
-    techStack: ['React', 'TypeScript', 'Tailwind', 'Vite', 'Vitest'],
+    description: 'Modern, minimal portfolio with dark mode and 95+ Lighthouse score',
+    impact: 'Built with React, TypeScript, and TDD practices',
+    techStack: ['React', 'TypeScript', 'Tailwind', 'Vite'],
     githubUrl: 'https://github.com/smallchungus/PortfolioWebsite',
     liveUrl: 'https://willchennn.com',
     featured: true
-  },
-  {
-    id: 'datamart',
-    title: 'DataMart Platform (TD Securities)',
-    description: 'Enterprise banking application features for investment bankers',
-    impact: '200+ daily users, 35% efficiency improvement',
-    techStack: ['Java', 'Spring Boot', 'JavaScript', 'PostgreSQL'],
-    featured: true
-  },
-  {
-    id: 'cloud-analytics',
-    title: 'USDA Cloud Analytics (Panasonic)',
-    description: 'AWS ETL pipelines for government cloud spending analysis',
-    impact: 'Processing 100GB+ daily data for executive dashboards',
-    techStack: ['AWS Glue', 'Python', 'Tableau', 'Redshift']
-  },
-  {
-    id: 'protein-analysis',
-    title: 'Protein Analysis ML (Rutgers)',
-    description: 'Machine learning system for bacterial protein classification',
-    impact: '89% accuracy on 5TB+ protein dataset',
-    techStack: ['Python', 'PostgreSQL', 'Pandas', 'Scikit-learn']
   }
 ]
 
 export const Projects = () => {
   return (
     <section 
+      id="projects"
       className="py-20 px-6 max-w-7xl mx-auto"
       role="region"
       aria-label="Featured projects showcase"
@@ -63,7 +42,7 @@ export const Projects = () => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         data-testid="projects-grid"
       >
-        {FEATURED_PROJECTS.map((project) => (
+        {PROJECT_DATA.map((project) => (
           <article
             key={project.id}
             className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200"

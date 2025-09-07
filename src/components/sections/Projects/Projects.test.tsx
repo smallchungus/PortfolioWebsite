@@ -35,11 +35,12 @@ describe('Projects Section', () => {
       expect(heading).toHaveClass('text-3xl', 'md:text-4xl', 'font-bold')
     })
 
-    it('displays exactly 3-4 project cards', () => {
+    it('shows only portfolio project', () => {
       render(<Projects />)
       
       const projectCards = screen.getAllByTestId(/^project-card-/)
-      expect(projectCards).toHaveLength(4) // Expecting 4 featured projects
+      expect(projectCards).toHaveLength(1) // Only portfolio project
+      expect(screen.getByText('Portfolio Website')).toBeInTheDocument()
     })
 
     it('each card shows title, description, tech stack, and links', () => {
@@ -69,14 +70,11 @@ describe('Projects Section', () => {
       })
     })
 
-    it('displays project impact metrics', () => {
+    it('displays portfolio project impact', () => {
       render(<Projects />)
       
-      // Our real projects show impact instead of GitHub stats
-      expect(screen.getByText('200+ daily users, 35% efficiency improvement')).toBeInTheDocument()
-      expect(screen.getByText('Processing 100GB+ daily data for executive dashboards')).toBeInTheDocument()
-      expect(screen.getByText('89% accuracy on 5TB+ protein dataset')).toBeInTheDocument()
-      expect(screen.getByText('FAANG-standard development with 85+ tests')).toBeInTheDocument()
+      // Portfolio project impact
+      expect(screen.getByText('Built with React, TypeScript, and TDD practices')).toBeInTheDocument()
     })
   })
 
@@ -153,7 +151,7 @@ describe('Projects Section', () => {
       
       // Project card headings (h3)
       const projectHeadings = screen.getAllByRole('heading', { level: 3 })
-      expect(projectHeadings).toHaveLength(4)
+      expect(projectHeadings).toHaveLength(1)
     })
 
     it('includes ARIA labels for interactive elements', () => {
@@ -264,34 +262,23 @@ describe('Projects Section', () => {
   })
 
   describe('Content Requirements', () => {
-    it('displays project titles correctly', () => {
+    it('displays portfolio project title', () => {
       render(<Projects />)
       
-      const expectedProjects = [
-        'DataMart Platform (TD Securities)',
-        'USDA Cloud Analytics (Panasonic)', 
-        'Protein Analysis ML (Rutgers)',
-        'Portfolio Website'
-      ]
-      
-      expectedProjects.forEach(title => {
-        expect(screen.getByText(title)).toBeInTheDocument()
-      })
+      expect(screen.getByText('Portfolio Website')).toBeInTheDocument()
     })
 
     it('shows tech stack badges for each project', () => {
       render(<Projects />)
       
       const techStacks = screen.getAllByTestId(/^tech-stack-/)
-      expect(techStacks).toHaveLength(4)
+      expect(techStacks).toHaveLength(1)
       
-      // Real technologies from our projects
-      expect(screen.getByText('Java')).toBeInTheDocument()
-      expect(screen.getByText('Spring Boot')).toBeInTheDocument()
-      expect(screen.getByText('AWS Glue')).toBeInTheDocument()
-      expect(screen.getAllByText('Python')).toHaveLength(2) // In 2 projects
+      // Technologies from portfolio project only
       expect(screen.getByText('React')).toBeInTheDocument()
       expect(screen.getByText('TypeScript')).toBeInTheDocument()
+      expect(screen.getByText('Tailwind')).toBeInTheDocument()
+      expect(screen.getByText('Vite')).toBeInTheDocument()
     })
 
     it('includes proper project descriptions', () => {
@@ -304,58 +291,13 @@ describe('Projects Section', () => {
     })
   })
 
-  describe('Real Projects Content', () => {
-    it('displays actual GitHub projects', () => {
-      render(<Projects />)
-      
-      expect(screen.getByText(/DataMart Platform \(TD Securities\)/i)).toBeInTheDocument()
-      expect(screen.getByText(/USDA Cloud Analytics \(Panasonic\)/i)).toBeInTheDocument()
-      expect(screen.getByText(/Protein Analysis ML \(Rutgers\)/i)).toBeInTheDocument()
-      expect(screen.getByText(/Portfolio Website/i)).toBeInTheDocument()
-    })
+  describe('Portfolio Project Content', () => {
 
-    it('shows correct project details and impacts', () => {
+    it('displays portfolio project with live links', () => {
       render(<Projects />)
       
-      // TD Securities DataMart
-      expect(screen.getByText(/Enterprise banking application features for investment bankers/i)).toBeInTheDocument()
-      expect(screen.getByText(/200\+ daily users/i)).toBeInTheDocument()
-      expect(screen.getByText(/35% efficiency improvement/i)).toBeInTheDocument()
-      
-      // Panasonic USDA project  
-      expect(screen.getByText(/AWS ETL pipelines for government cloud spending analysis/i)).toBeInTheDocument()
-      expect(screen.getByText(/Processing 100GB\+ daily data/i)).toBeInTheDocument()
-      
-      // Research project
-      expect(screen.getByText(/Machine learning system for bacterial protein classification/i)).toBeInTheDocument()
-      expect(screen.getByText(/89% accuracy on 5TB\+ protein dataset/i)).toBeInTheDocument()
-    })
-
-    it('displays correct tech stacks for each project', () => {
-      render(<Projects />)
-      
-      // DataMart tech stack
-      expect(screen.getByText('Java')).toBeInTheDocument()
-      expect(screen.getByText('Spring Boot')).toBeInTheDocument()
-      expect(screen.getByText('JavaScript')).toBeInTheDocument()
-      expect(screen.getAllByText('PostgreSQL')).toHaveLength(2) // In 2 projects
-      
-      // USDA pipeline tech stack
-      expect(screen.getByText('AWS Glue')).toBeInTheDocument()
-      expect(screen.getAllByText('Python')).toHaveLength(2) // In 2 projects
-      expect(screen.getByText('Tableau')).toBeInTheDocument()
-      expect(screen.getByText('Redshift')).toBeInTheDocument()
-      
-      // Research tech stack
-      expect(screen.getByText('Pandas')).toBeInTheDocument()
-      expect(screen.getByText('Scikit-learn')).toBeInTheDocument()
-    })
-
-    it('includes portfolio project with live links', () => {
-      render(<Projects />)
-      
-      expect(screen.getByText(/Modern, responsive portfolio with dark mode, CI\/CD pipeline, and comprehensive testing/i)).toBeInTheDocument()
-      expect(screen.getByText(/FAANG-standard development with 85\+ tests/i)).toBeInTheDocument()
+      expect(screen.getByText(/Modern, minimal portfolio with dark mode and 95\+ Lighthouse score/i)).toBeInTheDocument()
+      expect(screen.getByText(/Built with React, TypeScript, and TDD practices/i)).toBeInTheDocument()
       
       // Should have links to GitHub and live site
       const githubLink = screen.getByRole('link', { name: /github/i })
@@ -414,10 +356,8 @@ describe('Projects Section', () => {
     it('applies dark mode to impact text', () => {
       render(<Projects />)
       
-      const impactElements = screen.getAllByText(/daily users|data|accuracy|tests/)
-      impactElements.forEach(element => {
-        expect(element).toHaveClass('text-gray-500', 'dark:text-gray-400')
-      })
+      const impactElement = screen.getByText(/Built with React, TypeScript, and TDD practices/)
+      expect(impactElement).toHaveClass('text-gray-500', 'dark:text-gray-400')
     })
 
     it('applies dark mode to action buttons', () => {

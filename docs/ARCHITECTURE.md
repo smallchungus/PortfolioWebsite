@@ -1,101 +1,68 @@
-# Architecture Documentation
+# Project Architecture
 
-## 🏛️ System Overview
+## Overview
+Portfolio website built with React, TypeScript, and Tailwind CSS following FAANG development standards.
 
-This portfolio website is built with modern web technologies following FAANG-level engineering standards for performance, maintainability, and scalability.
-
-## 🛠️ Tech Stack
-
-### Core Technologies
-- **React 18** - UI library with concurrent features
-- **TypeScript** - Type-safe JavaScript with strict mode  
-- **Vite 7** - Fast build tool and development server
-- **Tailwind CSS 3** - Utility-first CSS framework
-
-### Testing & Quality
-- **Vitest 3** - Fast unit testing framework
-- **Testing Library** - Component testing utilities
-- **ESLint** - Code linting with TypeScript support
-- **Prettier** - Code formatting
-- **Husky** - Git hooks for quality gates
-
-### Deployment & CI/CD
-- **Vercel** - Serverless deployment platform
-- **GitHub Actions** - CI/CD pipeline
-- **Codecov** - Test coverage reporting
-
-## 🏗️ Application Architecture
-
-### Component Hierarchy
-
-```
-App
-├── Hero (Landing section with typing animation)
-├── About (Professional summary and skills)
-├── Projects (Featured project showcase)
-└── Contact (Contact form and information)
-```
-
-## 📁 Directory Structure
-
+## Structure
 ```
 src/
-├── components/           # All React components
-│   ├── sections/        # Page section components
-│   │   ├── About/
-│   │   ├── Contact/
-│   │   ├── Hero/
-│   │   └── Projects/
-│   └── ui/              # Reusable UI components
-│       └── Badge/
-├── hooks/               # Custom React hooks
-├── pages/               # Page components (legacy)
-├── App.jsx              # Root application component
-└── main.jsx             # Application entry point
+├── components/     # React components
+│   ├── common/     # Shared components (Navigation, ThemeToggle)
+│   ├── sections/   # Page sections (Hero, About, Projects, Contact)
+│   └── ui/         # Design system components (Badge)
+├── hooks/          # Custom React hooks (useTypingAnimation, useTheme)
+├── lib/            # Utility functions and helpers
+├── types/          # TypeScript type definitions
+└── constants/      # App constants and configuration
 ```
 
-## 🎯 Core Principles
+## Component Guidelines
+- One component per file with colocated tests
+- Exported via index.ts barrel files
+- TypeScript for all new components
+- Test-Driven Development (TDD) approach
 
-### 1. **Performance First**
-- Bundle optimization with tree-shaking
-- Asset optimization and caching
-- React 18 concurrent features
+## State Management
+- React hooks for local component state
+- Context API for theme state only
+- No external state management library
 
-### 2. **Type Safety**  
-- TypeScript strict mode
-- Interface definitions for all components
-- Type-safe event handlers
+## Testing Strategy
+- TDD: Tests written before implementation
+- Vitest + React Testing Library
+- Target: 80%+ code coverage
+- Integration tests preferred over unit tests
 
-### 3. **Testing Strategy**
-- 95%+ test coverage maintained
-- Component accessibility testing
-- Performance regression testing
+## Styling
+- Tailwind CSS with dark mode support
+- Responsive design (mobile-first)
+- CSS-in-JS avoided (performance)
 
-### 4. **Developer Experience**
-- Hot module replacement
-- Real-time type checking
-- Automated code formatting
+## Performance
+- Code splitting by route (future)
+- Lazy loading for images
+- Tree shaking enabled
+- Bundle analysis with Vite
 
-## 🚀 Deployment Architecture
+## CI/CD Pipeline
+- **Flow**: feature → dev → main (auto-merge)
+- **Quality Gates**: Type check, lint, test, security audit, build
+- **Deployment**: Auto-deploy to Vercel on main
+- **Coverage**: Codecov integration with 80%+ target
 
-### Quality Gates Pipeline
+## Code Quality
+- ESLint + Prettier configuration
+- Pre-commit hooks for formatting
+- TypeScript strict mode enabled
+- Conventional commit messages
 
+## Deployment Flow
 ```
-Code Push → Type Check → Lint → Test → Build → Security Audit → Deploy
+1. Push to dev branch
+2. CI runs all quality gates
+3. If all pass → auto-merge to main  
+4. Vercel deploys main → https://willchennn.com
 ```
 
-Each stage must pass before proceeding to the next.
-
-## 📊 Performance Targets
-
-- **Performance Score**: 95+ (Lighthouse)
-- **Accessibility Score**: 100
-- **Bundle Size**: < 200KB gzipped
-- **First Contentful Paint**: < 1s
-
-## 🔒 Security Features
-
-- Content Security Policy headers
-- Dependency vulnerability scanning
-- No client-side secrets
-- HTTPS enforcement
+## Architecture Decisions
+See `docs/adr/` for detailed architectural decisions and rationale.
