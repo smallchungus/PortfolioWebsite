@@ -14,7 +14,13 @@
       "Bash(git push:*)",
       "Bash(npm test:*)",
       "Bash(chmod:*)",
-      "Bash(./fix-deployment.sh)"
+      "Bash(./fix-deployment.sh)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run test:ci:*)",
+      "Bash(npm update)",
+      "Bash(npm audit:*)",
+      "Bash(npm run validate:*)"
     ],
     "deny": [],
     "ask": []
