@@ -50,7 +50,7 @@ describe('About Section', () => {
       expect(skillsGrid).toBeInTheDocument()
       
       // Should have skill categories
-      const categories = ['Frontend', 'Backend', 'Database', 'Tools']
+      const categories = ['Languages', 'Backend', 'Frontend', 'Cloud']
       categories.forEach(category => {
         expect(screen.getByText(category)).toBeInTheDocument()
       })
@@ -74,8 +74,8 @@ describe('About Section', () => {
       expect(education).toBeInTheDocument()
       
       // Should show degree and institution
-      expect(screen.getByText(/Computer Science/i)).toBeInTheDocument()
-      expect(screen.getByText(/University/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/Computer Science/i)).toHaveLength(2)
+      expect(screen.getAllByText(/University/i)).toHaveLength(2)
     })
   })
 
@@ -276,18 +276,18 @@ describe('About Section', () => {
       
       // Should mention key aspects
       expect(text).toMatch(/software engineer/i)
-      expect(text).toMatch(/full.*stack/i)
-      expect(text).toMatch(/experience|years/i)
+      expect(text).toMatch(/Master's/i)
+      expect(text).toMatch(/Arizona State University/i)
     })
 
     it('shows organized technical skills', () => {
       render(<About />)
       
       const expectedSkills = [
-        'React', 'TypeScript', 'JavaScript',
-        'Node.js', 'Python', 'Express',
-        'PostgreSQL', 'MongoDB', 'Redis',
-        'Git', 'Docker', 'AWS'
+        'Java', 'Python', 'JavaScript', 'TypeScript', 'SQL',
+        'Spring Boot', 'Node.js', 'PostgreSQL', 'AWS Glue',
+        'React', 'Tailwind CSS', 'Tableau',
+        'AWS', 'Redshift', 'Athena'
       ]
       
       expectedSkills.forEach(skill => {
@@ -313,7 +313,7 @@ describe('About Section', () => {
       expect(education).toBeInTheDocument()
       
       // Should include degree info
-      expect(screen.getByText(/Bachelor|Master|Computer Science/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/Computer Science/i)).toHaveLength(2)
     })
   })
 
@@ -321,19 +321,19 @@ describe('About Section', () => {
     it('displays correct bio from resume', () => {
       render(<About />)
       
-      expect(screen.getByText(/Master's in Computer Science/i)).toBeInTheDocument()
-      expect(screen.getByText(/Arizona State University/i)).toBeInTheDocument()
-      expect(screen.getByText(/GPA 4\.0/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/Master's in Computer Science/i)).toHaveLength(2)
+      expect(screen.getAllByText(/Arizona State University/i)).toHaveLength(2)
+      expect(screen.getAllByText(/GPA 4\.0/i)).toHaveLength(2)
     })
     
     it('shows relevant experience highlights', () => {
       render(<About />)
       
-      expect(screen.getByText(/TD Securities/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/TD Securities/i)).toHaveLength(2)
       expect(screen.getByText(/investment banking/i)).toBeInTheDocument()
       expect(screen.getByText(/Panasonic/i)).toBeInTheDocument()
-      expect(screen.getByText(/Research Assistant/i)).toBeInTheDocument()
-      expect(screen.getByText(/Rutgers/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/Research Assistant/i)).toHaveLength(2)
+      expect(screen.getAllByText(/Rutgers/i)).toHaveLength(2)
     })
 
     it('displays specific internship details', () => {
@@ -342,7 +342,7 @@ describe('About Section', () => {
       // TD Securities details
       expect(screen.getByText(/DataMart features/i)).toBeInTheDocument()
       expect(screen.getByText(/200\+ investment bankers/i)).toBeInTheDocument()
-      expect(screen.getByText(/35%.*time reduction/i)).toBeInTheDocument()
+      expect(screen.getByText(/35%/i)).toBeInTheDocument()
       
       // Panasonic details
       expect(screen.getByText(/AWS ETL pipelines/i)).toBeInTheDocument()

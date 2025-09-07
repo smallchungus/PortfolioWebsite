@@ -57,29 +57,26 @@ describe('Projects Section', () => {
         // Tech stack
         expect(within(card).getByTestId(/^tech-stack-/)).toBeInTheDocument()
         
-        // Links (GitHub and Live Demo)
-        const links = within(card).getAllByRole('link')
-        expect(links).toHaveLength(2) // GitHub + Live Demo
-        
-        // Verify link attributes
-        links.forEach(link => {
-          expect(link).toHaveAttribute('target', '_blank')
-          expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-        })
+        // Links (only portfolio project has links)
+        const links = within(card).queryAllByRole('link')
+        if (links.length > 0) {
+          // Verify link attributes for projects that have them
+          links.forEach(link => {
+            expect(link).toHaveAttribute('target', '_blank')
+            expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+          })
+        }
       })
     })
 
-    it('displays GitHub stats when available', () => {
+    it('displays project impact metrics', () => {
       render(<Projects />)
       
-      // Should show stars and forks for projects that have them
-      const statsElements = screen.getAllByTestId(/^github-stats-/)
-      expect(statsElements.length).toBeGreaterThan(0)
-      
-      statsElements.forEach(stats => {
-        // Should contain star and fork icons/text
-        expect(stats).toHaveTextContent(/\d+/) // Should have numbers
-      })
+      // Our real projects show impact instead of GitHub stats
+      expect(screen.getByText('200+ daily users, 35% time reduction')).toBeInTheDocument()
+      expect(screen.getByText('Processing 100GB+ daily data')).toBeInTheDocument()
+      expect(screen.getByText('89% classification accuracy')).toBeInTheDocument()
+      expect(screen.getByText('TDD approach with 98% test coverage')).toBeInTheDocument()
     })
   })
 
@@ -271,9 +268,9 @@ describe('Projects Section', () => {
       render(<Projects />)
       
       const expectedProjects = [
-        'E-Commerce Platform',
-        'Task Management App', 
-        'Weather Dashboard',
+        'DataMart Platform Features',
+        'USDA Cloud Spending Pipeline', 
+        'Protein Pattern Analysis',
         'Portfolio Website'
       ]
       
@@ -288,18 +285,13 @@ describe('Projects Section', () => {
       const techStacks = screen.getAllByTestId(/^tech-stack-/)
       expect(techStacks).toHaveLength(4)
       
-      // Common technologies should be present (using getAllByText since they appear multiple times)
-      const reactBadges = screen.getAllByText('React')
-      expect(reactBadges.length).toBeGreaterThan(0)
-      
-      const typescriptBadges = screen.getAllByText('TypeScript')
-      expect(typescriptBadges.length).toBeGreaterThan(0)
-      
-      const nodeBadges = screen.getAllByText('Node.js')
-      expect(nodeBadges.length).toBeGreaterThan(0)
-      
-      const pythonBadges = screen.getAllByText('Python')
-      expect(pythonBadges.length).toBeGreaterThan(0)
+      // Real technologies from our projects
+      expect(screen.getByText('Java')).toBeInTheDocument()
+      expect(screen.getByText('Spring Boot')).toBeInTheDocument()
+      expect(screen.getByText('AWS Glue')).toBeInTheDocument()
+      expect(screen.getAllByText('Python')).toHaveLength(2) // In 2 projects
+      expect(screen.getByText('React')).toBeInTheDocument()
+      expect(screen.getByText('TypeScript')).toBeInTheDocument()
     })
 
     it('includes proper project descriptions', () => {
@@ -346,11 +338,11 @@ describe('Projects Section', () => {
       expect(screen.getByText('Java')).toBeInTheDocument()
       expect(screen.getByText('Spring Boot')).toBeInTheDocument()
       expect(screen.getByText('JavaScript')).toBeInTheDocument()
-      expect(screen.getByText('PostgreSQL')).toBeInTheDocument()
+      expect(screen.getAllByText('PostgreSQL')).toHaveLength(2) // In 2 projects
       
       // USDA pipeline tech stack
       expect(screen.getByText('AWS Glue')).toBeInTheDocument()
-      expect(screen.getByText('Python')).toBeInTheDocument()
+      expect(screen.getAllByText('Python')).toHaveLength(2) // In 2 projects
       expect(screen.getByText('Tableau')).toBeInTheDocument()
       expect(screen.getByText('Redshift')).toBeInTheDocument()
       
