@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { useTypingAnimation } from '../../../hooks/useTypingAnimation'
 import { Badge } from '../../ui/Badge'
-import { ThemeToggle } from '../../common/ThemeToggle'
 
 const ROLES = ['Software Engineer', 'Full-Stack Developer', 'MS CS Student @ ASU', 'May 2025 Graduate']
 const TECH_STACK = ['React', 'TypeScript', 'Python', 'Node.js', 'SQL']
@@ -46,11 +45,6 @@ export const Hero = () => {
 
   return (
     <section aria-label="Hero wrapper" className="bg-white dark:bg-gray-900 transition-colors duration-300">
-      {/* Theme toggle in top right */}
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle />
-      </div>
-
       <section 
         data-testid="hero-section"
         className="min-h-screen flex items-center justify-center px-4 md:px-8 py-20"
