@@ -13,6 +13,16 @@ interface ProjectData {
 
 const PROJECT_DATA: ProjectData[] = [
   {
+    id: 'burncoin',
+    title: 'BurnCoin',
+    description: 'Deflationary ERC-20 token that burns 1% on every transfer with community daily burns',
+    impact: 'Smart contract deployed on Ethereum Sepolia with 20+ comprehensive tests',
+    techStack: ['Solidity', 'Hardhat', 'Next.js', 'ethers.js', 'TypeScript'],
+    githubUrl: 'https://github.com/smallchungus/BurnCoin',
+    liveUrl: 'https://sepolia.etherscan.io/address/0xB23772d26e1b7eaA24E6D63eeFb29B405bcAd24a',
+    featured: true
+  },
+  {
     id: 'portfolio',
     title: 'Portfolio Website',
     description: 'Modern, minimal portfolio with dark mode and 95+ Lighthouse score',

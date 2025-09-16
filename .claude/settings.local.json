@@ -30,7 +30,8 @@
       "Bash(git pull:*)",
       "Bash(git merge:*)",
       "Bash(git rm:*)",
-      "Bash(npm ci:*)"
+      "Bash(npm ci:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []

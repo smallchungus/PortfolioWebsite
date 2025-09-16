@@ -30,7 +30,7 @@ npm run build                 # Production build
 - **Build**: Vite with HMR and optimized bundling  
 - **Testing**: Vitest, React Testing Library (80%+ coverage)
 - **Deploy**: Vercel with automatic previews
-
+`
 ## Project Structure
 
 ```
