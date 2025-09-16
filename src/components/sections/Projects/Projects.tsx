@@ -8,6 +8,7 @@ interface ProjectData {
   techStack: string[]
   githubUrl?: string
   liveUrl?: string
+  contractUrl?: string
   featured?: boolean
 }
 
@@ -19,7 +20,8 @@ const PROJECT_DATA: ProjectData[] = [
     impact: 'Smart contract deployed on Ethereum Sepolia with 20+ comprehensive tests',
     techStack: ['Solidity', 'Hardhat', 'Next.js', 'ethers.js', 'TypeScript'],
     githubUrl: 'https://github.com/smallchungus/BurnCoin',
-    liveUrl: 'https://sepolia.etherscan.io/address/0xB23772d26e1b7eaA24E6D63eeFb29B405bcAd24a',
+    liveUrl: 'https://burncoin-frontend.vercel.app',
+    contractUrl: 'https://sepolia.etherscan.io/address/0xB23772d26e1b7eaA24E6D63eeFb29B405bcAd24a',
     featured: true
   },
   {
@@ -92,14 +94,14 @@ export const Projects = () => {
             </div>
 
             {/* Action Links */}
-            {(project.githubUrl || project.liveUrl) && (
-              <div className="flex gap-4">
+            {(project.githubUrl || project.liveUrl || project.contractUrl) && (
+              <div className="flex flex-col gap-2">
                 {project.githubUrl && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 bg-gray-900 dark:bg-blue-600 text-white text-center font-medium rounded hover:bg-gray-800 dark:hover:bg-blue-700 transition-colors duration-200"
+                    className="px-4 py-2 bg-gray-900 dark:bg-blue-600 text-white text-center font-medium rounded hover:bg-gray-800 dark:hover:bg-blue-700 transition-colors duration-200"
                     aria-label={`View ${project.title} source code on GitHub`}
                     tabIndex={0}
                   >
@@ -111,11 +113,23 @@ export const Projects = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300 text-center font-medium rounded hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300 text-center font-medium rounded hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200"
                     aria-label={`View ${project.title} live demo`}
                     tabIndex={0}
                   >
-                    Live
+                    Frontend
+                  </a>
+                )}
+                {project.contractUrl && (
+                  <a
+                    href={project.contractUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 border border-orange-300 dark:border-orange-600 text-orange-700 dark:text-orange-300 text-center font-medium rounded hover:border-orange-400 dark:hover:border-orange-500 transition-colors duration-200"
+                    aria-label={`View ${project.title} smart contract on Etherscan`}
+                    tabIndex={0}
+                  >
+                    Contract
                   </a>
                 )}
               </div>
