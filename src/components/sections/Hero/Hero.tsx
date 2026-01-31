@@ -1,14 +1,11 @@
 import { useCallback, useMemo } from 'react'
 import { useTypingAnimation } from '../../../hooks/useTypingAnimation'
 import { Badge } from '../../ui/Badge'
-import { CONTACT_INFO } from '@/constants'
-
-const ROLES = ['Software Engineer', 'Full-Stack Developer', 'MS CS Student @ ASU', 'May 2025 Graduate']
-const TECH_STACK = ['React', 'TypeScript', 'Python', 'Node.js', 'SQL']
+import { contactInfo, heroContent } from '@/content'
 
 export const Hero = () => {
   const { displayedText, prefersReducedMotion } = useTypingAnimation({
-    strings: ROLES,
+    strings: heroContent.roles,
     typeSpeed: 100,
     pauseDuration: 2000,
     loop: true,
@@ -29,11 +26,11 @@ export const Hero = () => {
 
   const handleViewResume = useCallback(() => {
     // Open resume in new tab (Google Drive)
-    window.open(CONTACT_INFO.resume.url, '_blank')
+    window.open(contactInfo.resume.url, '_blank')
   }, [])
 
-  const techBadges = useMemo(() => 
-    TECH_STACK.map((tech) => (
+  const techBadges = useMemo(() =>
+    heroContent.techStack.map((tech) => (
       <Badge
         key={tech}
         aria-label={`${tech} technology badge`}
@@ -46,7 +43,7 @@ export const Hero = () => {
 
   return (
     <section aria-label="Hero wrapper" className="bg-white dark:bg-gray-900 transition-colors duration-300">
-      <section 
+      <section
         data-testid="hero-section"
         className="min-h-screen flex items-center justify-center px-4 md:px-8 py-20"
         aria-label="Hero section"
@@ -56,11 +53,11 @@ export const Hero = () => {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 font-inter">
             Will Chen
           </h1>
-          
+
           {/* Typing animation role */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-300 mb-8 h-16 flex items-center justify-center">
-            <span 
-              data-testid="typing-role" 
+            <span
+              data-testid="typing-role"
               className="font-light"
             >
               {displayedText}
@@ -70,8 +67,7 @@ export const Hero = () => {
 
           {/* Description */}
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Building scalable applications and solving complex problems with modern technologies. 
-            Passionate about clean code, performance, and exceptional user experiences.
+            {heroContent.description}
           </p>
 
           {/* Tech stack badges */}
@@ -80,8 +76,8 @@ export const Hero = () => {
           </div>
 
           {/* CTA buttons */}
-          <div 
-            data-testid="cta-buttons" 
+          <div
+            data-testid="cta-buttons"
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button

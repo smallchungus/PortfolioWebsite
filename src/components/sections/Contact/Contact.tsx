@@ -1,5 +1,5 @@
 import React from 'react'
-import { CONTACT_INFO } from '@/constants'
+import { contactInfo } from '@/content'
 
 interface ContactProps {
   className?: string
@@ -22,7 +22,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
         
         <div className="flex justify-center gap-6 mb-8">
           <a 
-            href={`mailto:${CONTACT_INFO.email}`} 
+            href={`mailto:${contactInfo.email}`} 
             aria-label="Email Will Chen" 
             className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
@@ -34,7 +34,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           </a>
           
           <a 
-            href={CONTACT_INFO.linkedin} 
+            href={contactInfo.linkedin} 
             aria-label="LinkedIn Profile"
             className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
@@ -46,7 +46,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           </a>
           
           <a 
-            href={CONTACT_INFO.github} 
+            href={contactInfo.github} 
             aria-label="GitHub Profile"
             className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
             target="_blank"
@@ -59,7 +59,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
         </div>
         
         <a
-          href={CONTACT_INFO.resume.url}
+          href={contactInfo.resume.url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="View Will Chen's resume as PDF"
