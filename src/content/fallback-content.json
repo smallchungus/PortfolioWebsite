@@ -2,7 +2,7 @@
   "siteConfig": {
     "name": "Will Chen",
     "title": "Will Chen - Software Engineer",
-    "description": "Master's in Computer Science student at Arizona State University. Software engineer with experience in investment banking and data engineering.",
+    "description": "Software Engineer",
     "url": "https://willchennn.com",
     "ogImage": "https://willchennn.com/og-image.jpg",
     "creator": "@willchennn"
@@ -18,98 +18,166 @@
     }
   },
   "skills": {
-    "Languages": ["Java", "Python", "JavaScript", "TypeScript", "SQL"],
-    "Backend": ["Spring Boot", "Node.js", "PostgreSQL", "AWS Glue"],
-    "Frontend": ["React", "Tailwind CSS", "Vite", "HTML/CSS"],
-    "Cloud": ["AWS", "Vercel", "Redshift", "Athena"],
-    "Tools": ["Git", "Docker", "Tableau", "IntelliJ IDEA"]
+    "Languages": [
+      "Python",
+      "Java",
+      "Go",
+      "JavaScript",
+      "TypeScript",
+      "SQL"
+    ],
+    "Backend": [
+      "Spring Boot",
+      "Node.js",
+      "PostgreSQL",
+      "Redis",
+      "Apache Kafka"
+    ],
+    "Frontend": [
+      "React",
+      "Redux",
+      "Tailwind CSS",
+      "HTML/CSS"
+    ],
+    "Cloud & DevOps": [
+      "Docker",
+      "Kubernetes",
+      "Azure DevOps",
+      "Grafana",
+      "CI/CD"
+    ],
+    "Tools": [
+      "Git",
+      "Bloomberg Terminal",
+      "Reuters",
+      "IntelliJ IDEA"
+    ]
   },
   "projects": [
     {
-      "id": "burncoin",
+      "id": "2f9a7179-db34-8128-a8b7-e4efe9af10b5",
+      "title": "Distributed Task Queue",
+      "description": "Production-ready async job system with Redis backend supporting delayed execution, exponential backoff retries, priority queues, and configurable worker pools",
+      "technologies": [
+        "Go",
+        "Redis",
+        "PostgreSQL",
+        "Docker",
+        "Kubernetes"
+      ],
+      "impact": "Deployed to Kubernetes with horizontal pod autoscaling, handling 10K+ jobs/hour with graceful shutdown and job recovery",
+      "links": {
+        "github": "https://github.com/smallchungus"
+      },
+      "featured": true
+    },
+    {
+      "id": "2f9a7179-db34-811f-944c-c547dd946cc3",
       "title": "BurnCoin",
       "description": "Deflationary ERC-20 token that burns 1% on every transfer with community daily burns",
-      "technologies": ["Solidity", "Hardhat", "Next.js", "ethers.js", "TypeScript"],
+      "technologies": [
+        "Solidity",
+        "Hardhat",
+        "Next.js",
+        "ethers.js",
+        "TypeScript"
+      ],
       "impact": "Smart contract deployed on Ethereum Sepolia with 20+ comprehensive tests",
       "links": {
-        "github": "https://github.com/smallchungus/BurnCoin",
-        "live": "https://burncoin-frontend.vercel.app",
-        "contract": "https://sepolia.etherscan.io/address/0xB23772d26e1b7eaA24E6D63eeFb29B405bcAd24a"
+        "github": "https://github.com/smallchungus/BurnCoin"
       },
       "featured": true
     },
     {
-      "id": "portfolio",
+      "id": "2f9a7179-db34-81b8-8acd-f020f3340dd7",
       "title": "Portfolio Website",
-      "description": "Modern, minimal portfolio with dark mode and 95+ Lighthouse score",
-      "technologies": ["React", "TypeScript", "Tailwind CSS", "Vite"],
-      "impact": "Built with React, TypeScript, and TDD practices",
+      "description": "Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vite"
+      ],
+      "impact": "Built with TDD practices and Notion-powered content management",
       "links": {
-        "github": "https://github.com/smallchungus/PortfolioWebsite",
-        "live": "https://willchennn.com"
+        "github": "https://github.com/smallchungus/PortfolioWebsite"
       },
       "featured": true
-    },
-    {
-      "id": "datamart",
-      "title": "DataMart Platform Features",
-      "description": "Built DataMart features for TD Securities internal banking application",
-      "technologies": ["Java", "Spring Boot", "JavaScript", "PostgreSQL"],
-      "impact": "200+ daily users, 35% time reduction"
-    },
-    {
-      "id": "usda-pipeline",
-      "title": "USDA Cloud Spending Pipeline",
-      "description": "Developed AWS ETL pipelines for government cloud spending data",
-      "technologies": ["Python", "AWS Glue", "Tableau", "Redshift"],
-      "impact": "Processing 100GB+ daily data"
-    },
-    {
-      "id": "protein-analysis",
-      "title": "Protein Pattern Analysis",
-      "description": "Built ML models for bacterial protein classification",
-      "technologies": ["Python", "Pandas", "Scikit-learn", "PostgreSQL"],
-      "impact": "89% classification accuracy"
     }
   ],
   "experience": [
     {
-      "id": "td-securities",
-      "title": "Software Engineering Intern",
+      "id": "2f9a7179-db34-81f3-9f65-c6265b709874",
+      "title": "Software Engineer",
       "company": "TD Securities",
-      "description": "Built DataMart features for 200+ investment bankers, reducing expense categorization time by 35%",
-      "duration": "Summer 2024",
-      "technologies": ["Java", "Spring Boot", "JavaScript", "PostgreSQL"]
+      "description": "Built pricing models for interest rate swaps, bonds, and FX derivatives using Python and Java Spring Boot. Developed React/Redux frontend for Transparency Pricing Platform. Migrated 13 services to distributed architecture. Designed Apache Kafka pipelines for Bloomberg and Reuters market data feeds.",
+      "duration": "August 2025 - Present",
+      "technologies": [
+        "Python",
+        "Java",
+        "Spring Boot",
+        "React",
+        "Redux",
+        "Kafka"
+      ]
     },
     {
-      "id": "panasonic",
-      "title": "Data Engineering Intern",
-      "company": "Panasonic",
-      "description": "Developed AWS ETL pipelines for USDA cloud spending data processing",
-      "duration": "Summer 2023",
-      "technologies": ["Python", "AWS Glue", "Tableau", "Redshift"]
+      "id": "2f9a7179-db34-8148-a420-faf9d557ebf6",
+      "title": "DevOps Engineer",
+      "company": "Hackensack Meridian Health",
+      "description": "Built Python automation reducing manual checks by 70%. Implemented CI/CD pipelines accelerating releases from monthly to weekly. Created Grafana dashboards for 200+ production servers. Developed ETL workflows for clinical reporting.",
+      "duration": "August 2024 - July 2025",
+      "technologies": [
+        "Python",
+        "Azure DevOps",
+        "Grafana",
+        "CI/CD",
+        "ETL"
+      ]
     },
     {
-      "id": "rutgers-research",
-      "title": "Research Assistant",
-      "company": "Rutgers University",
-      "description": "Built ML models for bacterial protein pattern classification with 89% accuracy",
-      "duration": "2022-2023",
-      "technologies": ["Python", "Pandas", "Scikit-learn", "PostgreSQL"]
+      "id": "2f9a7179-db34-819b-acab-df8c5d27cdf2",
+      "title": "Software Engineer Intern",
+      "company": "TD Securities",
+      "description": "Developed features for DataMart internal application using Java Spring Boot and JavaScript. Built autocomplete search reducing expense categorization time by 35%. Enhanced backend systems supporting 200+ investment banking professionals.",
+      "duration": "June 2024 - August 2024",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "JavaScript",
+        "PostgreSQL"
+      ]
     }
   ],
   "education": [
     {
-      "id": "asu-masters",
-      "degree": "Master's in Computer Science",
-      "institution": "Arizona State University",
-      "status": "Current Student - GPA 4.0",
-      "duration": "2023 - Present"
+      "id": "2f9a7179-db34-81cd-bb67-fde478432b61",
+      "degree": "Master of Science in Analytics",
+      "institution": "Georgia Institute of Technology",
+      "status": "Current Student",
+      "duration": "January 2026 - Present"
+    },
+    {
+      "id": "2f9a7179-db34-81d1-a57e-da0c6bc1c140",
+      "degree": "Bachelor of Arts in Computer Science and Psychology",
+      "institution": "Rutgers University",
+      "status": "GPA 3.49",
+      "duration": "May 2022"
     }
   ],
   "hero": {
-    "roles": ["Software Engineer", "Full-Stack Developer", "MS CS Student @ ASU", "May 2025 Graduate"],
-    "techStack": ["React", "TypeScript", "Python", "Node.js", "SQL"],
+    "roles": [
+      "Software Engineer",
+      "Full-Stack Developer",
+      "MS Analytics @ Georgia Tech"
+    ],
+    "techStack": [
+      "Python",
+      "Java",
+      "Go",
+      "TypeScript",
+      "React"
+    ],
     "description": "Building scalable applications and solving complex problems with modern technologies. Passionate about clean code, performance, and exceptional user experiences."
   }
 }

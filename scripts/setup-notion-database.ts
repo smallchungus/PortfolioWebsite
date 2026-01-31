@@ -9,15 +9,15 @@ const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!
 
 const notion = new Client({ auth: NOTION_API_KEY })
 
-// Content to populate
+// Content to populate - Updated with latest resume
 const CONTENT_ROWS = [
   // Hero
   {
     title: 'Hero',
     section: 'hero',
     order: 1,
-    description: 'React, TypeScript, Python, Node.js, SQL',
-    tags: ['Software Engineer', 'Full-Stack Developer', 'MS CS Student @ ASU', 'May 2025 Graduate'],
+    description: 'Python, Java, Go, TypeScript, React',
+    tags: ['Software Engineer', 'Full-Stack Developer', 'MS Analytics @ Georgia Tech'],
     impact: 'Building scalable applications and solving complex problems with modern technologies. Passionate about clean code, performance, and exceptional user experiences.'
   },
   // Skills
@@ -25,37 +25,47 @@ const CONTENT_ROWS = [
     title: 'Languages',
     section: 'skills',
     order: 10,
-    tags: ['Java', 'Python', 'JavaScript', 'TypeScript', 'SQL']
+    tags: ['Python', 'Java', 'Go', 'JavaScript', 'TypeScript', 'SQL']
   },
   {
     title: 'Backend',
     section: 'skills',
     order: 11,
-    tags: ['Spring Boot', 'Node.js', 'PostgreSQL', 'AWS Glue']
+    tags: ['Spring Boot', 'Node.js', 'PostgreSQL', 'Redis', 'Apache Kafka']
   },
   {
     title: 'Frontend',
     section: 'skills',
     order: 12,
-    tags: ['React', 'Tailwind CSS', 'Vite', 'HTML/CSS']
+    tags: ['React', 'Redux', 'Tailwind CSS', 'HTML/CSS']
   },
   {
-    title: 'Cloud',
+    title: 'Cloud & DevOps',
     section: 'skills',
     order: 13,
-    tags: ['AWS', 'Vercel', 'Redshift', 'Athena']
+    tags: ['Docker', 'Kubernetes', 'Azure DevOps', 'Grafana', 'CI/CD']
   },
   {
     title: 'Tools',
     section: 'skills',
     order: 14,
-    tags: ['Git', 'Docker', 'Tableau', 'IntelliJ IDEA']
+    tags: ['Git', 'Bloomberg Terminal', 'Reuters', 'IntelliJ IDEA']
   },
   // Projects
   {
-    title: 'BurnCoin',
+    title: 'Distributed Task Queue',
     section: 'projects',
     order: 20,
+    description: 'Production-ready async job system with Redis backend supporting delayed execution, exponential backoff retries, priority queues, and configurable worker pools',
+    tags: ['Go', 'Redis', 'PostgreSQL', 'Docker', 'Kubernetes'],
+    url: 'https://github.com/smallchungus',
+    impact: 'Deployed to Kubernetes with horizontal pod autoscaling, handling 10K+ jobs/hour with graceful shutdown and job recovery',
+    featured: true
+  },
+  {
+    title: 'BurnCoin',
+    section: 'projects',
+    order: 21,
     description: 'Deflationary ERC-20 token that burns 1% on every transfer with community daily burns',
     tags: ['Solidity', 'Hardhat', 'Next.js', 'ethers.js', 'TypeScript'],
     url: 'https://github.com/smallchungus/BurnCoin',
@@ -65,49 +75,57 @@ const CONTENT_ROWS = [
   {
     title: 'Portfolio Website',
     section: 'projects',
-    order: 21,
-    description: 'Modern, minimal portfolio with dark mode and 95+ Lighthouse score',
+    order: 22,
+    description: 'Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     url: 'https://github.com/smallchungus/PortfolioWebsite',
-    impact: 'Built with React, TypeScript, and TDD practices',
+    impact: 'Built with TDD practices and Notion-powered content management',
     featured: true
   },
   // Experience
   {
-    title: 'Software Engineering Intern',
+    title: 'Software Engineer',
     section: 'experience',
     order: 30,
-    description: 'Built DataMart features for 200+ investment bankers, reducing expense categorization time by 35%',
-    tags: ['Java', 'Spring Boot', 'JavaScript', 'PostgreSQL'],
+    description: 'Built pricing models for interest rate swaps, bonds, and FX derivatives using Python and Java Spring Boot. Developed React/Redux frontend for Transparency Pricing Platform. Migrated 13 services to distributed architecture. Designed Apache Kafka pipelines for Bloomberg and Reuters market data feeds.',
+    tags: ['Python', 'Java', 'Spring Boot', 'React', 'Redux', 'Kafka'],
     company: 'TD Securities',
-    duration: 'Summer 2024'
+    duration: 'August 2025 - Present'
   },
   {
-    title: 'Data Engineering Intern',
+    title: 'DevOps Engineer',
     section: 'experience',
     order: 31,
-    description: 'Developed AWS ETL pipelines for USDA cloud spending data processing',
-    tags: ['Python', 'AWS Glue', 'Tableau', 'Redshift'],
-    company: 'Panasonic',
-    duration: 'Summer 2023'
+    description: 'Built Python automation reducing manual checks by 70%. Implemented CI/CD pipelines accelerating releases from monthly to weekly. Created Grafana dashboards for 200+ production servers. Developed ETL workflows for clinical reporting.',
+    tags: ['Python', 'Azure DevOps', 'Grafana', 'CI/CD', 'ETL'],
+    company: 'Hackensack Meridian Health',
+    duration: 'August 2024 - July 2025'
   },
   {
-    title: 'Research Assistant',
+    title: 'Software Engineer Intern',
     section: 'experience',
     order: 32,
-    description: 'Built ML models for bacterial protein pattern classification with 89% accuracy',
-    tags: ['Python', 'Pandas', 'Scikit-learn', 'PostgreSQL'],
-    company: 'Rutgers University',
-    duration: '2022-2023'
+    description: 'Developed features for DataMart internal application using Java Spring Boot and JavaScript. Built autocomplete search reducing expense categorization time by 35%. Enhanced backend systems supporting 200+ investment banking professionals.',
+    tags: ['Java', 'Spring Boot', 'JavaScript', 'PostgreSQL'],
+    company: 'TD Securities',
+    duration: 'June 2024 - August 2024'
   },
   // Education
   {
-    title: "Master's in Computer Science",
+    title: 'Master of Science in Analytics',
     section: 'education',
     order: 40,
-    company: 'Arizona State University',
-    status: 'Current Student - GPA 4.0',
-    duration: '2023 - Present'
+    company: 'Georgia Institute of Technology',
+    status: 'Current Student',
+    duration: 'January 2026 - Present'
+  },
+  {
+    title: 'Bachelor of Arts in Computer Science and Psychology',
+    section: 'education',
+    order: 41,
+    company: 'Rutgers University',
+    status: 'GPA 3.49',
+    duration: 'May 2022'
   }
 ]
 
@@ -118,7 +136,6 @@ async function updateDatabaseSchema() {
     await notion.databases.update({
       database_id: NOTION_DATABASE_ID,
       properties: {
-        // Name already exists by default
         Section: {
           select: {
             options: [
