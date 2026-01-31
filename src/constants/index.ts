@@ -15,8 +15,8 @@ export const CONTACT_INFO = {
   github: 'https://github.com/smallchungus',
   location: 'Phoenix, AZ',
   resume: {
-    url: '/WillChen_Resume.pdf',
-    filename: 'WillChen_Resume.pdf'
+    url: 'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view',
+    isExternal: true
   }
 } as const
 

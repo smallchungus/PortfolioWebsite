@@ -1,0 +1,115 @@
+{
+  "siteConfig": {
+    "name": "Will Chen",
+    "title": "Will Chen - Software Engineer",
+    "description": "Master's in Computer Science student at Arizona State University. Software engineer with experience in investment banking and data engineering.",
+    "url": "https://willchennn.com",
+    "ogImage": "https://willchennn.com/og-image.jpg",
+    "creator": "@willchennn"
+  },
+  "contact": {
+    "email": "wchen1396@gmail.com",
+    "linkedin": "https://linkedin.com/in/willchenn",
+    "github": "https://github.com/smallchungus",
+    "location": "Phoenix, AZ",
+    "resume": {
+      "url": "https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view",
+      "isExternal": true
+    }
+  },
+  "skills": {
+    "Languages": ["Java", "Python", "JavaScript", "TypeScript", "SQL"],
+    "Backend": ["Spring Boot", "Node.js", "PostgreSQL", "AWS Glue"],
+    "Frontend": ["React", "Tailwind CSS", "Vite", "HTML/CSS"],
+    "Cloud": ["AWS", "Vercel", "Redshift", "Athena"],
+    "Tools": ["Git", "Docker", "Tableau", "IntelliJ IDEA"]
+  },
+  "projects": [
+    {
+      "id": "burncoin",
+      "title": "BurnCoin",
+      "description": "Deflationary ERC-20 token that burns 1% on every transfer with community daily burns",
+      "technologies": ["Solidity", "Hardhat", "Next.js", "ethers.js", "TypeScript"],
+      "impact": "Smart contract deployed on Ethereum Sepolia with 20+ comprehensive tests",
+      "links": {
+        "github": "https://github.com/smallchungus/BurnCoin",
+        "live": "https://burncoin-frontend.vercel.app",
+        "contract": "https://sepolia.etherscan.io/address/0xB23772d26e1b7eaA24E6D63eeFb29B405bcAd24a"
+      },
+      "featured": true
+    },
+    {
+      "id": "portfolio",
+      "title": "Portfolio Website",
+      "description": "Modern, minimal portfolio with dark mode and 95+ Lighthouse score",
+      "technologies": ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      "impact": "Built with React, TypeScript, and TDD practices",
+      "links": {
+        "github": "https://github.com/smallchungus/PortfolioWebsite",
+        "live": "https://willchennn.com"
+      },
+      "featured": true
+    },
+    {
+      "id": "datamart",
+      "title": "DataMart Platform Features",
+      "description": "Built DataMart features for TD Securities internal banking application",
+      "technologies": ["Java", "Spring Boot", "JavaScript", "PostgreSQL"],
+      "impact": "200+ daily users, 35% time reduction"
+    },
+    {
+      "id": "usda-pipeline",
+      "title": "USDA Cloud Spending Pipeline",
+      "description": "Developed AWS ETL pipelines for government cloud spending data",
+      "technologies": ["Python", "AWS Glue", "Tableau", "Redshift"],
+      "impact": "Processing 100GB+ daily data"
+    },
+    {
+      "id": "protein-analysis",
+      "title": "Protein Pattern Analysis",
+      "description": "Built ML models for bacterial protein classification",
+      "technologies": ["Python", "Pandas", "Scikit-learn", "PostgreSQL"],
+      "impact": "89% classification accuracy"
+    }
+  ],
+  "experience": [
+    {
+      "id": "td-securities",
+      "title": "Software Engineering Intern",
+      "company": "TD Securities",
+      "description": "Built DataMart features for 200+ investment bankers, reducing expense categorization time by 35%",
+      "duration": "Summer 2024",
+      "technologies": ["Java", "Spring Boot", "JavaScript", "PostgreSQL"]
+    },
+    {
+      "id": "panasonic",
+      "title": "Data Engineering Intern",
+      "company": "Panasonic",
+      "description": "Developed AWS ETL pipelines for USDA cloud spending data processing",
+      "duration": "Summer 2023",
+      "technologies": ["Python", "AWS Glue", "Tableau", "Redshift"]
+    },
+    {
+      "id": "rutgers-research",
+      "title": "Research Assistant",
+      "company": "Rutgers University",
+      "description": "Built ML models for bacterial protein pattern classification with 89% accuracy",
+      "duration": "2022-2023",
+      "technologies": ["Python", "Pandas", "Scikit-learn", "PostgreSQL"]
+    }
+  ],
+  "education": [
+    {
+      "id": "asu-masters",
+      "degree": "Master's in Computer Science",
+      "institution": "Arizona State University",
+      "status": "Current Student - GPA 4.0",
+      "duration": "2023 - Present"
+    }
+  ],
+  "hero": {
+    "roles": ["Software Engineer", "Full-Stack Developer", "MS CS Student @ ASU", "May 2025 Graduate"],
+    "techStack": ["React", "TypeScript", "Python", "Node.js", "SQL"],
+    "description": "Building scalable applications and solving complex problems with modern technologies. Passionate about clean code, performance, and exceptional user experiences."
+  }
+}

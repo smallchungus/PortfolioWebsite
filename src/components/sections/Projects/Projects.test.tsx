@@ -35,11 +35,12 @@ describe('Projects Section', () => {
       expect(heading).toHaveClass('text-3xl', 'md:text-4xl', 'font-bold')
     })
 
-    it('shows only portfolio project', () => {
+    it('shows all featured projects', () => {
       render(<Projects />)
-      
+
       const projectCards = screen.getAllByTestId(/^project-card-/)
-      expect(projectCards).toHaveLength(1) // Only portfolio project
+      expect(projectCards).toHaveLength(2) // BurnCoin and Portfolio projects
+      expect(screen.getByText('BurnCoin')).toBeInTheDocument()
       expect(screen.getByText('Portfolio Website')).toBeInTheDocument()
     })
 
@@ -144,14 +145,14 @@ describe('Projects Section', () => {
   describe('Accessibility Compliance', () => {
     it('uses proper heading hierarchy', () => {
       render(<Projects />)
-      
+
       // Main section heading (h2)
       const mainHeading = screen.getByRole('heading', { level: 2 })
       expect(mainHeading).toBeInTheDocument()
-      
+
       // Project card headings (h3)
       const projectHeadings = screen.getAllByRole('heading', { level: 3 })
-      expect(projectHeadings).toHaveLength(1)
+      expect(projectHeadings).toHaveLength(2) // BurnCoin and Portfolio
     })
 
     it('includes ARIA labels for interactive elements', () => {
@@ -270,13 +271,13 @@ describe('Projects Section', () => {
 
     it('shows tech stack badges for each project', () => {
       render(<Projects />)
-      
+
       const techStacks = screen.getAllByTestId(/^tech-stack-/)
-      expect(techStacks).toHaveLength(1)
-      
-      // Technologies from portfolio project only
+      expect(techStacks).toHaveLength(2) // BurnCoin and Portfolio
+
+      // Technologies from portfolio project
       expect(screen.getByText('React')).toBeInTheDocument()
-      expect(screen.getByText('TypeScript')).toBeInTheDocument()
+      expect(screen.getAllByText('TypeScript')).toHaveLength(2) // Both projects have TypeScript
       expect(screen.getByText('Tailwind')).toBeInTheDocument()
       expect(screen.getByText('Vite')).toBeInTheDocument()
     })
@@ -295,16 +296,16 @@ describe('Projects Section', () => {
 
     it('displays portfolio project with live links', () => {
       render(<Projects />)
-      
+
       expect(screen.getByText(/Modern, minimal portfolio with dark mode and 95\+ Lighthouse score/i)).toBeInTheDocument()
       expect(screen.getByText(/Built with React, TypeScript, and TDD practices/i)).toBeInTheDocument()
-      
-      // Should have links to GitHub and live site
-      const githubLink = screen.getByRole('link', { name: /github/i })
-      expect(githubLink).toHaveAttribute('href', 'https://github.com/smallchungus/PortfolioWebsite')
-      
-      const liveLink = screen.getByRole('link', { name: /live/i })
-      expect(liveLink).toHaveAttribute('href', 'https://willchennn.com')
+
+      // Should have links to GitHub and live site for Portfolio project
+      const portfolioGithubLink = screen.getByRole('link', { name: /View Portfolio Website source code on GitHub/i })
+      expect(portfolioGithubLink).toHaveAttribute('href', 'https://github.com/smallchungus/PortfolioWebsite')
+
+      const portfolioLiveLink = screen.getByRole('link', { name: /View Portfolio Website live demo/i })
+      expect(portfolioLiveLink).toHaveAttribute('href', 'https://willchennn.com')
     })
   })
 
@@ -362,16 +363,16 @@ describe('Projects Section', () => {
 
     it('applies dark mode to action buttons', () => {
       render(<Projects />)
-      
+
       const githubButtons = screen.getAllByText('GitHub')
-      const liveButtons = screen.getAllByText('Live')
-      
+      const frontendButtons = screen.getAllByText('Frontend')
+
       githubButtons.forEach(button => {
         expect(button).toHaveClass('bg-gray-900', 'dark:bg-blue-600')
         expect(button).toHaveClass('hover:bg-gray-800', 'dark:hover:bg-blue-700')
       })
-      
-      liveButtons.forEach(button => {
+
+      frontendButtons.forEach(button => {
         expect(button).toHaveClass('border-gray-300', 'dark:border-gray-600')
         expect(button).toHaveClass('text-gray-900', 'dark:text-gray-300')
         expect(button).toHaveClass('hover:border-gray-400', 'dark:hover:border-gray-500')

@@ -28,11 +28,12 @@ describe('Contact Section', () => {
     expect(githubLink).toHaveAttribute('href', 'https://github.com/smallchungus')
   })
 
-  it('has download resume button with correct href', () => {
+  it('has view resume button with correct href', () => {
     render(<Contact />)
-    const resumeBtn = screen.getByText(/download resume/i)
-    expect(resumeBtn).toHaveAttribute('href', '/WillChen_Resume.pdf')
-    expect(resumeBtn).toHaveAttribute('download')
+    const resumeBtn = screen.getByText(/view resume/i)
+    expect(resumeBtn).toHaveAttribute('href', 'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view')
+    expect(resumeBtn).toHaveAttribute('target', '_blank')
+    expect(resumeBtn).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('has proper accessibility attributes', () => {
@@ -58,7 +59,7 @@ describe('Contact Section', () => {
     const emailLink = screen.getByLabelText('Email Will Chen')
     expect(emailLink).toHaveClass('hover:bg-gray-200')
     
-    const resumeBtn = screen.getByText(/download resume/i)
+    const resumeBtn = screen.getByText(/view resume/i)
     expect(resumeBtn).toHaveClass('hover:bg-blue-700')
   })
 
@@ -110,7 +111,7 @@ describe('Contact Section', () => {
     it('applies dark mode to download resume button', () => {
       render(<Contact />)
       
-      const resumeBtn = screen.getByText(/download resume/i)
+      const resumeBtn = screen.getByText(/view resume/i)
       expect(resumeBtn).toHaveClass('bg-blue-600', 'dark:bg-blue-700')
       expect(resumeBtn).toHaveClass('hover:bg-blue-700', 'dark:hover:bg-blue-800')
       expect(resumeBtn).toHaveClass('text-white')

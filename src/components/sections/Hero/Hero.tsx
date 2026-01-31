@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTypingAnimation } from '../../../hooks/useTypingAnimation'
 import { Badge } from '../../ui/Badge'
+import { CONTACT_INFO } from '@/constants'
 
 const ROLES = ['Software Engineer', 'Full-Stack Developer', 'MS CS Student @ ASU', 'May 2025 Graduate']
 const TECH_STACK = ['React', 'TypeScript', 'Python', 'Node.js', 'SQL']
@@ -26,9 +27,9 @@ export const Hero = () => {
     }
   }, [])
 
-  const handleDownloadResume = useCallback(() => {
-    // Open resume PDF in new tab
-    window.open('/resume.pdf', '_blank')
+  const handleViewResume = useCallback(() => {
+    // Open resume in new tab (Google Drive)
+    window.open(CONTACT_INFO.resume.url, '_blank')
   }, [])
 
   const techBadges = useMemo(() => 
@@ -91,11 +92,11 @@ export const Hero = () => {
               View Projects
             </button>
             <button
-              onClick={handleDownloadResume}
+              onClick={handleViewResume}
               className="px-8 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-              aria-label="Download resume PDF"
+              aria-label="View resume PDF"
             >
-              Download Resume
+              View Resume
             </button>
           </div>
         </div>

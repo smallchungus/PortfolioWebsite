@@ -61,20 +61,20 @@ describe('Hero Section', () => {
     it('renders CTA buttons with correct functionality', async () => {
       const user = userEvent.setup()
       render(<Hero />)
-      
+
       const viewProjectsBtn = screen.getByRole('button', { name: /view projects/i })
-      const downloadResumeBtn = screen.getByRole('button', { name: /download resume/i })
-      
+      const viewResumeBtn = screen.getByRole('button', { name: /view resume/i })
+
       expect(viewProjectsBtn).toBeInTheDocument()
-      expect(downloadResumeBtn).toBeInTheDocument()
-      
+      expect(viewResumeBtn).toBeInTheDocument()
+
       // Test View Projects button scrolls to projects section
       await user.click(viewProjectsBtn)
       expect(mockScrollTo).toHaveBeenCalled()
-      
-      // Test Download Resume button triggers download
-      await user.click(downloadResumeBtn)
-      expect(mockOpen).toHaveBeenCalledWith('/resume.pdf', '_blank')
+
+      // Test View Resume button opens Google Drive link
+      await user.click(viewResumeBtn)
+      expect(mockOpen).toHaveBeenCalledWith('https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view', '_blank')
     })
   })
 
@@ -175,7 +175,7 @@ describe('Hero Section', () => {
       render(<Hero />)
       
       const viewProjectsBtn = screen.getByRole('button', { name: /view projects/i })
-      const downloadResumeBtn = screen.getByRole('button', { name: /download resume/i })
+      const downloadResumeBtn = screen.getByRole('button', { name: /view resume/i })
       
       expect(viewProjectsBtn).toHaveAccessibleName()
       expect(downloadResumeBtn).toHaveAccessibleName()
@@ -191,19 +191,15 @@ describe('Hero Section', () => {
     it('supports keyboard navigation', async () => {
       const user = userEvent.setup()
       render(<Hero />)
-      
-      // Tab through interactive elements - first tab goes to theme toggle
-      await user.tab()
-      expect(screen.getByRole('button', { name: /switch to dark mode/i })).toHaveFocus()
-      
-      // Second tab goes to View Projects button
+
+      // Tab through interactive elements - first button is View Projects
       await user.tab()
       expect(screen.getByRole('button', { name: /view projects/i })).toHaveFocus()
-      
-      // Third tab goes to Download Resume button
+
+      // Second tab goes to View Resume button
       await user.tab()
-      expect(screen.getByRole('button', { name: /download resume/i })).toHaveFocus()
-      
+      expect(screen.getByRole('button', { name: /view resume/i })).toHaveFocus()
+
       // Enter key should activate buttons
       await user.keyboard('{Enter}')
       expect(mockOpen).toHaveBeenCalled()
@@ -364,7 +360,7 @@ describe('Hero Section', () => {
       render(<Hero />)
       
       const viewProjectsBtn = screen.getByText('View Projects')
-      const downloadBtn = screen.getByText('Download Resume')
+      const downloadBtn = screen.getByText('View Resume')
       
       // Primary button (View Projects)
       expect(viewProjectsBtn).toHaveClass('bg-gray-900', 'dark:bg-blue-600')
@@ -372,7 +368,7 @@ describe('Hero Section', () => {
       expect(viewProjectsBtn).toHaveClass('focus:ring-gray-500', 'dark:focus:ring-blue-500')
       expect(viewProjectsBtn).toHaveClass('dark:focus:ring-offset-gray-900')
       
-      // Secondary button (Download Resume)
+      // Secondary button (View Resume)
       expect(downloadBtn).toHaveClass('border-gray-300', 'dark:border-gray-600')
       expect(downloadBtn).toHaveClass('text-gray-700', 'dark:text-gray-300')
       expect(downloadBtn).toHaveClass('hover:bg-gray-50', 'dark:hover:bg-gray-800')
@@ -391,15 +387,14 @@ describe('Hero Section', () => {
       expect(description.className).toMatch(/dark:text-gray-[34]00/)
     })
 
-    it('theme toggle is visible in dark mode', () => {
+    it('CTA buttons have dark mode styles', () => {
       render(<Hero />)
-      
-      // Theme toggle starts in light mode by default, but should have dark mode classes
-      const themeToggle = screen.getByRole('button', { name: /switch to dark mode/i })
-      expect(themeToggle).toBeInTheDocument()
-      expect(themeToggle).toHaveClass('dark:bg-gray-800')
-      expect(themeToggle).toHaveClass('dark:hover:bg-gray-700')
-      expect(themeToggle).toHaveClass('dark:text-gray-400')
+
+      // View Resume button should have dark mode classes
+      const viewResumeBtn = screen.getByText('View Resume')
+      expect(viewResumeBtn).toHaveClass('dark:border-gray-600')
+      expect(viewResumeBtn).toHaveClass('dark:text-gray-300')
+      expect(viewResumeBtn).toHaveClass('dark:hover:bg-gray-800')
     })
   })
 })

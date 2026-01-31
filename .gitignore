@@ -216,3 +216,6 @@ secrets.json
 *.seed
 *.pid.lock
 .lock-wscript
+
+# Generated Notion content (created at build time)
+src/content/notion-content.json
