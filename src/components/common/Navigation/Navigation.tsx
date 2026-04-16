@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getActiveSection } from '../../../lib/navigation';
 import type { NavItem } from '../../../types/navigation';
+import { ThemeToggle } from '../ThemeToggle';
 
 const NAV_ITEMS: NavItem[] = [
   { href: '#about', label: 'About' },
@@ -44,21 +45,27 @@ export const Navigation = () => {
             WC
           </a>
           
-          {/* Navigation Links */}
-          <div className="flex space-x-8">
-            {NAV_ITEMS.map(item => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`transition-colors font-medium ${
-                  activeSection === item.href.slice(1)
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+          {/* Navigation Links and Theme Toggle */}
+          <div className="flex items-center space-x-6">
+            {/* Navigation Links */}
+            <div className="hidden sm:flex space-x-8">
+              {NAV_ITEMS.map(item => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`transition-colors font-medium ${
+                    activeSection === item.href.slice(1)
+                      ? 'text-blue-600 dark:text-blue-400'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </div>
         </div>
       </div>

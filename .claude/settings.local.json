@@ -30,7 +30,14 @@
       "Bash(git pull:*)",
       "Bash(git merge:*)",
       "Bash(git rm:*)",
-      "Bash(npm ci:*)"
+      "Bash(npm ci:*)",
+      "Bash(mkdir:*)",
+      "Bash(xargs ls:*)",
+      "Bash(npm run prebuild:*)",
+      "Bash(npm ls:*)",
+      "Bash(node -e:*)",
+      "Bash(npx tsx:*)",
+      "Bash(git show:*)"
     ],
     "deny": [],
     "ask": []

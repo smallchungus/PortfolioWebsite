@@ -1,32 +1,9 @@
 import { Badge } from '../../ui/Badge'
-
-interface ProjectData {
-  id: string
-  title: string
-  description: string
-  impact: string
-  techStack: string[]
-  githubUrl?: string
-  liveUrl?: string
-  featured?: boolean
-}
-
-const PROJECT_DATA: ProjectData[] = [
-  {
-    id: 'portfolio',
-    title: 'Portfolio Website',
-    description: 'Modern, minimal portfolio with dark mode and 95+ Lighthouse score',
-    impact: 'Built with React, TypeScript, and TDD practices',
-    techStack: ['React', 'TypeScript', 'Tailwind', 'Vite'],
-    githubUrl: 'https://github.com/smallchungus/PortfolioWebsite',
-    liveUrl: 'https://willchennn.com',
-    featured: true
-  }
-]
+import { projects } from '@/content'
 
 export const Projects = () => {
   return (
-    <section 
+    <section
       id="projects"
       className="py-20 px-6 max-w-7xl mx-auto"
       role="region"
@@ -38,11 +15,11 @@ export const Projects = () => {
       </h2>
 
       {/* Projects Grid */}
-      <div 
+      <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         data-testid="projects-grid"
       >
-        {PROJECT_DATA.map((project) => (
+        {projects.map((project) => (
           <article
             key={project.id}
             className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200"
@@ -55,7 +32,7 @@ export const Projects = () => {
             </h3>
 
             {/* Project Description */}
-            <p 
+            <p
               className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed"
               data-testid={`project-description-${project.id}`}
             >
@@ -63,17 +40,19 @@ export const Projects = () => {
             </p>
 
             {/* Impact */}
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium">
-              {project.impact}
-            </p>
+            {project.impact && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium">
+                {project.impact}
+              </p>
+            )}
 
             {/* Tech Stack */}
-            <div 
+            <div
               className="mb-6"
               data-testid={`tech-stack-${project.id}`}
             >
               <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
+                {project.technologies.map((tech) => (
                   <Badge key={tech} variant="secondary" size="sm">
                     {tech}
                   </Badge>
@@ -82,30 +61,42 @@ export const Projects = () => {
             </div>
 
             {/* Action Links */}
-            {(project.githubUrl || project.liveUrl) && (
-              <div className="flex gap-4">
-                {project.githubUrl && (
+            {project.links && (
+              <div className="flex flex-col gap-2">
+                {project.links.github && (
                   <a
-                    href={project.githubUrl}
+                    href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 bg-gray-900 dark:bg-blue-600 text-white text-center font-medium rounded hover:bg-gray-800 dark:hover:bg-blue-700 transition-colors duration-200"
+                    className="px-4 py-2 bg-gray-900 dark:bg-blue-600 text-white text-center font-medium rounded hover:bg-gray-800 dark:hover:bg-blue-700 transition-colors duration-200"
                     aria-label={`View ${project.title} source code on GitHub`}
                     tabIndex={0}
                   >
                     GitHub
                   </a>
                 )}
-                {project.liveUrl && (
+                {project.links.live && (
                   <a
-                    href={project.liveUrl}
+                    href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300 text-center font-medium rounded hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300 text-center font-medium rounded hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-200"
                     aria-label={`View ${project.title} live demo`}
                     tabIndex={0}
                   >
-                    Live
+                    Frontend
+                  </a>
+                )}
+                {project.links.contract && (
+                  <a
+                    href={project.links.contract}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 border border-orange-300 dark:border-orange-600 text-orange-700 dark:text-orange-300 text-center font-medium rounded hover:border-orange-400 dark:hover:border-orange-500 transition-colors duration-200"
+                    aria-label={`View ${project.title} smart contract on Etherscan`}
+                    tabIndex={0}
+                  >
+                    Contract
                   </a>
                 )}
               </div>

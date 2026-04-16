@@ -35,11 +35,13 @@ describe('Projects Section', () => {
       expect(heading).toHaveClass('text-3xl', 'md:text-4xl', 'font-bold')
     })
 
-    it('shows only portfolio project', () => {
+    it('shows all featured projects', () => {
       render(<Projects />)
-      
+
       const projectCards = screen.getAllByTestId(/^project-card-/)
-      expect(projectCards).toHaveLength(1) // Only portfolio project
+      expect(projectCards).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
+      expect(screen.getByText('Distributed Task Queue')).toBeInTheDocument()
+      expect(screen.getByText('BurnCoin')).toBeInTheDocument()
       expect(screen.getByText('Portfolio Website')).toBeInTheDocument()
     })
 
@@ -72,9 +74,9 @@ describe('Projects Section', () => {
 
     it('displays portfolio project impact', () => {
       render(<Projects />)
-      
-      // Portfolio project impact
-      expect(screen.getByText('Built with React, TypeScript, and TDD practices')).toBeInTheDocument()
+
+      // Portfolio project impact (from current Notion content)
+      expect(screen.getByText(/Built with TDD practices and Notion-powered content management/i)).toBeInTheDocument()
     })
   })
 
@@ -144,14 +146,14 @@ describe('Projects Section', () => {
   describe('Accessibility Compliance', () => {
     it('uses proper heading hierarchy', () => {
       render(<Projects />)
-      
+
       // Main section heading (h2)
       const mainHeading = screen.getByRole('heading', { level: 2 })
       expect(mainHeading).toBeInTheDocument()
-      
+
       // Project card headings (h3)
       const projectHeadings = screen.getAllByRole('heading', { level: 3 })
-      expect(projectHeadings).toHaveLength(1)
+      expect(projectHeadings).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
     })
 
     it('includes ARIA labels for interactive elements', () => {
@@ -270,15 +272,18 @@ describe('Projects Section', () => {
 
     it('shows tech stack badges for each project', () => {
       render(<Projects />)
-      
+
       const techStacks = screen.getAllByTestId(/^tech-stack-/)
-      expect(techStacks).toHaveLength(1)
-      
-      // Technologies from portfolio project only
+      expect(techStacks).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
+
+      // Technologies from Portfolio project
       expect(screen.getByText('React')).toBeInTheDocument()
-      expect(screen.getByText('TypeScript')).toBeInTheDocument()
-      expect(screen.getByText('Tailwind')).toBeInTheDocument()
+      expect(screen.getAllByText('TypeScript')).toHaveLength(2) // BurnCoin and Portfolio both use TypeScript
+      expect(screen.getByText('Tailwind CSS')).toBeInTheDocument()
       expect(screen.getByText('Vite')).toBeInTheDocument()
+
+      // Technology from Distributed Task Queue
+      expect(screen.getByText('Go')).toBeInTheDocument()
     })
 
     it('includes proper project descriptions', () => {
@@ -293,18 +298,15 @@ describe('Projects Section', () => {
 
   describe('Portfolio Project Content', () => {
 
-    it('displays portfolio project with live links', () => {
+    it('displays portfolio project with github link', () => {
       render(<Projects />)
-      
-      expect(screen.getByText(/Modern, minimal portfolio with dark mode and 95\+ Lighthouse score/i)).toBeInTheDocument()
-      expect(screen.getByText(/Built with React, TypeScript, and TDD practices/i)).toBeInTheDocument()
-      
-      // Should have links to GitHub and live site
-      const githubLink = screen.getByRole('link', { name: /github/i })
-      expect(githubLink).toHaveAttribute('href', 'https://github.com/smallchungus/PortfolioWebsite')
-      
-      const liveLink = screen.getByRole('link', { name: /live/i })
-      expect(liveLink).toHaveAttribute('href', 'https://willchennn.com')
+
+      expect(screen.getByText(/Modern, minimal portfolio with dark mode/i)).toBeInTheDocument()
+      expect(screen.getByText(/Built with TDD practices/i)).toBeInTheDocument()
+
+      // Portfolio project currently only exposes a GitHub link (no live link)
+      const portfolioGithubLink = screen.getByRole('link', { name: /View Portfolio Website source code on GitHub/i })
+      expect(portfolioGithubLink).toHaveAttribute('href', 'https://github.com/smallchungus/PortfolioWebsite')
     })
   })
 
@@ -355,26 +357,21 @@ describe('Projects Section', () => {
 
     it('applies dark mode to impact text', () => {
       render(<Projects />)
-      
-      const impactElement = screen.getByText(/Built with React, TypeScript, and TDD practices/)
+
+      const impactElement = screen.getByText(/Built with TDD practices/i)
       expect(impactElement).toHaveClass('text-gray-500', 'dark:text-gray-400')
     })
 
     it('applies dark mode to action buttons', () => {
       render(<Projects />)
-      
+
+      // All current projects expose only GitHub links; no live ("Frontend") buttons are rendered
       const githubButtons = screen.getAllByText('GitHub')
-      const liveButtons = screen.getAllByText('Live')
-      
+      expect(githubButtons.length).toBeGreaterThan(0)
+
       githubButtons.forEach(button => {
         expect(button).toHaveClass('bg-gray-900', 'dark:bg-blue-600')
         expect(button).toHaveClass('hover:bg-gray-800', 'dark:hover:bg-blue-700')
-      })
-      
-      liveButtons.forEach(button => {
-        expect(button).toHaveClass('border-gray-300', 'dark:border-gray-600')
-        expect(button).toHaveClass('text-gray-900', 'dark:text-gray-300')
-        expect(button).toHaveClass('hover:border-gray-400', 'dark:hover:border-gray-500')
       })
     })
 
