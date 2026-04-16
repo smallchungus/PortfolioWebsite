@@ -9,15 +9,13 @@ export const SITE_CONFIG = {
   creator: '@willchennn'
 } as const
 
+export const RESUME_PATH = '/WillChen_Resume.pdf'
+
 export const CONTACT_INFO = {
   email: 'wchen1396@gmail.com',
   linkedin: 'https://linkedin.com/in/willchenn',
   github: 'https://github.com/smallchungus',
-  location: 'Phoenix, AZ',
-  resume: {
-    url: 'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view',
-    isExternal: true
-  }
+  location: 'Phoenix, AZ'
 } as const
 
 export const SKILLS = {

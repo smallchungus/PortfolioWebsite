@@ -1,5 +1,5 @@
 import React from 'react'
-import { contactInfo } from '@/content'
+import { contactInfo, RESUME_PATH } from '@/content'
 
 interface ContactProps {
   className?: string
@@ -59,7 +59,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
         </div>
         
         <a
-          href={contactInfo.resume.url}
+          href={RESUME_PATH}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="View Will Chen's resume as PDF"
