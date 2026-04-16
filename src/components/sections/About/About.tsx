@@ -28,8 +28,10 @@ export const About = () => {
             className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl"
             data-testid="professional-summary"
           >
-            Software Engineer at TD Securities building pricing models and trading platforms.
-            Previously DevOps Engineer at Hackensack Meridian Health. Currently pursuing MS Analytics at Georgia Tech.
+            Data Engineer at Viatris building production ETL pipelines on AWS for USDA federal contracts.
+            MS Computer Science graduate from Arizona State University (GPA 4.00). Open-source contributor
+            to NVIDIA Isaac Lab and ongoing research assistant at Rutgers Chlamydia Lab. U.S. Citizen with
+            Public Trust Suitability.
           </p>
 
           {/* Education */}

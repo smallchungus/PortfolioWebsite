@@ -138,13 +138,13 @@ export function transformToPortfolioContent(
         github:
           contactItem.tags.find((t) => t.includes('github')) ||
           'https://github.com/smallchungus',
-        location: contactItem.company || 'Phoenix, AZ'
+        location: contactItem.company || 'Newark, NJ'
       }
     : {
         email: 'wchen1396@gmail.com',
         linkedin: 'https://linkedin.com/in/willchenn',
         github: 'https://github.com/smallchungus',
-        location: 'Phoenix, AZ'
+        location: 'Newark, NJ'
       }
 
   // Transform skills - group by title (category name)
@@ -204,15 +204,10 @@ export function transformToPortfolioContent(
         description: heroItem.impact || ''
       }
     : {
-        roles: [
-          'Software Engineer',
-          'Full-Stack Developer',
-          'MS CS Student @ ASU',
-          'May 2025 Graduate'
-        ],
-        techStack: ['React', 'TypeScript', 'Python', 'Node.js', 'SQL'],
+        roles: ['Software Engineer', 'Data Engineer', 'MS CS @ ASU'],
+        techStack: ['Python', 'Go', 'SQL', 'AWS', 'Docker', 'Kubernetes'],
         description:
-          'Building scalable applications and solving complex problems with modern technologies.'
+          'Building production-grade ETL pipelines and distributed systems. Passionate about data infrastructure, cloud-native tooling, and reliable engineering at scale.'
       }
 
   return {

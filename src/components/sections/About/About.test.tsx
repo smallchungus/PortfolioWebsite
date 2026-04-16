@@ -49,8 +49,8 @@ describe('About Section', () => {
       const skillsGrid = screen.getByTestId('skills-grid')
       expect(skillsGrid).toBeInTheDocument()
       
-      // Should have skill categories
-      const categories = ['Languages', 'Backend', 'Frontend', 'Cloud & DevOps']
+      // Should have skill categories from current Notion content
+      const categories = ['Languages', 'Databases', 'Cloud & DevOps', 'Observability & Tools']
       categories.forEach(category => {
         expect(screen.getByText(category)).toBeInTheDocument()
       })
@@ -73,9 +73,10 @@ describe('About Section', () => {
       const education = screen.getByTestId('education-section')
       expect(education).toBeInTheDocument()
 
-      // Should show one CS degree (Rutgers) and one Analytics degree (Georgia Tech)
-      expect(screen.getByText(/Computer Science/i)).toBeInTheDocument()
-      expect(screen.getAllByText(/Analytics/i).length).toBeGreaterThanOrEqual(1)
+      // Should show MS CS @ ASU and BA CS/Psych @ Rutgers
+      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(2)
+      expect(screen.getAllByText(/Arizona State/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Rutgers/i).length).toBeGreaterThanOrEqual(1)
     })
   })
 
@@ -274,21 +275,21 @@ describe('About Section', () => {
       const summary = screen.getByTestId('professional-summary')
       const text = summary.textContent || ''
 
-      // Should mention key aspects
-      expect(text).toMatch(/software engineer/i)
-      expect(text).toMatch(/TD Securities/i)
-      expect(text).toMatch(/Georgia Tech/i)
+      // Should mention key DE narrative points
+      expect(text).toMatch(/data engineer/i)
+      expect(text).toMatch(/Viatris/i)
+      expect(text).toMatch(/Arizona State University/i)
     })
 
     it('shows organized technical skills', () => {
       render(<About />)
 
-      // Sample of skills from current Notion content across categories
+      // Sample of skills from current DE resume Notion content across categories
       const expectedSkills = [
-        'Python', 'Java', 'Go', 'JavaScript', 'TypeScript', 'SQL',
-        'Spring Boot', 'Node.js', 'PostgreSQL', 'Redis',
-        'React', 'Redux', 'Tailwind CSS',
-        'Docker', 'Kubernetes', 'Grafana'
+        'Python', 'Go', 'SQL', 'JavaScript',
+        'PostgreSQL', 'Redis', 'Amazon Redshift',
+        'AWS Glue', 'AWS Lambda', 'Docker', 'Kubernetes',
+        'Datadog', 'GitHub Actions'
       ]
 
       expectedSkills.forEach(skill => {
@@ -313,9 +314,9 @@ describe('About Section', () => {
       const education = screen.getByTestId('education-section')
       expect(education).toBeInTheDocument()
 
-      // Should include a CS degree and an Analytics degree (may appear in summary too)
-      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(1)
-      expect(screen.getAllByText(/Analytics/i).length).toBeGreaterThanOrEqual(1)
+      // Should include MS CS @ ASU and BA CS/Psych @ Rutgers
+      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(2)
+      expect(screen.getAllByText(/Arizona State/i).length).toBeGreaterThanOrEqual(1)
     })
   })
 
@@ -323,9 +324,9 @@ describe('About Section', () => {
     it('displays correct bio from resume', () => {
       render(<About />)
 
-      // Current Notion content: MS Analytics @ Georgia Tech, BA CS @ Rutgers
-      expect(screen.getByText(/Master of Science in Analytics/i)).toBeInTheDocument()
-      expect(screen.getByText(/Georgia Institute of Technology/i)).toBeInTheDocument()
+      // Current Notion content (DE variant): MS CS @ ASU, BA CS @ Rutgers
+      expect(screen.getByText(/Master of Science in Computer Science/i)).toBeInTheDocument()
+      expect(screen.getAllByText(/Arizona State University/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getByText(/Bachelor of Arts in Computer Science/i)).toBeInTheDocument()
       expect(screen.getByText(/Rutgers University/i)).toBeInTheDocument()
     })
@@ -333,36 +334,36 @@ describe('About Section', () => {
     it('shows relevant experience highlights', () => {
       render(<About />)
 
-      // Current experience: TD Securities (x2 roles) + Hackensack Meridian Health.
-      // TD Securities also appears in the professional summary, so expect at least 2.
-      expect(screen.getAllByText(/TD Securities/i).length).toBeGreaterThanOrEqual(2)
-      expect(screen.getAllByText(/Hackensack Meridian Health/i).length).toBeGreaterThanOrEqual(1)
-      expect(screen.getAllByText(/pricing models/i).length).toBeGreaterThanOrEqual(1)
+      // Current experience: Viatris Data Engineer + Rutgers Lab RA + Isaac Lab (NVIDIA).
+      // Viatris also appears in the professional summary, so expect at least 2.
+      expect(screen.getAllByText(/Viatris/i).length).toBeGreaterThanOrEqual(2)
+      expect(screen.getAllByText(/Rutgers Chlamydia Lab/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Isaac Lab/i).length).toBeGreaterThanOrEqual(1)
     })
 
     it('displays specific experience details', () => {
       render(<About />)
 
-      // TD Securities Intern role
-      expect(screen.getByText(/DataMart/i)).toBeInTheDocument()
-      expect(screen.getByText(/200\+ investment banking/i)).toBeInTheDocument()
-      expect(screen.getByText(/35%/i)).toBeInTheDocument()
+      // Viatris Data Engineer role
+      expect(screen.getAllByText(/ETL pipelines/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/USDA/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Redshift/i).length).toBeGreaterThanOrEqual(1)
 
-      // TD Securities full-time role
-      expect(screen.getByText(/interest rate swaps/i)).toBeInTheDocument()
+      // Rutgers Lab RA role
+      expect(screen.getByText(/89% accuracy/i)).toBeInTheDocument()
 
-      // Hackensack role
-      expect(screen.getByText(/Grafana dashboards/i)).toBeInTheDocument()
+      // Isaac Lab role
+      expect(screen.getByText(/reinforcement learning/i)).toBeInTheDocument()
     })
 
     it('shows correct technology stack', () => {
       render(<About />)
 
       const expectedTech = [
-        'Python', 'Java', 'Go', 'JavaScript', 'TypeScript', 'SQL',
-        'Spring Boot', 'Node.js', 'PostgreSQL', 'Redis',
-        'React', 'Redux', 'Tailwind CSS',
-        'Docker', 'Kubernetes', 'Grafana'
+        'Python', 'Go', 'SQL', 'JavaScript',
+        'PostgreSQL', 'Redis', 'Amazon Redshift',
+        'AWS Glue', 'AWS Lambda', 'Step Functions',
+        'Docker', 'Kubernetes', 'Datadog'
       ]
 
       expectedTech.forEach(tech => {

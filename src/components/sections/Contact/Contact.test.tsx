@@ -11,8 +11,8 @@ describe('Contact Section', () => {
 
   it('displays seeking opportunities message', () => {
     render(<Contact />)
-    expect(screen.getByText(/currently seeking full-time opportunities/i)).toBeInTheDocument()
-    expect(screen.getByText(/may 2025/i)).toBeInTheDocument()
+    expect(screen.getByText(/open to new/i)).toBeInTheDocument()
+    expect(screen.getByText(/data engineering/i)).toBeInTheDocument()
   })
 
   it('displays contact links with correct href attributes', () => {
@@ -90,7 +90,7 @@ describe('Contact Section', () => {
     it('applies dark mode to description text', () => {
       render(<Contact />)
       
-      const description = screen.getByText(/currently seeking full-time opportunities/i)
+      const description = screen.getByText(/open to new/i)
       expect(description).toHaveClass('text-gray-600', 'dark:text-gray-300')
     })
 
@@ -123,7 +123,7 @@ describe('Contact Section', () => {
       
       // Text should have appropriate contrast
       const heading = screen.getByRole('heading')
-      const description = screen.getByText(/seeking/i)
+      const description = screen.getByText(/open to new/i)
       
       expect(heading.className).toMatch(/dark:text-white/)
       expect(description.className).toMatch(/dark:text-gray-300/)
