@@ -9,7 +9,12 @@ export const SITE_CONFIG = {
   creator: '@willchennn'
 } as const
 
-export const RESUME_PATH = '/WillChen_Resume.pdf'
+// Compiled on-the-fly from the Overleaf-synced .tex in the resume repo.
+// Every push to github.com/smallchungus/WillChen_Resume03_09_DE triggers
+// a fresh compile on next request.
+// Fallback: '/WillChen_Resume.pdf' (static copy in public/) if latexonline.cc is unavailable.
+export const RESUME_PATH =
+  'https://latexonline.cc/compile?git=https://github.com/smallchungus/WillChen_Resume03_09_DE&target=main.tex'
 
 export const CONTACT_INFO = {
   email: 'wchen1396@gmail.com',
