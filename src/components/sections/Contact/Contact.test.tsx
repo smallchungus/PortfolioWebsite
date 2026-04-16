@@ -31,7 +31,8 @@ describe('Contact Section', () => {
   it('has view resume button with correct href', () => {
     render(<Contact />)
     const resumeBtn = screen.getByText(/view resume/i)
-    expect(resumeBtn).toHaveAttribute('href', '/WillChen_Resume.pdf')
+    const href = resumeBtn.getAttribute('href') || ''
+    expect(href).toContain('latexonline.cc/compile')
     expect(resumeBtn).toHaveAttribute('target', '_blank')
     expect(resumeBtn).toHaveAttribute('rel', 'noopener noreferrer')
   })
