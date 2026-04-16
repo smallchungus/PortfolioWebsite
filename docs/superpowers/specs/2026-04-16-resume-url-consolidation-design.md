@@ -25,7 +25,7 @@ Update workflow after this change: edit `.tex` in Overleaf → download compiled
 
 ## Non-goals
 
-- **Content sync.** Updating Notion or [src/content/fallback-content.json](../../../src/content/fallback-content.json) to reflect the new Data Engineer resume (Newark NJ, Viatris, Isaac Lab, Distributed Task Queue project, etc.) is a separate spec.
+- **Content sync.** Updating Notion or [src/content/fallback-content.json](../../../src/content/fallback-content.json) to reflect the new Data Engineer resume (Newark NJ, Viatrie, Isaac Lab, Distributed Task Queue project, etc.) is a separate spec.
 - **LaTeX CI automation.** Auto-compiling `.tex` → PDF on push to the resume repo was considered and rejected as over-engineered for a resume updated a handful of times a year. Manual download + commit is the accepted workflow.
 - **SEO, UI refresh, other improvements** flagged in conversation. Separate specs.
 

@@ -17,7 +17,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
         <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Let's Connect</h2>
         
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-          I'm currently seeking full-time opportunities starting May 2025.
+          Open to new data engineering and software engineering roles. Let's chat.
         </p>
         
         <div className="flex justify-center gap-6 mb-8">

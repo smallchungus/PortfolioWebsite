@@ -9,74 +9,69 @@ const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!
 
 const notion = new Client({ auth: NOTION_API_KEY })
 
-// Content to populate - Updated with latest resume
+// Content to populate - Sourced from WillChen_Resume03_09_DE (Data Engineer variant)
 const CONTENT_ROWS = [
   // Hero
   {
     title: 'Hero',
     section: 'hero',
     order: 1,
-    description: 'Python, Java, Go, TypeScript, React',
-    tags: ['Software Engineer', 'Full-Stack Developer', 'MS Analytics @ Georgia Tech'],
-    impact: 'Building scalable applications and solving complex problems with modern technologies. Passionate about clean code, performance, and exceptional user experiences.'
+    description: 'Python, Go, SQL, AWS, Docker, Kubernetes',
+    tags: ['Software Engineer', 'Data Engineer', 'MS CS @ ASU'],
+    impact:
+      "Building production-grade ETL pipelines and distributed systems. Passionate about data infrastructure, cloud-native tooling, and reliable engineering at scale."
   },
-  // Skills
+  // Skills (grouped from resume's "Languages & Databases" and "Cloud & Tools" sections)
   {
     title: 'Languages',
     section: 'skills',
     order: 10,
-    tags: ['Python', 'Java', 'Go', 'JavaScript', 'TypeScript', 'SQL']
+    tags: ['Python', 'Go', 'SQL', 'JavaScript']
   },
   {
-    title: 'Backend',
+    title: 'Databases',
     section: 'skills',
     order: 11,
-    tags: ['Spring Boot', 'Node.js', 'PostgreSQL', 'Redis', 'Apache Kafka']
-  },
-  {
-    title: 'Frontend',
-    section: 'skills',
-    order: 12,
-    tags: ['React', 'Redux', 'Tailwind CSS', 'HTML/CSS']
+    tags: ['PostgreSQL', 'Redis', 'Amazon Redshift']
   },
   {
     title: 'Cloud & DevOps',
     section: 'skills',
-    order: 13,
-    tags: ['Docker', 'Kubernetes', 'Azure DevOps', 'Grafana', 'CI/CD']
+    order: 12,
+    tags: [
+      'AWS Glue',
+      'AWS Lambda',
+      'Step Functions',
+      'S3',
+      'Docker',
+      'Kubernetes'
+    ]
   },
   {
-    title: 'Tools',
+    title: 'Observability & Tools',
     section: 'skills',
-    order: 14,
-    tags: ['Git', 'Bloomberg Terminal', 'Reuters', 'IntelliJ IDEA']
+    order: 13,
+    tags: ['Datadog', 'Tableau', 'GitHub Actions', 'Git']
   },
   // Projects
   {
     title: 'Distributed Task Queue',
     section: 'projects',
     order: 20,
-    description: 'Production-ready async job system with Redis backend supporting delayed execution, exponential backoff retries, priority queues, and configurable worker pools',
+    description:
+      'Task queue in Go with Redis for job scheduling, delayed jobs, exponential-backoff retries, and PostgreSQL-backed status tracking with a real-time metrics dashboard',
     tags: ['Go', 'Redis', 'PostgreSQL', 'Docker', 'Kubernetes'],
     url: 'https://github.com/smallchungus',
-    impact: 'Deployed to Kubernetes with horizontal pod autoscaling, handling 10K+ jobs/hour with graceful shutdown and job recovery',
-    featured: true
-  },
-  {
-    title: 'BurnCoin',
-    section: 'projects',
-    order: 21,
-    description: 'Deflationary ERC-20 token that burns 1% on every transfer with community daily burns',
-    tags: ['Solidity', 'Hardhat', 'Next.js', 'ethers.js', 'TypeScript'],
-    url: 'https://github.com/smallchungus/BurnCoin',
-    impact: 'Smart contract deployed on Ethereum Sepolia with 20+ comprehensive tests',
+    impact:
+      'Deployed to Kubernetes with separate deployments for API server, worker pods, and databases; horizontal pod autoscaling based on queue depth',
     featured: true
   },
   {
     title: 'Portfolio Website',
     section: 'projects',
-    order: 22,
-    description: 'Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score',
+    order: 21,
+    description:
+      'Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     url: 'https://github.com/smallchungus/PortfolioWebsite',
     impact: 'Built with TDD practices and Notion-powered content management',
@@ -84,47 +79,59 @@ const CONTENT_ROWS = [
   },
   // Experience
   {
-    title: 'Software Engineer',
+    title: 'Data Engineer',
     section: 'experience',
     order: 30,
-    description: 'Built pricing models for interest rate swaps, bonds, and FX derivatives using Python and Java Spring Boot. Developed React/Redux frontend for Transparency Pricing Platform. Migrated 13 services to distributed architecture. Designed Apache Kafka pipelines for Bloomberg and Reuters market data feeds.',
-    tags: ['Python', 'Java', 'Spring Boot', 'React', 'Redux', 'Kafka'],
-    company: 'TD Securities',
-    duration: 'August 2025 - Present'
+    description:
+      'Designed and deployed 50+ end-to-end ETL pipelines across dev, test, and prod using Python and AWS Glue, ingesting CSV/Parquet from S3 into Amazon Redshift; owned 150+ pipelines serving downstream USDA data consumers. Managed 200+ tables across 3 Redshift environments with version-controlled migrations. Built automated data quality checks flagging whitespace errors, type mismatches, and malformed records across multiple cloud providers. Orchestrated multi-step workflows with AWS Lambda and Step Functions. Implemented monitoring with Datadog across 150+ pipelines. Maintained GitHub Actions CI/CD with YAML configs across all pipeline environments.',
+    tags: [
+      'Python',
+      'AWS Glue',
+      'AWS Lambda',
+      'Step Functions',
+      'Amazon Redshift',
+      'S3',
+      'Datadog',
+      'GitHub Actions'
+    ],
+    company: 'Viatrie (Federal Contract)',
+    duration: 'April 2024 - April 2026'
   },
   {
-    title: 'DevOps Engineer',
+    title: 'Research Assistant',
     section: 'experience',
     order: 31,
-    description: 'Built Python automation reducing manual checks by 70%. Implemented CI/CD pipelines accelerating releases from monthly to weekly. Created Grafana dashboards for 200+ production servers. Developed ETL workflows for clinical reporting.',
-    tags: ['Python', 'Azure DevOps', 'Grafana', 'CI/CD', 'ETL'],
-    company: 'Hackensack Meridian Health',
-    duration: 'August 2024 - July 2025'
+    description:
+      "Improved unknown protein classification to 89% accuracy by analyzing mass spectrometry data with Python and machine learning libraries to identify patterns in bacterial samples. Ensured integrity of 50TB protein research database through automated weekly backups and validation checks catching corrupted uploads before downstream analysis.",
+    tags: ['Python', 'Machine Learning', 'Mass Spectrometry'],
+    company: 'Rutgers Chlamydia Lab',
+    duration: 'August 2022 - Present'
   },
   {
-    title: 'Software Engineer Intern',
+    title: 'Open Source Contributor',
     section: 'experience',
     order: 32,
-    description: 'Developed features for DataMart internal application using Java Spring Boot and JavaScript. Built autocomplete search reducing expense categorization time by 35%. Enhanced backend systems supporting 200+ investment banking professionals.',
-    tags: ['Java', 'Spring Boot', 'JavaScript', 'PostgreSQL'],
-    company: 'TD Securities',
-    duration: 'June 2024 - August 2024'
+    description:
+      "Contributed to Isaac Lab, NVIDIA's open-source GPU-accelerated framework for reinforcement learning and imitation learning across multiple robot embodiments. Developed modular Python-based simulation environments for manipulator and AMR tasks using PhysX, improving sim-to-real transfer outcomes.",
+    tags: ['Python', 'Reinforcement Learning', 'PhysX', 'Simulation'],
+    company: 'Isaac Lab (NVIDIA)',
+    duration: 'January 2024 - Present'
   },
   // Education
   {
-    title: 'Master of Science in Analytics',
+    title: 'Master of Science in Computer Science',
     section: 'education',
     order: 40,
-    company: 'Georgia Institute of Technology',
-    status: 'Current Student',
-    duration: 'January 2026 - Present'
+    company: 'Arizona State University',
+    status: 'GPA 4.00',
+    duration: 'January 2024 - May 2025'
   },
   {
     title: 'Bachelor of Arts in Computer Science and Psychology',
     section: 'education',
     order: 41,
     company: 'Rutgers University',
-    status: 'GPA 3.49',
+    status: 'GPA 3.44',
     duration: 'May 2022'
   }
 ]

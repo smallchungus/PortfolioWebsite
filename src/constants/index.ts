@@ -3,7 +3,8 @@
 export const SITE_CONFIG = {
   name: 'Will Chen',
   title: 'Will Chen - Software Engineer',
-  description: 'Master\'s in Computer Science student at Arizona State University. Software engineer with experience in investment banking and data engineering.',
+  description:
+    'Data Engineer with MS in Computer Science from Arizona State University. Building production ETL pipelines on AWS, open-source contributor to NVIDIA Isaac Lab.',
   url: 'https://willchennn.com',
   ogImage: 'https://willchennn.com/og-image.jpg',
   creator: '@willchennn'
@@ -20,7 +21,7 @@ export const CONTACT_INFO = {
   email: 'wchen1396@gmail.com',
   linkedin: 'https://linkedin.com/in/willchenn',
   github: 'https://github.com/smallchungus',
-  location: 'Phoenix, AZ'
+  location: 'Newark, NJ'
 } as const
 
 export const SKILLS = {
