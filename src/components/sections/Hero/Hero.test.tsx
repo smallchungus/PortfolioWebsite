@@ -47,7 +47,7 @@ describe('Hero Section', () => {
     it('displays all required tech stack badges', () => {
       render(<Hero />)
       
-      const expectedTechs = ['React', 'TypeScript', 'Python', 'Node.js', 'SQL']
+      const expectedTechs = ['Python', 'Java', 'Go', 'TypeScript', 'React']
       
       expectedTechs.forEach(tech => {
         expect(screen.getByText(tech)).toBeInTheDocument()
