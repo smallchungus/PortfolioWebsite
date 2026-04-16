@@ -138,23 +138,13 @@ export function transformToPortfolioContent(
         github:
           contactItem.tags.find((t) => t.includes('github')) ||
           'https://github.com/smallchungus',
-        location: contactItem.company || 'Phoenix, AZ',
-        resume: {
-          url:
-            contactItem.url ||
-            'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view',
-          isExternal: true
-        }
+        location: contactItem.company || 'Phoenix, AZ'
       }
     : {
         email: 'wchen1396@gmail.com',
         linkedin: 'https://linkedin.com/in/willchenn',
         github: 'https://github.com/smallchungus',
-        location: 'Phoenix, AZ',
-        resume: {
-          url: 'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view',
-          isExternal: true
-        }
+        location: 'Phoenix, AZ'
       }
 
   // Transform skills - group by title (category name)
