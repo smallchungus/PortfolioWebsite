@@ -39,9 +39,8 @@ describe('Projects Section', () => {
       render(<Projects />)
 
       const projectCards = screen.getAllByTestId(/^project-card-/)
-      expect(projectCards).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
+      expect(projectCards).toHaveLength(2) // Distributed Task Queue, Portfolio
       expect(screen.getByText('Distributed Task Queue')).toBeInTheDocument()
-      expect(screen.getByText('BurnCoin')).toBeInTheDocument()
       expect(screen.getByText('Portfolio Website')).toBeInTheDocument()
     })
 
@@ -153,7 +152,7 @@ describe('Projects Section', () => {
 
       // Project card headings (h3)
       const projectHeadings = screen.getAllByRole('heading', { level: 3 })
-      expect(projectHeadings).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
+      expect(projectHeadings).toHaveLength(2) // Distributed Task Queue, Portfolio
     })
 
     it('includes ARIA labels for interactive elements', () => {
@@ -274,11 +273,11 @@ describe('Projects Section', () => {
       render(<Projects />)
 
       const techStacks = screen.getAllByTestId(/^tech-stack-/)
-      expect(techStacks).toHaveLength(3) // Distributed Task Queue, BurnCoin, Portfolio
+      expect(techStacks).toHaveLength(2) // Distributed Task Queue, Portfolio
 
       // Technologies from Portfolio project
       expect(screen.getByText('React')).toBeInTheDocument()
-      expect(screen.getAllByText('TypeScript')).toHaveLength(2) // BurnCoin and Portfolio both use TypeScript
+      expect(screen.getByText('TypeScript')).toBeInTheDocument()
       expect(screen.getByText('Tailwind CSS')).toBeInTheDocument()
       expect(screen.getByText('Vite')).toBeInTheDocument()
 

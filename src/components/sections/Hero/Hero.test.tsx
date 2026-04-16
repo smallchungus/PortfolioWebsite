@@ -47,7 +47,7 @@ describe('Hero Section', () => {
     it('displays all required tech stack badges', () => {
       render(<Hero />)
       
-      const expectedTechs = ['Python', 'Java', 'Go', 'TypeScript', 'React']
+      const expectedTechs = ['Python', 'Go', 'SQL', 'AWS', 'Docker', 'Kubernetes']
       
       expectedTechs.forEach(tech => {
         expect(screen.getByText(tech)).toBeInTheDocument()
@@ -355,7 +355,7 @@ describe('Hero Section', () => {
     it('applies dark mode to description text', () => {
       render(<Hero />)
       
-      const description = screen.getByText(/Building scalable applications/i)
+      const description = screen.getByText(/ETL pipelines/i)
       expect(description).toHaveClass('text-gray-600', 'dark:text-gray-400')
     })
 
@@ -384,7 +384,7 @@ describe('Hero Section', () => {
       
       // Check all text elements have proper dark mode contrast
       const heading = screen.getByText('Will Chen')
-      const description = screen.getByText(/Building scalable applications/i)
+      const description = screen.getByText(/ETL pipelines/i)
       
       expect(heading.className).toMatch(/dark:text-white/)
       expect(description.className).toMatch(/dark:text-gray-[34]00/)
