@@ -52,9 +52,9 @@
   ],
   "experience": [
     {
-      "id": "de-viatris",
+      "id": "de-viatrie",
       "title": "Data Engineer",
-      "company": "Viatris (Federal Contract)",
+      "company": "Viatrie (Federal Contract)",
       "description": "Designed and deployed 50+ end-to-end ETL pipelines across dev, test, and prod using Python and AWS Glue, ingesting CSV/Parquet from S3 into Amazon Redshift; owned 150+ pipelines serving downstream USDA data consumers. Managed 200+ tables across 3 Redshift environments with version-controlled migrations. Built automated data quality checks flagging whitespace errors, type mismatches, and malformed records. Orchestrated multi-step workflows with AWS Lambda and Step Functions. Implemented monitoring with Datadog across 150+ pipelines.",
       "duration": "April 2024 - April 2026",
       "technologies": [

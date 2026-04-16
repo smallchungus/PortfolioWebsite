@@ -277,7 +277,7 @@ describe('About Section', () => {
 
       // Should mention key DE narrative points
       expect(text).toMatch(/data engineer/i)
-      expect(text).toMatch(/Viatris/i)
+      expect(text).toMatch(/Viatrie/i)
       expect(text).toMatch(/Arizona State University/i)
     })
 
@@ -334,9 +334,9 @@ describe('About Section', () => {
     it('shows relevant experience highlights', () => {
       render(<About />)
 
-      // Current experience: Viatris Data Engineer + Rutgers Lab RA + Isaac Lab (NVIDIA).
-      // Viatris also appears in the professional summary, so expect at least 2.
-      expect(screen.getAllByText(/Viatris/i).length).toBeGreaterThanOrEqual(2)
+      // Current experience: Viatrie Data Engineer + Rutgers Lab RA + Isaac Lab (NVIDIA).
+      // Viatrie also appears in the professional summary, so expect at least 2.
+      expect(screen.getAllByText(/Viatrie/i).length).toBeGreaterThanOrEqual(2)
       expect(screen.getAllByText(/Rutgers Chlamydia Lab/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Isaac Lab/i).length).toBeGreaterThanOrEqual(1)
     })
@@ -344,7 +344,7 @@ describe('About Section', () => {
     it('displays specific experience details', () => {
       render(<About />)
 
-      // Viatris Data Engineer role
+      // Viatrie Data Engineer role
       expect(screen.getAllByText(/ETL pipelines/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/USDA/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Redshift/i).length).toBeGreaterThanOrEqual(1)

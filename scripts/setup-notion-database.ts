@@ -94,7 +94,7 @@ const CONTENT_ROWS = [
       'Datadog',
       'GitHub Actions'
     ],
-    company: 'Viatris (Federal Contract)',
+    company: 'Viatrie (Federal Contract)',
     duration: 'April 2024 - April 2026'
   },
   {
