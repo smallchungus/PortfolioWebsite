@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Navigation } from "./components/common/Navigation";
 import { Favicon } from "./components/common/Favicon";
 import { Hero } from "./components/sections/Hero";
@@ -18,6 +19,7 @@ const App = () => {
           <Contact />
         </main>
       </div>
+      <SpeedInsights />
     </>
   );
 };
