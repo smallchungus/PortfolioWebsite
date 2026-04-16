@@ -39,11 +39,7 @@ export const ContactInfoSchema = z.object({
   email: z.string().email(),
   linkedin: z.string().url(),
   github: z.string().url(),
-  location: z.string(),
-  resume: z.object({
-    url: z.string().url(),
-    isExternal: z.boolean()
-  })
+  location: z.string()
 })
 
 // Skills by category

@@ -72,9 +72,9 @@ describe('Hero Section', () => {
       await user.click(viewProjectsBtn)
       expect(mockScrollTo).toHaveBeenCalled()
 
-      // Test View Resume button opens Google Drive link
+      // Test View Resume button opens the static PDF
       await user.click(viewResumeBtn)
-      expect(mockOpen).toHaveBeenCalledWith('https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view', '_blank')
+      expect(mockOpen).toHaveBeenCalledWith('/WillChen_Resume.pdf', '_blank')
     })
   })
 

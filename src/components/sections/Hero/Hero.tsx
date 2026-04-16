@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTypingAnimation } from '../../../hooks/useTypingAnimation'
 import { Badge } from '../../ui/Badge'
-import { contactInfo, heroContent } from '@/content'
+import { heroContent, RESUME_PATH } from '@/content'
 
 export const Hero = () => {
   const { displayedText, prefersReducedMotion } = useTypingAnimation({
@@ -25,8 +25,7 @@ export const Hero = () => {
   }, [])
 
   const handleViewResume = useCallback(() => {
-    // Open resume in new tab (Google Drive)
-    window.open(contactInfo.resume.url, '_blank')
+    window.open(RESUME_PATH, '_blank')
   }, [])
 
   const techBadges = useMemo(() =>

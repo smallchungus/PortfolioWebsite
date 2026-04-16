@@ -31,7 +31,7 @@ describe('Contact Section', () => {
   it('has view resume button with correct href', () => {
     render(<Contact />)
     const resumeBtn = screen.getByText(/view resume/i)
-    expect(resumeBtn).toHaveAttribute('href', 'https://drive.google.com/file/d/1a21bg5sKo2-TNZ1SGH0_RRnyEjPxxYhV/view')
+    expect(resumeBtn).toHaveAttribute('href', '/WillChen_Resume.pdf')
     expect(resumeBtn).toHaveAttribute('target', '_blank')
     expect(resumeBtn).toHaveAttribute('rel', 'noopener noreferrer')
   })

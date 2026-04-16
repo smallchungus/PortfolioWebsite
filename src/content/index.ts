@@ -23,6 +23,7 @@ export const projects = content.projects
 export const experience = content.experience
 export const education = content.education
 export const heroContent = content.hero
+export { RESUME_PATH } from '@/constants'
 
 // Re-export types
 export type {
