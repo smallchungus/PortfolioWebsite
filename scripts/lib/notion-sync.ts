@@ -74,8 +74,16 @@ export async function createPage(
   }
 
   if (row.description) {
+    // Split long descriptions across multiple rich_text segments:
+    // - Notion's rich_text limit is 2000 chars per segment, so a 6-bullet
+    //   paragraph can silently truncate if sent in one segment.
+    // - Splitting on "\n" also preserves bullet line-breaks reliably across
+    //   the Notion API round-trip, which collapsing into one segment does not.
+    const parts = row.description.split('\n')
     properties.Description = {
-      rich_text: [{ text: { content: row.description } }]
+      rich_text: parts.map((part, i) => ({
+        text: { content: i < parts.length - 1 ? `${part}\n` : part }
+      }))
     }
   }
   if (row.tags && row.tags.length > 0) {

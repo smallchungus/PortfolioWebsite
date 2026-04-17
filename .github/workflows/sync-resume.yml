@@ -23,10 +23,10 @@ on:
   repository_dispatch:
     types: [resume-updated]
   schedule:
-    # Every 30 minutes. GitHub may delay scheduled runs under load; that's OK
-    # because this is non-blocking — the site still builds fine from existing
-    # Notion content while the sync catches up.
-    - cron: '*/30 * * * *'
+    # Every 5 minutes (GitHub's minimum interval) as a safety net for when
+    # the push-triggered repository_dispatch from the resume repo doesn't fire
+    # for any reason.
+    - cron: '*/5 * * * *'
 
 jobs:
   sync:
