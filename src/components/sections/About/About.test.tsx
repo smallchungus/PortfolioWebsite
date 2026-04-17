@@ -276,10 +276,10 @@ describe('About Section', () => {
       const summary = screen.getByTestId('professional-summary')
       const text = summary.textContent || ''
 
-      // Should mention key DE narrative points
-      expect(text).toMatch(/data engineer/i)
-      expect(text).toMatch(/Viatrie/i)
-      expect(text).toMatch(/Georgia Tech/i)
+      // Summary is now data-driven from heroContent.description — assert
+      // against themes rather than specific company/school names, since those
+      // live in the experience and education cards.
+      expect(text).toMatch(/ETL pipelines|distributed systems|data infrastructure/i)
     })
 
     it('shows organized technical skills', () => {
@@ -336,8 +336,7 @@ describe('About Section', () => {
       render(<About />)
 
       // Current experience: Viatrie Data Engineer + Rutgers Lab RA + Isaac Lab (NVIDIA).
-      // Viatrie also appears in the professional summary, so expect at least 2.
-      expect(screen.getAllByText(/Viatrie/i).length).toBeGreaterThanOrEqual(2)
+      expect(screen.getAllByText(/Viatrie/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Rutgers Chlamydia Lab/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Isaac Lab/i).length).toBeGreaterThanOrEqual(1)
     })

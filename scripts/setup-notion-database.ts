@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
+/**
+ * Manual Notion seed script. Hardcoded content — use this for initial
+ * setup or when the resume repo isn't reachable. For ongoing sync,
+ * prefer sync-from-resume.ts which parses the live LaTeX source.
+ */
 import { config } from 'dotenv'
 config({ path: '.env.local' })
 
-import { Client } from '@notionhq/client'
-
-const NOTION_API_KEY = process.env.NOTION_API_KEY!
-const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!
-
-const notion = new Client({ auth: NOTION_API_KEY })
+import { replaceAllContent } from './lib/notion-sync.js'
+import type { ContentRow } from './lib/parse-resume-tex.js'
 
 // Content to populate - Sourced from latest WillChen_Resume03_09_DE main.tex
-const CONTENT_ROWS = [
+const CONTENT_ROWS: ContentRow[] = [
   // Hero
   {
     title: 'Hero',
@@ -150,143 +151,12 @@ const CONTENT_ROWS = [
   }
 ]
 
-async function updateDatabaseSchema() {
-  console.log('Updating database schema...')
-
-  try {
-    await notion.databases.update({
-      database_id: NOTION_DATABASE_ID,
-      properties: {
-        Section: {
-          select: {
-            options: [
-              { name: 'siteConfig', color: 'gray' },
-              { name: 'contact', color: 'blue' },
-              { name: 'skills', color: 'green' },
-              { name: 'projects', color: 'purple' },
-              { name: 'experience', color: 'orange' },
-              { name: 'education', color: 'yellow' },
-              { name: 'hero', color: 'red' }
-            ]
-          }
-        },
-        Order: { number: {} },
-        Description: { rich_text: {} },
-        Tags: { multi_select: { options: [] } },
-        URL: { url: {} },
-        Duration: { rich_text: {} },
-        Impact: { rich_text: {} },
-        Company: { rich_text: {} },
-        Status: { rich_text: {} },
-        Featured: { checkbox: {} }
-      }
-    })
-    console.log('Database schema updated!')
-  } catch (error) {
-    console.error('Error updating schema:', error)
-    throw error
-  }
-}
-
-async function clearExistingPages() {
-  console.log('Clearing existing pages...')
-
-  const response = await notion.databases.query({
-    database_id: NOTION_DATABASE_ID
-  })
-
-  for (const page of response.results) {
-    await notion.pages.update({
-      page_id: page.id,
-      archived: true
-    })
-  }
-
-  console.log(`Archived ${response.results.length} existing pages`)
-}
-
-async function createPage(row: typeof CONTENT_ROWS[0]) {
-  const properties: Record<string, unknown> = {
-    Name: {
-      title: [{ text: { content: row.title } }]
-    },
-    Section: {
-      select: { name: row.section }
-    },
-    Order: {
-      number: row.order
-    }
-  }
-
-  if (row.description) {
-    properties.Description = {
-      rich_text: [{ text: { content: row.description } }]
-    }
-  }
-
-  if (row.tags && row.tags.length > 0) {
-    properties.Tags = {
-      multi_select: row.tags.map(tag => ({ name: tag }))
-    }
-  }
-
-  if (row.url) {
-    properties.URL = { url: row.url }
-  }
-
-  if (row.duration) {
-    properties.Duration = {
-      rich_text: [{ text: { content: row.duration } }]
-    }
-  }
-
-  if (row.impact) {
-    properties.Impact = {
-      rich_text: [{ text: { content: row.impact } }]
-    }
-  }
-
-  if (row.company) {
-    properties.Company = {
-      rich_text: [{ text: { content: row.company } }]
-    }
-  }
-
-  if (row.status) {
-    properties.Status = {
-      rich_text: [{ text: { content: row.status } }]
-    }
-  }
-
-  if (row.featured !== undefined) {
-    properties.Featured = { checkbox: row.featured }
-  }
-
-  await notion.pages.create({
-    parent: { database_id: NOTION_DATABASE_ID },
-    properties: properties as Parameters<typeof notion.pages.create>[0]['properties']
-  })
-}
-
-async function populateDatabase() {
-  console.log('Populating database with content...')
-
-  for (const row of CONTENT_ROWS) {
-    console.log(`  Creating: ${row.title}`)
-    await createPage(row)
-  }
-
-  console.log(`Created ${CONTENT_ROWS.length} pages!`)
-}
-
 async function main() {
-  console.log('Setting up Notion database...\n')
-
-  await updateDatabaseSchema()
-  await clearExistingPages()
-  await populateDatabase()
-
-  console.log('\nDone! Your Notion database is now populated.')
+  console.log('Setting up Notion database from hardcoded seed...\n')
+  const result = await replaceAllContent(CONTENT_ROWS)
+  console.log(
+    `\nDone! Archived ${result.archived} old pages, created ${result.created} new pages.`
+  )
   console.log('Run `npm run prebuild` to fetch the content.')
 }
 
