@@ -9,7 +9,7 @@ const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!
 
 const notion = new Client({ auth: NOTION_API_KEY })
 
-// Content to populate - Sourced from WillChen_Resume03_09_DE (Data Engineer variant)
+// Content to populate - Sourced from latest WillChen_Resume03_09_DE main.tex
 const CONTENT_ROWS = [
   // Hero
   {
@@ -17,41 +17,54 @@ const CONTENT_ROWS = [
     section: 'hero',
     order: 1,
     description: 'Python, Go, SQL, AWS, Docker, Kubernetes',
-    tags: ['Software Engineer', 'Data Engineer', 'MS CS @ ASU'],
+    tags: ['Software Engineer', 'Data Engineer', 'MS Analytics @ Georgia Tech'],
     impact:
       "Building production-grade ETL pipelines and distributed systems. Passionate about data infrastructure, cloud-native tooling, and reliable engineering at scale."
   },
-  // Skills (grouped from resume's "Languages & Databases" and "Cloud & Tools" sections)
+  // Skills — mirror the resume's three categories
   {
-    title: 'Languages',
+    title: 'Languages & Databases',
     section: 'skills',
     order: 10,
-    tags: ['Python', 'Go', 'SQL', 'JavaScript']
+    tags: [
+      'Python',
+      'Go',
+      'SQL',
+      'JavaScript',
+      'TypeScript',
+      'PostgreSQL',
+      'Redis',
+      'Amazon Redshift'
+    ]
   },
   {
-    title: 'Databases',
+    title: 'Cloud & Infrastructure',
     section: 'skills',
     order: 11,
-    tags: ['PostgreSQL', 'Redis', 'Amazon Redshift']
-  },
-  {
-    title: 'Cloud & DevOps',
-    section: 'skills',
-    order: 12,
     tags: [
       'AWS Glue',
       'AWS Lambda',
       'Step Functions',
       'S3',
       'Docker',
-      'Kubernetes'
+      'Kubernetes',
+      'GitHub Actions',
+      'Datadog',
+      'Bash'
     ]
   },
   {
-    title: 'Observability & Tools',
+    title: 'Tooling & Practices',
     section: 'skills',
-    order: 13,
-    tags: ['Datadog', 'Tableau', 'GitHub Actions', 'Git']
+    order: 12,
+    tags: [
+      'CI/CD',
+      'Distributed Systems',
+      'REST APIs',
+      'Observability',
+      'AI-assisted Development',
+      'Technical Documentation'
+    ]
   },
   // Projects
   {
@@ -59,11 +72,11 @@ const CONTENT_ROWS = [
     section: 'projects',
     order: 20,
     description:
-      'Task queue in Go with Redis for job scheduling, delayed jobs, exponential-backoff retries, and PostgreSQL-backed status tracking with a real-time metrics dashboard',
-    tags: ['Go', 'Redis', 'PostgreSQL', 'Docker', 'Kubernetes'],
+      'Distributed task queue in Go using Redis lists with BLPOP for blocking dequeue; processes 5K jobs across 4 workers in ~10 seconds. Worker and scheduler written from scratch instead of pulling in Celery to learn Go concurrency and Redis internals.',
+    tags: ['Go', 'Redis', 'PostgreSQL', 'Docker', 'Kubernetes', 'GitHub Actions'],
     url: 'https://github.com/smallchungus',
     impact:
-      'Deployed to Kubernetes with separate deployments for API server, worker pods, and databases; horizontal pod autoscaling based on queue depth',
+      'Worker crashes handled by 5-second Redis heartbeat; jobs from workers silent for 30+ seconds get requeued by a sweeper (at-least-once delivery without a separate broker). Containerized with Docker, deployed to Kubernetes with HPA on queue depth, CI/CD via GitHub Actions.',
     featured: true
   },
   {
@@ -79,11 +92,11 @@ const CONTENT_ROWS = [
   },
   // Experience
   {
-    title: 'Data Engineer',
+    title: 'Data Engineer (Federal Contract)',
     section: 'experience',
     order: 30,
     description:
-      'Designed and deployed 50+ end-to-end ETL pipelines across dev, test, and prod using Python and AWS Glue, ingesting CSV/Parquet from S3 into Amazon Redshift; owned 150+ pipelines serving downstream USDA data consumers. Managed 200+ tables across 3 Redshift environments with version-controlled migrations. Built automated data quality checks flagging whitespace errors, type mismatches, and malformed records across multiple cloud providers. Orchestrated multi-step workflows with AWS Lambda and Step Functions. Implemented monitoring with Datadog across 150+ pipelines. Maintained GitHub Actions CI/CD with YAML configs across all pipeline environments.',
+      'Shipped 50+ end-to-end ETL pipelines from S3 to Amazon Redshift in Python and AWS Glue; owned 150+ pipelines serving USDA data consumers. Reusable templates cut new-feed onboarding time by 50%. Re-architected multi-step workflows with AWS Lambda and Step Functions to kill recurring Glue timeouts, cutting end-to-end runtime by 60%. Rebuilt the deploy path with GitHub Actions CI/CD (tests, linting, multi-env promotion), taking deploys from ~1 hour to ~10 minutes and eliminating unplanned schema rollbacks across 200+ tables in 3 environments. Fail-fast data quality checks caught 3 upstream schema changes over 6 months before bad data reached USDA analyst dashboards. Instrumented 150+ pipelines in Datadog with SLA tracking and volume anomaly alerts. Shipped self-serve Tableau dashboards and runbooks serving 100+ USDA users, saving ~2 hours/week of ad-hoc report pulls.',
     tags: [
       'Python',
       'AWS Glue',
@@ -92,18 +105,19 @@ const CONTENT_ROWS = [
       'Amazon Redshift',
       'S3',
       'Datadog',
+      'Tableau',
       'GitHub Actions'
     ],
-    company: 'Viatrie (Federal Contract)',
-    duration: 'April 2024 - April 2026'
+    company: 'Viatrie',
+    duration: 'April 2024 - March 2026'
   },
   {
-    title: 'Research Assistant',
+    title: 'Research Software Engineer',
     section: 'experience',
     order: 31,
     description:
-      "Improved unknown protein classification to 89% accuracy by analyzing mass spectrometry data with Python and machine learning libraries to identify patterns in bacterial samples. Ensured integrity of 50TB protein research database through automated weekly backups and validation checks catching corrupted uploads before downstream analysis.",
-    tags: ['Python', 'Machine Learning', 'Mass Spectrometry'],
+      "Lifted unknown protein classification accuracy from ~70% to 89% by training scikit-learn ensemble models on mass-spectrometry data; serves 10-30 researchers, scientists, and doctors across 10+ collaborating labs in bacterial sample analysis. Cut 2+ hours of daily manual work by scripting instrument data processing in Python. Kept the 5TB research database intact with automated weekly backups and upload validation that catches corrupted writes before downstream analysis.",
+    tags: ['Python', 'scikit-learn', 'Machine Learning', 'Mass Spectrometry'],
     company: 'Rutgers Chlamydia Lab',
     duration: 'August 2022 - Present'
   },
@@ -112,19 +126,19 @@ const CONTENT_ROWS = [
     section: 'experience',
     order: 32,
     description:
-      "Contributed to Isaac Lab, NVIDIA's open-source GPU-accelerated framework for reinforcement learning and imitation learning across multiple robot embodiments. Developed modular Python-based simulation environments for manipulator and AMR tasks using PhysX, improving sim-to-real transfer outcomes.",
+      "Contribute to Isaac Lab, NVIDIA's open-source GPU-accelerated framework for reinforcement learning and imitation learning across multiple robot embodiments. Build modular Python simulation environments for manipulator and AMR tasks in PhysX.",
     tags: ['Python', 'Reinforcement Learning', 'PhysX', 'Simulation'],
     company: 'Isaac Lab (NVIDIA)',
     duration: 'January 2024 - Present'
   },
   // Education
   {
-    title: 'Master of Science in Computer Science',
+    title: 'Master of Science in Analytics',
     section: 'education',
     order: 40,
-    company: 'Arizona State University',
-    status: 'GPA 4.00',
-    duration: 'January 2024 - May 2025'
+    company: 'Georgia Institute of Technology',
+    status: 'Current Student',
+    duration: 'January 2026 - Present'
   },
   {
     title: 'Bachelor of Arts in Computer Science and Psychology',
@@ -132,7 +146,7 @@ const CONTENT_ROWS = [
     order: 41,
     company: 'Rutgers University',
     status: 'GPA 3.44',
-    duration: 'May 2022'
+    duration: 'Graduated May 2021'
   }
 ]
 
