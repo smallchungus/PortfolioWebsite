@@ -59,9 +59,8 @@
     {
       "id": "de-portfolio-website",
       "title": "Portfolio Website",
-      "description": "Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score",
+      "description": "Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score. Built with TDD practices and Notion-powered content management.",
       "technologies": ["React", "TypeScript", "Tailwind CSS", "Vite"],
-      "impact": "Built with TDD practices and Notion-powered content management",
       "links": {
         "github": "https://github.com/smallchungus/PortfolioWebsite"
       },
