@@ -1,5 +1,6 @@
 import { Badge } from '../../ui/Badge'
 import { Reveal } from '../../ui/Reveal'
+import { BulletedDescription } from '../../ui/BulletedDescription'
 import { skills, experience, education, heroContent } from '@/content'
 
 export const About = () => {
@@ -101,7 +102,11 @@ export const About = () => {
                   </div>
                   <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">{exp.duration}</span>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{exp.description}</p>
+                <BulletedDescription
+                  text={exp.description}
+                  className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                  labelClassName="text-gray-900 dark:text-white"
+                />
               </div>
             ))}
           </div>
