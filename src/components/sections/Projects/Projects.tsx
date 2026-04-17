@@ -1,4 +1,5 @@
 import { Badge } from '../../ui/Badge'
+import { Reveal } from '../../ui/Reveal'
 import { projects } from '@/content'
 
 export const Projects = () => {
@@ -10,19 +11,21 @@ export const Projects = () => {
       aria-label="Featured projects showcase"
     >
       {/* Section Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center">
-        Featured Projects
-      </h2>
+      <Reveal>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center tracking-tight">
+          Featured Projects
+        </h2>
+      </Reveal>
 
       {/* Projects Grid */}
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         data-testid="projects-grid"
       >
-        {projects.map((project) => (
+        {projects.map((project, i) => (
+          <Reveal key={project.id} delay={i * 100}>
           <article
-            key={project.id}
-            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200"
+            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-1 hover:shadow-lg dark:hover:shadow-2xl transition-all duration-300"
             data-testid={`project-card-${project.id}`}
             role="article"
           >
@@ -102,6 +105,7 @@ export const Projects = () => {
               </div>
             )}
           </article>
+          </Reveal>
         ))}
       </div>
     </section>
