@@ -50,7 +50,7 @@ describe('About Section', () => {
       expect(skillsGrid).toBeInTheDocument()
       
       // Should have skill categories from current Notion content
-      const categories = ['Languages', 'Databases', 'Cloud & DevOps', 'Observability & Tools']
+      const categories = ['Languages & Databases', 'Cloud & Infrastructure', 'Tooling & Practices']
       categories.forEach(category => {
         expect(screen.getByText(category)).toBeInTheDocument()
       })
@@ -73,9 +73,10 @@ describe('About Section', () => {
       const education = screen.getByTestId('education-section')
       expect(education).toBeInTheDocument()
 
-      // Should show MS CS @ ASU and BA CS/Psych @ Rutgers
-      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(2)
-      expect(screen.getAllByText(/Arizona State/i).length).toBeGreaterThanOrEqual(1)
+      // Should show MS Analytics @ Georgia Tech and BA CS/Psych @ Rutgers
+      expect(screen.getAllByText(/Analytics/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Georgia/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Rutgers/i).length).toBeGreaterThanOrEqual(1)
     })
   })
@@ -278,7 +279,7 @@ describe('About Section', () => {
       // Should mention key DE narrative points
       expect(text).toMatch(/data engineer/i)
       expect(text).toMatch(/Viatrie/i)
-      expect(text).toMatch(/Arizona State University/i)
+      expect(text).toMatch(/Georgia Tech/i)
     })
 
     it('shows organized technical skills', () => {
@@ -314,9 +315,9 @@ describe('About Section', () => {
       const education = screen.getByTestId('education-section')
       expect(education).toBeInTheDocument()
 
-      // Should include MS CS @ ASU and BA CS/Psych @ Rutgers
-      expect(screen.getAllByText(/Computer Science/i).length).toBeGreaterThanOrEqual(2)
-      expect(screen.getAllByText(/Arizona State/i).length).toBeGreaterThanOrEqual(1)
+      // Should include MS Analytics @ Georgia Tech and BA CS/Psych @ Rutgers
+      expect(screen.getAllByText(/Analytics/i).length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText(/Rutgers/i).length).toBeGreaterThanOrEqual(1)
     })
   })
 
@@ -324,9 +325,9 @@ describe('About Section', () => {
     it('displays correct bio from resume', () => {
       render(<About />)
 
-      // Current Notion content (DE variant): MS CS @ ASU, BA CS @ Rutgers
-      expect(screen.getByText(/Master of Science in Computer Science/i)).toBeInTheDocument()
-      expect(screen.getAllByText(/Arizona State University/i).length).toBeGreaterThanOrEqual(1)
+      // Current Notion content: MS Analytics @ Georgia Tech, BA CS @ Rutgers
+      expect(screen.getByText(/Master of Science in Analytics/i)).toBeInTheDocument()
+      expect(screen.getByText(/Georgia Institute of Technology/i)).toBeInTheDocument()
       expect(screen.getByText(/Bachelor of Arts in Computer Science/i)).toBeInTheDocument()
       expect(screen.getByText(/Rutgers University/i)).toBeInTheDocument()
     })
@@ -349,8 +350,8 @@ describe('About Section', () => {
       expect(screen.getAllByText(/USDA/i).length).toBeGreaterThanOrEqual(1)
       expect(screen.getAllByText(/Redshift/i).length).toBeGreaterThanOrEqual(1)
 
-      // Rutgers Lab RA role
-      expect(screen.getByText(/89% accuracy/i)).toBeInTheDocument()
+      // Rutgers Lab role — resume says "from ~70% to 89%"
+      expect(screen.getByText(/89%/)).toBeInTheDocument()
 
       // Isaac Lab role
       expect(screen.getByText(/reinforcement learning/i)).toBeInTheDocument()
