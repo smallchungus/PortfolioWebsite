@@ -424,7 +424,11 @@ export function parseResumeTex(tex: string): ContentRow[] {
     const subs = parseSubheadings(expBody)
     subs.forEach((s, i) => {
       // args: [company, location, title, duration]
-      const description = s.items.map((it) => it.text).join(' ')
+      // Preserve bullet structure — each \resumeItem becomes a newline-separated
+      // entry like "Label: Text". The UI splits on newlines and renders <ul>.
+      const description = s.items
+        .map((it) => (it.label ? `${it.label}: ${it.text}` : it.text))
+        .join('\n')
       rows.push({
         title: s.args[2],
         section: 'experience',
@@ -442,10 +446,10 @@ export function parseResumeTex(tex: string): ContentRow[] {
   if (projBody) {
     const projects = parseProjects(projBody)
     projects.forEach((p, i) => {
-      // First item is the main description; remaining items join as impact.
-      const [first, ...rest] = p.items
-      const description = first ? first.text : ''
-      const impact = rest.map((it) => it.text).join(' ')
+      // All items as newline-separated bullets (same as experience).
+      const description = p.items
+        .map((it) => (it.label ? `${it.label}: ${it.text}` : it.text))
+        .join('\n')
       const techTags = p.techStack
         .split(',')
         .map((s) => s.trim())
@@ -456,7 +460,6 @@ export function parseResumeTex(tex: string): ContentRow[] {
         order: 20 + i,
         description,
         tags: techTags.length > 0 ? techTags : extractTags(p.rawBody),
-        impact,
         featured: true,
         url: 'https://github.com/smallchungus'
       })
