@@ -1,5 +1,6 @@
 import React from 'react'
 import { Reveal } from '../../ui/Reveal'
+import { ContactForm } from '../../ui/ContactForm'
 import { contactInfo, RESUME_PATH } from '@/content'
 
 interface ContactProps {
@@ -23,11 +24,25 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
         </Reveal>
 
         <Reveal delay={100}>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-10">
             Open to new data engineering and software engineering roles. Let's chat.
           </p>
         </Reveal>
-        
+
+        <Reveal delay={200}>
+          <div className="max-w-xl mx-auto mb-12">
+            <ContactForm />
+          </div>
+        </Reveal>
+
+        <Reveal delay={300}>
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-4">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-mono">
+              or reach me directly
+            </p>
+          </div>
+        </Reveal>
+
         <div className="flex justify-center gap-6 mb-8">
           <a 
             href={`mailto:${contactInfo.email}`} 
