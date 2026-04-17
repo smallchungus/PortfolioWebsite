@@ -1,9 +1,12 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { z } from 'zod'
 import { Resend } from 'resend'
 
+// Edge runtime — Web-standard Request/Response, no @vercel/node dep,
+// faster cold-start than Node runtime for this small function.
+export const config = { runtime: 'edge' }
+
 const RECIPIENT = 'wchen1396@gmail.com'
-// Swap this to 'contact@willchennn.com' once the domain is verified in Resend.
+// Swap to 'contact@willchennn.com' once the domain is verified in Resend.
 const FROM = 'Portfolio Contact <onboarding@resend.dev>'
 
 const BodySchema = z.object({
@@ -14,31 +17,46 @@ const BodySchema = z.object({
   website: z.string().optional()
 })
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+const json = (data: unknown, status = 200, extraHeaders: Record<string, string> = {}) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders }
+  })
+
+export default async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
-    return res.status(405).json({ error: 'Method not allowed' })
+    return json({ error: 'Method not allowed' }, 405, { Allow: 'POST' })
   }
 
-  const parsed = BodySchema.safeParse(req.body)
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return json({ error: 'Invalid JSON' }, 400)
+  }
+
+  const parsed = BodySchema.safeParse(body)
   if (!parsed.success) {
-    return res.status(400).json({
-      error: 'Invalid input',
-      issues: parsed.error.issues.map((i) => ({ path: i.path, message: i.message }))
-    })
+    return json(
+      {
+        error: 'Invalid input',
+        issues: parsed.error.issues.map((i) => ({ path: i.path, message: i.message }))
+      },
+      400
+    )
   }
 
   const { name, email, message, website } = parsed.data
 
   // Honeypot tripped — respond success so bots don't learn the trick, drop the submission.
   if (website && website.trim().length > 0) {
-    return res.status(200).json({ ok: true })
+    return json({ ok: true })
   }
 
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
     console.error('RESEND_API_KEY env var is not set')
-    return res.status(500).json({ error: 'Email service unavailable' })
+    return json({ error: 'Email service unavailable' }, 500)
   }
 
   const resend = new Resend(apiKey)
@@ -60,12 +78,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (error) {
       console.error('Resend error:', error)
-      return res.status(502).json({ error: 'Failed to send message' })
+      return json({ error: 'Failed to send message' }, 502)
     }
 
-    return res.status(200).json({ ok: true })
+    return json({ ok: true })
   } catch (err) {
     console.error('Unexpected error sending email:', err)
-    return res.status(500).json({ error: 'Failed to send message' })
+    return json({ error: 'Failed to send message' }, 500)
   }
 }
