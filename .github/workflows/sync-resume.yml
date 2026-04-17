@@ -1,0 +1,65 @@
+name: Sync from Resume
+
+# Auto-sync Notion content from the latest main.tex in the resume repo.
+# Triggered by:
+#   - Manual dispatch (workflow_dispatch)
+#   - Repository dispatch (repository_dispatch type=resume-updated) —
+#     fired by a one-line workflow in the resume repo if you want push-time sync
+#   - Every 30 minutes (schedule) as a safety net
+#
+# Requires these secrets in repo Settings → Secrets and variables → Actions:
+#   NOTION_API_KEY           internal integration token from notion.so/my-integrations
+#   NOTION_DATABASE_ID       the database ID the integration is shared with
+#
+# Optional:
+#   VERCEL_DEPLOY_HOOK_URL   Vercel deploy hook URL. If set, the job triggers
+#                            a redeploy after a successful Notion update so the
+#                            live site picks up the changes immediately rather
+#                            than waiting for the next code push. Create one at
+#                            Vercel → Project Settings → Git → Deploy Hooks.
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [resume-updated]
+  schedule:
+    # Every 30 minutes. GitHub may delay scheduled runs under load; that's OK
+    # because this is non-blocking — the site still builds fine from existing
+    # Notion content while the sync catches up.
+    - cron: '*/30 * * * *'
+
+jobs:
+  sync:
+    name: Parse resume and update Notion
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run sync
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: npx tsx scripts/sync-from-resume.ts
+
+      - name: Trigger Vercel redeploy (if hook configured)
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "Triggering Vercel redeploy..."
+            curl -sS -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          else
+            echo "VERCEL_DEPLOY_HOOK_URL secret not set; skipping redeploy. Next git push will pick up Notion changes."
+          fi
