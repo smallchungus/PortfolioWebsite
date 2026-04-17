@@ -13,6 +13,7 @@ export const Projects = () => {
       {/* Section Heading */}
       <Reveal>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center tracking-tight">
+          <span className="text-gray-400 dark:text-gray-600 font-mono font-normal text-xl md:text-2xl mr-3 align-middle">02 /</span>
           Featured Projects
         </h2>
       </Reveal>
