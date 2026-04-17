@@ -49,19 +49,29 @@ export const Navigation = () => {
           <div className="flex items-center space-x-6">
             {/* Navigation Links */}
             <div className="hidden sm:flex space-x-8">
-              {NAV_ITEMS.map(item => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={`transition-colors font-medium ${
-                    activeSection === item.href.slice(1)
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {NAV_ITEMS.map(item => {
+                const isActive = activeSection === item.href.slice(1)
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`relative transition-colors font-medium py-1 ${
+                      isActive
+                        ? 'text-gray-900 dark:text-white'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute left-0 right-0 -bottom-0.5 h-[2px] bg-gray-900 dark:bg-white origin-left transition-transform duration-300 ease-out ${
+                        isActive ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
+                  </a>
+                )
+              })}
             </div>
 
             {/* Theme Toggle */}
