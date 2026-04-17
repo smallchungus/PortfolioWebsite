@@ -8,13 +8,26 @@
   html {
     @apply scroll-smooth;
   }
-  
+
   html.dark {
     @apply bg-gray-900;
   }
-  
+
   body {
     @apply bg-white dark:bg-gray-900;
+  }
+
+  /* Branded selection color. Subtle, matches engineer aesthetic. */
+  ::selection {
+    @apply bg-gray-900 text-white;
+  }
+  .dark ::selection {
+    @apply bg-white text-gray-900;
+  }
+
+  /* Hide default focus outlines only for mouse users; keep sharp rings for keyboard. */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
 
