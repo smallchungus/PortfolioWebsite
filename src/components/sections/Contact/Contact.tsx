@@ -16,7 +16,10 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
     >
       <div className="container mx-auto px-4 max-w-2xl text-center">
         <Reveal>
-          <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white tracking-tight">Let's Connect</h2>
+          <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white tracking-tight">
+            <span className="text-gray-400 dark:text-gray-600 font-mono font-normal text-xl md:text-2xl mr-3 align-middle">03 /</span>
+            Let's Connect
+          </h2>
         </Reveal>
 
         <Reveal delay={100}>
