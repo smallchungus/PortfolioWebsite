@@ -38,7 +38,7 @@ export const Projects = () => {
 
             {/* Project Description */}
             <div
-              className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed"
+              className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed"
               data-testid={`project-description-${project.id}`}
             >
               <BulletedDescription
@@ -46,13 +46,6 @@ export const Projects = () => {
                 labelClassName="text-gray-900 dark:text-white"
               />
             </div>
-
-            {/* Impact */}
-            {project.impact && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 font-medium">
-                {project.impact}
-              </p>
-            )}
 
             {/* Tech Stack */}
             <div
