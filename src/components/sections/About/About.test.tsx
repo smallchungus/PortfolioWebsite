@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
 import { About } from './About'
+import { skills } from '@/content'
 
 // Mock window.matchMedia for responsive tests
 Object.defineProperty(window, 'matchMedia', {
@@ -45,13 +46,15 @@ describe('About Section', () => {
 
     it('shows skills grid with categories', () => {
       render(<About />)
-      
+
       const skillsGrid = screen.getByTestId('skills-grid')
       expect(skillsGrid).toBeInTheDocument()
-      
-      // Should have skill categories from current Notion content
-      const categories = ['Languages & Databases', 'Cloud & Infrastructure', 'Tooling & Practices']
-      categories.forEach(category => {
+
+      // Data-driven: every category from Notion content should be rendered.
+      // Keeps the assertion correct as the resume evolves.
+      const categories = Object.keys(skills)
+      expect(categories.length).toBeGreaterThanOrEqual(2)
+      categories.forEach((category) => {
         expect(screen.getByText(category)).toBeInTheDocument()
       })
     })
@@ -285,15 +288,11 @@ describe('About Section', () => {
     it('shows organized technical skills', () => {
       render(<About />)
 
-      // Sample of skills from current DE resume Notion content across categories
-      const expectedSkills = [
-        'Python', 'Go', 'SQL', 'JavaScript',
-        'PostgreSQL', 'Redis', 'Amazon Redshift',
-        'AWS Glue', 'AWS Lambda', 'Docker', 'Kubernetes',
-        'Datadog', 'GitHub Actions'
-      ]
-
-      expectedSkills.forEach(skill => {
+      // Data-driven: every skill in every category from Notion should render
+      // as a badge. Stays correct as the resume evolves.
+      const allSkills = Object.values(skills).flat()
+      expect(allSkills.length).toBeGreaterThan(5)
+      allSkills.forEach((skill) => {
         expect(screen.getByText(skill)).toBeInTheDocument()
       })
     })
@@ -359,14 +358,12 @@ describe('About Section', () => {
     it('shows correct technology stack', () => {
       render(<About />)
 
-      const expectedTech = [
-        'Python', 'Go', 'SQL', 'JavaScript',
-        'PostgreSQL', 'Redis', 'Amazon Redshift',
-        'AWS Glue', 'AWS Lambda', 'Step Functions',
-        'Docker', 'Kubernetes', 'Datadog'
-      ]
-
-      expectedTech.forEach(tech => {
+      // Data-driven: every skill listed in Notion renders. Duplicates with
+      // the "shows organized technical skills" test above but the intent is
+      // different (this is under "Real Resume Content"); keeping both as
+      // guards against regression.
+      const allSkills = Object.values(skills).flat()
+      allSkills.forEach((tech) => {
         expect(screen.getByText(tech)).toBeInTheDocument()
       })
     })
