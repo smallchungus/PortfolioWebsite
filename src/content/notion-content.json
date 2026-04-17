@@ -1,0 +1,166 @@
+{
+  "siteConfig": {
+    "name": "Will Chen",
+    "title": "Will Chen - Software Engineer",
+    "description": "Software Engineer",
+    "url": "https://willchennn.com",
+    "ogImage": "https://willchennn.com/og-image.jpg",
+    "creator": "@willchennn"
+  },
+  "contact": {
+    "email": "wchen1396@gmail.com",
+    "linkedin": "https://linkedin.com/in/willchenn",
+    "github": "https://github.com/smallchungus",
+    "location": "Newark, NJ"
+  },
+  "skills": {
+    "Languages & Databases": [
+      "Python",
+      "Go",
+      "SQL",
+      "JavaScript",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "Amazon Redshift"
+    ],
+    "Cloud & Infrastructure": [
+      "AWS",
+      "Glue",
+      "Lambda",
+      "Step Functions",
+      "S3",
+      "Redshift",
+      "Docker",
+      "Kubernetes",
+      "GitHub Actions",
+      "Datadog",
+      "Bash"
+    ],
+    "Data Platform & Infrastructure": [
+      "CI/CD pipelines",
+      "distributed systems",
+      "REST APIs",
+      "observability and alerting",
+      "pipeline orchestration",
+      "Terraform",
+      "Infrastructure as Code",
+      "AI-assisted development",
+      "Claude",
+      "GitHub Copilot",
+      "technical documentation"
+    ]
+  },
+  "projects": [
+    {
+      "id": "345a7179-db34-8134-80ec-fa2d168a5990",
+      "title": "Distributed Task Queue",
+      "description": "Job Engine: Built a distributed task queue in Go using Redis lists with BLPOP for blocking dequeue, processing 5K jobs across 4 workers in ~10 seconds; wrote the worker and scheduler from scratch instead of pulling in Celery to learn the internals of Go concurrency and Redis\nFailure Handling: Handled worker crashes with a 5-second heartbeat written to Redis; jobs from workers that go silent for 30 seconds get requeued by a sweeper, giving at-least-once delivery without a separate broker, plus PostgreSQL-backed status history and exponential-backoff retries\nShip Path: Containerized with Docker and deployed to Kubernetes with separate deployments for API, workers, and databases; horizontal pod autoscaling on queue depth and automated build/test/rollout through GitHub Actions",
+      "technologies": [
+        "Go",
+        "Redis",
+        "PostgreSQL",
+        "Docker",
+        "Kubernetes",
+        "GitHub Actions"
+      ],
+      "links": {
+        "github": "https://github.com/smallchungus"
+      },
+      "featured": true
+    },
+    {
+      "id": "345a7179-db34-81c3-ac10-df377ff2f229",
+      "title": "Portfolio Website",
+      "description": "Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score. Built with TDD practices and Notion-powered content management.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vite"
+      ],
+      "links": {
+        "github": "https://github.com/smallchungus/PortfolioWebsite"
+      },
+      "featured": true
+    }
+  ],
+  "experience": [
+    {
+      "id": "345a7179-db34-8104-8083-fcd60d15e50d",
+      "title": "Data Platform Engineer (Federal Contract)",
+      "company": "Viatrie",
+      "description": "Pipeline Platform: Built the reusable pipeline platform for a USDA federal contract, shipping 50+ end-to-end ETL pipelines from S3 to Amazon Redshift in Python and AWS Glue; owned 150+ pipelines across the team and cut new feed onboarding time by 50% through reusable templates other engineers built on top of\nRuntime Wins: Killed recurring Glue job timeout failures by re-architecting multi-step workflows with AWS Lambda and Step Functions, partitioned loads, and tuned DPU allocation, cutting end-to-end pipeline runtime by 60%\nDelivery Infrastructure: Built the deployment system engineers used daily with GitHub Actions CI/CD, Docker container builds, and Terraform-managed AWS resources across 200+ tables in 3 environments, taking deploys from ~1 hour of manual work to ~10 minutes and eliminating unplanned schema rollbacks\nCatching Bad Data Early: Wrote data quality checks into AWS Glue jobs that fail-fast on whitespace, type mismatches, and malformed records; automated schema drift detection caught 3 upstream schema changes over 6 months before any bad data reached USDA analyst dashboards\nPlatform Observability: Instrumented 150+ pipelines in Datadog with SLA tracking, volume anomaly detection, and on-call alerting, giving the team a single pane of glass into pipeline health instead of grepping through Glue logs\nUnblocking Analysts: Shipped self-serve Tableau dashboards and written runbooks serving 100+ users at USDA, powering congressional reports and internal budget reviews, and saving the team ~2 hours/week of ad-hoc report pulls",
+      "duration": "Apr 2024 - Mar 2026",
+      "technologies": [
+        "S3",
+        "Amazon Redshift",
+        "Python",
+        "AWS Glue",
+        "AWS Lambda",
+        "Step Functions",
+        "GitHub Actions",
+        "Docker",
+        "Datadog",
+        "Tableau"
+      ]
+    },
+    {
+      "id": "345a7179-db34-81a7-94b1-ec4feb5d3dd0",
+      "title": "Research Software Engineer",
+      "company": "Rutgers Chlamydia Lab",
+      "description": "Protein Data Analysis: Lifted unknown protein classification accuracy from ~70% to 89% by training scikit-learn ensemble models on mass spectrometry data, serving 10-30 researchers, scientists, and doctors across 10+ collaborating labs in bacterial sample analysis\nAutomation & Reliability: Cut 2+ hours of daily manual work by scripting instrument data processing in Python; kept the 5TB research database intact with automated weekly backups and upload validation that catches corrupted writes before downstream analysis",
+      "duration": "August 2022 - Present",
+      "technologies": [
+        "scikit-learn",
+        "Mass Spectrometry",
+        "Python"
+      ]
+    },
+    {
+      "id": "345a7179-db34-8107-a771-f0b08dfd52ee",
+      "title": "Open Source Contributor",
+      "company": "Isaac Lab (NVIDIA)",
+      "description": "Open Source Contribution: Contribute to Isaac Lab, NVIDIA's open-source GPU-accelerated framework for reinforcement learning and imitation learning across multiple robot embodiments, building modular Python simulation environments for manipulator and AMR tasks in PhysX",
+      "duration": "January 2024 - Present",
+      "technologies": [
+        "Reinforcement Learning",
+        "Python",
+        "AMR",
+        "PhysX"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "345a7179-db34-8100-b791-e6b998684e0b",
+      "degree": "Master of Science in Analytics (Data Science)",
+      "institution": "Georgia Institute of Technology",
+      "status": "Current Student",
+      "duration": "January 2026 - Present"
+    },
+    {
+      "id": "345a7179-db34-8144-a6a6-ea118f342ef3",
+      "degree": "Bachelor of Arts in Computer Science and Psychology",
+      "institution": "Rutgers University",
+      "status": "GPA 3.44",
+      "duration": "Graduated May 2021"
+    }
+  ],
+  "hero": {
+    "roles": [
+      "Software Engineer",
+      "Data Platform Engineer",
+      "MS Analytics (Data Science) @ Georgia Tech"
+    ],
+    "techStack": [
+      "Python",
+      "Go",
+      "SQL",
+      "AWS",
+      "Docker",
+      "Kubernetes"
+    ],
+    "description": "Building production-grade ETL pipelines and distributed systems. Passionate about data infrastructure, cloud-native tooling, and reliable engineering at scale."
+  }
+}
