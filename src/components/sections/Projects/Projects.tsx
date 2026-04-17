@@ -1,5 +1,6 @@
 import { Badge } from '../../ui/Badge'
 import { Reveal } from '../../ui/Reveal'
+import { BulletedDescription } from '../../ui/BulletedDescription'
 import { projects } from '@/content'
 
 export const Projects = () => {
@@ -36,12 +37,15 @@ export const Projects = () => {
             </h3>
 
             {/* Project Description */}
-            <p
-              className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed"
+            <div
+              className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed"
               data-testid={`project-description-${project.id}`}
             >
-              {project.description}
-            </p>
+              <BulletedDescription
+                text={project.description}
+                labelClassName="text-gray-900 dark:text-white"
+              />
+            </div>
 
             {/* Impact */}
             {project.impact && (
