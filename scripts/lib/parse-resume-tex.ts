@@ -471,10 +471,9 @@ export function parseResumeTex(tex: string): ContentRow[] {
       section: 'projects',
       order: 20 + projects.length,
       description:
-        'Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score',
+        'Modern, minimal portfolio with dark mode, Notion CMS integration, and 95+ Lighthouse score. Built with TDD practices and Notion-powered content management.',
       tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
       url: 'https://github.com/smallchungus/PortfolioWebsite',
-      impact: 'Built with TDD practices and Notion-powered content management',
       featured: true
     })
   }

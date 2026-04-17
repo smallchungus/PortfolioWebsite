@@ -354,11 +354,15 @@ describe('Projects Section', () => {
       })
     })
 
-    it('applies dark mode to impact text', () => {
+    it('applies dark mode to descriptions (impact merged in)', () => {
       render(<Projects />)
 
-      const impactElement = screen.getByText(/Built with TDD practices/i)
-      expect(impactElement).toHaveClass('text-gray-500', 'dark:text-gray-400')
+      // Impact text is now part of the description instead of a separate block,
+      // so it inherits description styling (text-gray-600, dark:text-gray-300).
+      const portfolioDescription = screen
+        .getAllByText(/Built with TDD practices/i)[0]
+        .closest('[data-testid^="project-description-"]')
+      expect(portfolioDescription).toHaveClass('text-gray-600', 'dark:text-gray-300')
     })
 
     it('applies dark mode to action buttons', () => {
