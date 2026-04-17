@@ -1,6 +1,6 @@
 import { Badge } from '../../ui/Badge'
 import { Reveal } from '../../ui/Reveal'
-import { skills, experience, education } from '@/content'
+import { skills, experience, education, heroContent } from '@/content'
 
 export const About = () => {
   // Convert skills object to array format for rendering
@@ -32,10 +32,7 @@ export const About = () => {
             className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl"
             data-testid="professional-summary"
           >
-            Data Engineer at Viatrie building production ETL pipelines on AWS for USDA federal contracts —
-            150+ pipelines, 200+ tables across 3 environments. Currently pursuing MS Analytics at Georgia
-            Tech. Open-source contributor to NVIDIA Isaac Lab and research software engineer at Rutgers
-            Chlamydia Lab. U.S. Citizen with Public Trust Suitability.
+            {heroContent.description}
           </p>
 
           {/* Education */}
