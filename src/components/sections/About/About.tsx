@@ -19,6 +19,7 @@ export const About = () => {
       {/* Section Heading */}
       <Reveal>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center tracking-tight">
+          <span className="text-gray-400 dark:text-gray-600 font-mono font-normal text-xl md:text-2xl mr-3 align-middle">01 /</span>
           About Me
         </h2>
       </Reveal>
@@ -45,7 +46,7 @@ export const About = () => {
                 <div key={edu.id} className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-2xl transition-all duration-300">
                   <h4 className="font-semibold text-gray-900 dark:text-white">{edu.degree}</h4>
                   <p className="text-gray-600 dark:text-gray-300 mt-1">{edu.institution}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{edu.status} {edu.duration && `• ${edu.duration}`}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 font-mono">{edu.status} {edu.duration && `• ${edu.duration}`}</p>
                 </div>
               ))}
             </div>
@@ -101,7 +102,7 @@ export const About = () => {
                     <h4 className="font-semibold text-gray-900 dark:text-white">{exp.title}</h4>
                     <p className="text-gray-700 dark:text-gray-300 font-medium">{exp.company}</p>
                   </div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">{exp.duration}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">{exp.duration}</span>
                 </div>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{exp.description}</p>
               </div>
