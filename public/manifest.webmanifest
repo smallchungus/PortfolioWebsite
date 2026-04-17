@@ -1,0 +1,19 @@
+{
+  "name": "Will Chen — Data Engineer & Software Engineer",
+  "short_name": "Will Chen",
+  "description": "Portfolio of Will Chen, Data Engineer and Software Engineer building production ETL pipelines on AWS.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111827",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

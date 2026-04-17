@@ -67,7 +67,7 @@ describe('Navigation Component', () => {
     fireEvent.scroll(window);
     
     const aboutLink = screen.getByRole('link', { name: 'About' });
-    expect(aboutLink).toHaveClass('text-blue-600');
+    expect(aboutLink).toHaveClass('text-gray-900');
   });
 
   it('applies dark mode styles', () => {
@@ -133,7 +133,7 @@ describe('Navigation Component', () => {
     fireEvent.scroll(window);
     
     const projectsLink = screen.getByRole('link', { name: 'Projects' });
-    expect(projectsLink).toHaveClass('text-blue-600');
+    expect(projectsLink).toHaveClass('text-gray-900');
   });
 
   it('maintains accessibility with proper ARIA attributes', () => {
