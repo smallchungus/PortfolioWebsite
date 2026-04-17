@@ -1,4 +1,5 @@
 import React from 'react'
+import { Reveal } from '../../ui/Reveal'
 import { contactInfo, RESUME_PATH } from '@/content'
 
 interface ContactProps {
@@ -14,17 +15,21 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
       aria-label="Contact information"
     >
       <div className="container mx-auto px-4 max-w-2xl text-center">
-        <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Let's Connect</h2>
-        
-        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-          Open to new data engineering and software engineering roles. Let's chat.
-        </p>
+        <Reveal>
+          <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white tracking-tight">Let's Connect</h2>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Open to new data engineering and software engineering roles. Let's chat.
+          </p>
+        </Reveal>
         
         <div className="flex justify-center gap-6 mb-8">
           <a 
             href={`mailto:${contactInfo.email}`} 
             aria-label="Email Will Chen" 
-            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 hover:-translate-y-0.5 transition-all duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -36,7 +41,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           <a 
             href={contactInfo.linkedin} 
             aria-label="LinkedIn Profile"
-            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 hover:-translate-y-0.5 transition-all duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -48,7 +53,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           <a 
             href={contactInfo.github} 
             aria-label="GitHub Profile"
-            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 hover:-translate-y-0.5 transition-all duration-200"
             target="_blank"
             rel="noopener noreferrer"
           >

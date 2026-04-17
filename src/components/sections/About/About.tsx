@@ -1,4 +1,5 @@
 import { Badge } from '../../ui/Badge'
+import { Reveal } from '../../ui/Reveal'
 import { skills, experience, education } from '@/content'
 
 export const About = () => {
@@ -16,9 +17,11 @@ export const About = () => {
       aria-label="About Will Chen - Professional background and skills"
     >
       {/* Section Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center">
-        About Me
-      </h2>
+      <Reveal>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-16 text-center tracking-tight">
+          About Me
+        </h2>
+      </Reveal>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* Professional Summary */}
@@ -39,7 +42,7 @@ export const About = () => {
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Education</h3>
             <div className="space-y-4">
               {education.map((edu) => (
-                <div key={edu.id} className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                <div key={edu.id} className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-2xl transition-all duration-300">
                   <h4 className="font-semibold text-gray-900 dark:text-white">{edu.degree}</h4>
                   <p className="text-gray-600 dark:text-gray-300 mt-1">{edu.institution}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{edu.status} {edu.duration && `• ${edu.duration}`}</p>
@@ -91,7 +94,7 @@ export const About = () => {
             {experience.map((exp) => (
               <div
                 key={exp.id}
-                className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6"
+                className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-2xl transition-all duration-300"
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
