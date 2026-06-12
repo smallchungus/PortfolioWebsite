@@ -94,7 +94,10 @@ jobs:
         continue-on-error: true
 
       - name: Check for critical vulnerabilities
-        run: npm audit --audit-level=high
+        # Hard-gate production deps only; dev tooling (vite/vitest chain)
+        # never ships with this static site and is surfaced by the
+        # informational audit above.
+        run: npm audit --omit=dev --audit-level=high
 
   auto-merge-to-main:
     name: Auto-merge dev → main
