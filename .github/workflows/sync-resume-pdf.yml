@@ -42,9 +42,11 @@ jobs:
 
       - name: Compile PDF via latexonline.cc
         if: steps.source.outputs.changed == 'true'
+        # Single-file url mode, not git mode — git mode hit cache
+        # collisions on the service (errors from other users' files).
         run: |
           curl -sfL --retry 3 --retry-delay 10 -o resume.pdf \
-            "https://latexonline.cc/compile?git=https://github.com/smallchungus/WillChen_Resume03_09_DE&target=main.tex"
+            "https://latexonline.cc/compile?url=https://raw.githubusercontent.com/smallchungus/WillChen_Resume03_09_DE/main/main.tex"
           head -c 4 resume.pdf | grep -q "%PDF"
           mv resume.pdf public/WillChen_Resume.pdf
 
