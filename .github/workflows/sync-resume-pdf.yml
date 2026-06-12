@@ -1,0 +1,60 @@
+# Keep public/WillChen_Resume.pdf in sync with main.tex in the resume repo.
+# Compiles via latexonline.cc (same service used for manual builds) and
+# commits the PDF only when the source main.tex actually changed.
+#
+# Triggered by:
+#   - repository_dispatch type=resume-updated (fired by the resume repo on push)
+#   - Manual dispatch (workflow_dispatch)
+
+name: Sync Resume PDF
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [resume-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    name: Compile resume PDF and commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check whether main.tex changed since last sync
+        id: source
+        run: |
+          SHA=$(curl -sf "https://api.github.com/repos/smallchungus/WillChen_Resume03_09_DE/contents/main.tex" | jq -r .sha)
+          test -n "$SHA" && test "$SHA" != "null"
+          LAST=$(cat public/.resume-source-sha 2>/dev/null || echo none)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          if [ "$SHA" = "$LAST" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "main.tex unchanged ($SHA); skipping compile."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compile PDF via latexonline.cc
+        if: steps.source.outputs.changed == 'true'
+        run: |
+          curl -sfL --retry 3 --retry-delay 10 -o resume.pdf \
+            "https://latexonline.cc/compile?git=https://github.com/smallchungus/WillChen_Resume03_09_DE&target=main.tex"
+          head -c 4 resume.pdf | grep -q "%PDF"
+          mv resume.pdf public/WillChen_Resume.pdf
+
+      - name: Commit and push if changed
+        if: steps.source.outputs.changed == 'true'
+        run: |
+          echo "${{ steps.source.outputs.sha }}" > public/.resume-source-sha
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/WillChen_Resume.pdf public/.resume-source-sha
+          git diff --cached --quiet && { echo "PDF unchanged; nothing to commit."; exit 0; }
+          git commit -m "chore(resume): sync resume PDF from resume repo [skip ci]"
+          git push origin main

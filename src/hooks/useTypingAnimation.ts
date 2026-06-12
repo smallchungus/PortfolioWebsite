@@ -17,22 +17,21 @@ export const useTypingAnimation = ({
   loop = true,
   respectReducedMotion = true,
 }: UseTypingAnimationOptions) => {
-  const [currentStringIndex, setCurrentStringIndex] = useState(0)
-  const [displayedText, setDisplayedText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const [isDeleting, setIsDeleting] = useState(false)
-
   // Check for reduced motion preference
-  const prefersReducedMotion = respectReducedMotion 
+  const prefersReducedMotion = respectReducedMotion
     ? (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false)
     : false
 
+  const [currentStringIndex, setCurrentStringIndex] = useState(0)
+  // Show the first string immediately if user prefers reduced motion
+  const [displayedText, setDisplayedText] = useState(
+    prefersReducedMotion ? (strings[0] ?? '') : ''
+  )
+  const [isTyping, setIsTyping] = useState(true)
+  const [isDeleting, setIsDeleting] = useState(false)
+
   useEffect(() => {
-    if (prefersReducedMotion) {
-      // Show the first string immediately if user prefers reduced motion
-      setDisplayedText(strings[currentStringIndex])
-      return
-    }
+    if (prefersReducedMotion) return
 
     if (!strings.length) return
 

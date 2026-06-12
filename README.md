@@ -1,6 +1,6 @@
 # Will Chen - Portfolio
 
-[![Website](https://img.shields.io/website?url=https://willchenn.com&label=willchenn.com)](https://willchenn.com)
+[![Website](https://img.shields.io/website?url=https://willchennn.com&label=willchennn.com)](https://willchennn.com)
 [![Deployment](https://img.shields.io/github/deployments/smallchungus/PortfolioWebsite/production?label=deployment&logo=vercel)](https://github.com/smallchungus/PortfolioWebsite/deployments)
 [![CI/CD](https://github.com/smallchungus/PortfolioWebsite/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/smallchungus/PortfolioWebsite/actions)
 [![Coverage](https://codecov.io/gh/smallchungus/PortfolioWebsite/branch/main/graph/badge.svg)](https://codecov.io/gh/smallchungus/PortfolioWebsite)
@@ -65,7 +65,7 @@ docs/
 ## Deployment & Monitoring
 
 ### Production URLs
-- **Production**: [willchenn.com](https://willchenn.com)
+- **Production**: [willchennn.com](https://willchennn.com)
 - **Staging**: [staging-willchenn.vercel.app](https://staging-willchenn.vercel.app)
 - **Preview**: Auto-generated for every PR
 
@@ -95,7 +95,7 @@ git push origin main
 
 ## Links
 
-- **Live Site**: [willchenn.com](https://willchenn.com)
+- **Live Site**: [willchennn.com](https://willchennn.com)
 - **Deployment Setup**: [Guide](.github/DEPLOYMENT_SETUP.md)
 - **Architecture**: [ADR Documents](docs/adr/)
 - **Performance**: [Lighthouse Reports](https://github.com/smallchungus/PortfolioWebsite/actions)

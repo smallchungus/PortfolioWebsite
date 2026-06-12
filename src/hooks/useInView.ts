@@ -12,25 +12,24 @@ export function useInView<T extends HTMLElement>({
   once = true
 }: UseInViewOptions = {}) {
   const ref = useRef<T | null>(null)
-  const [inView, setInView] = useState(false)
+  // Start "in view" when IntersectionObserver is unavailable (old browsers,
+  // jsdom test environments) or reduced-motion is preferred — the effect
+  // skips observing in those cases.
+  const [inView, setInView] = useState(
+    () =>
+      typeof IntersectionObserver === 'undefined' ||
+      (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ??
+        false)
+  )
 
   useEffect(() => {
     const element = ref.current
     if (!element) return
 
-    // Fallback to "always visible" when IntersectionObserver is unavailable
-    // (old browsers, jsdom test environments) or reduced-motion is preferred.
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true)
-      return
-    }
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches
-
-    if (prefersReducedMotion) {
-      setInView(true)
+    if (
+      typeof IntersectionObserver === 'undefined' ||
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    ) {
       return
     }
 
