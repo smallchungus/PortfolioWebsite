@@ -51,7 +51,7 @@ export const Hero = () => {
         <div className="container mx-auto text-center max-w-4xl">
           {/* Main heading */}
           <Reveal>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white mb-8 font-inter bg-gradient-to-br from-gray-900 via-gray-800 to-gray-500 dark:from-white dark:via-gray-100 dark:to-gray-400 bg-clip-text [-webkit-text-fill-color:transparent]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-gray-900 dark:text-white mb-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-500 dark:from-white dark:via-gray-100 dark:to-gray-400 bg-clip-text [-webkit-text-fill-color:transparent]">
               Will Chen
             </h1>
           </Reveal>
