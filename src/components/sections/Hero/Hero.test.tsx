@@ -72,12 +72,9 @@ describe('Hero Section', () => {
       await user.click(viewProjectsBtn)
       expect(mockScrollTo).toHaveBeenCalled()
 
-      // Test View Resume button opens the auto-compiled resume URL
+      // Test View Resume button opens the resume PDF
       await user.click(viewResumeBtn)
-      expect(mockOpen).toHaveBeenCalledWith(
-        expect.stringContaining('latexonline.cc/compile'),
-        '_blank'
-      )
+      expect(mockOpen).toHaveBeenCalledWith('/WillChen_Resume.pdf', '_blank')
     })
   })
 

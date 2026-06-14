@@ -32,7 +32,7 @@ describe('Contact Section', () => {
     render(<Contact />)
     const resumeBtn = screen.getByText(/view resume/i)
     const href = resumeBtn.getAttribute('href') || ''
-    expect(href).toContain('latexonline.cc/compile')
+    expect(href).toBe('/WillChen_Resume.pdf')
     expect(resumeBtn).toHaveAttribute('target', '_blank')
     expect(resumeBtn).toHaveAttribute('rel', 'noopener noreferrer')
   })

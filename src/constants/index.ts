@@ -10,12 +10,11 @@ export const SITE_CONFIG = {
   creator: '@willchennn'
 } as const
 
-// Compiled on-the-fly from the Overleaf-synced .tex in the resume repo.
-// Every push to github.com/smallchungus/WillChen_Resume03_09_DE triggers
-// a fresh compile on next request.
-// Fallback: '/WillChen_Resume.pdf' (static copy in public/) if latexonline.cc is unavailable.
-export const RESUME_PATH =
-  'https://latexonline.cc/compile?git=https://github.com/smallchungus/WillChen_Resume03_09_DE&target=main.tex'
+// Self-hosted PDF in public/, auto-synced from the resume repo's main.tex by
+// .github/workflows/sync-resume-pdf.yml. Served statically rather than compiled
+// on click: latexonline.cc git mode returned cache-collision compile errors
+// (other users' files), so clicking through gave a LaTeX error page, not a PDF.
+export const RESUME_PATH = '/WillChen_Resume.pdf'
 
 export const CONTACT_INFO = {
   email: 'wchen1396@gmail.com',
