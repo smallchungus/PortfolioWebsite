@@ -220,3 +220,7 @@ secrets.json
 # Note: src/content/notion-content.json is now committed as a bootstrap so
 # Vite can resolve the import at test/build time without prebuild having run
 # yet. The prebuild script overwrites it on every build with live content.
+# Claude Code local files (kept out of the repo)
+CLAUDE.md
+CLAUDE_TODOS.md
+.claude/
