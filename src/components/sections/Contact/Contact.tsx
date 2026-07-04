@@ -85,7 +85,7 @@ export const Contact: React.FC<ContactProps> = ({ className = '' }) => {
           href={RESUME_PATH}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="View Will Chen's resume as PDF"
+          aria-label="View Resume as PDF"
           className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 dark:bg-blue-700 text-white rounded-full hover:bg-blue-700 dark:hover:bg-blue-800 transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

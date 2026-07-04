@@ -66,7 +66,7 @@ export const About = () => {
                 data-testid={`skill-category-${category.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
               >
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-3">{category.title}</h4>
-                <div className="space-y-2">
+                <div className="space-y-2" role="list">
                   {category.skills.map((skill) => (
                     <div key={skill} data-testid={`skill-item-${skill.toLowerCase().replace(/[^a-z0-9]/g, '-')}`} role="listitem">
                       <Badge variant="secondary" size="sm">
