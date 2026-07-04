@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every pod was green and nothing worked — DistTaskQueue</title>
+<meta name="description" content="A hand-rolled distributed task queue in Go (Redis + Postgres + k3s) that backs up my Gmail to Drive as PDFs — and the production incidents it taught me.">
+<link rel="icon" href="/favicon-dark.svg">
+<style>
+  :root {
+    --bg: #ffffff; --ink: #1a1a1a; --muted: #595959; --line: #e4e4e4;
+    --accent: #2a5db0; --surface: #f6f6f4; --good: #2f7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212; --ink: #e8e8e6; --muted: #a3a3a0; --line: #2c2c2c;
+      --accent: #7aa7e8; --surface: #1c1c1c; --good: #7cc79a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1 { font-size: 2rem; line-height: 1.2; letter-spacing: -0.02em; margin: 0.5rem 0 0.75rem; }
+  h2 { font-size: 1.3rem; letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--accent); }
+  .kicker { color: var(--muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .sub { color: var(--muted); font-size: 1.05rem; margin-bottom: 1.5rem; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.25rem 0 0.5rem; }
+  .btn {
+    display: inline-block; padding: 0.55rem 1rem; border-radius: 8px;
+    border: 1px solid var(--line); text-decoration: none; color: var(--ink);
+    font-weight: 600; font-size: 0.95rem;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .numbers {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0.75rem; margin: 2rem 0; padding: 0; list-style: none;
+  }
+  .numbers li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1rem; }
+  .numbers b { display: block; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .numbers span { color: var(--muted); font-size: 0.85rem; }
+  pre {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1rem; overflow-x: auto; font-size: 0.78rem; line-height: 1.5;
+  }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  figure { margin: 1.5rem 0; }
+  figure img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+  figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
+  .note { border-left: 3px solid var(--accent); padding: 0.15rem 0 0.15rem 1rem; color: var(--muted); }
+  footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker"><a href="/">willchennn.com</a> / projects</p>
+  <h1>Every pod was green and nothing worked</h1>
+  <p class="sub">DistTaskQueue: a distributed task queue hand-rolled in Go on raw Redis and Postgres, running my Gmail&nbsp;→&nbsp;PDF&nbsp;→&nbsp;Google&nbsp;Drive backup on a €8/month single-node k3s cluster — and the production incidents it taught me.</p>
+
+  <div class="ctas">
+    <a class="btn primary" href="https://dtq.willchennn.com/" target="_blank" rel="noopener noreferrer">Open the live dashboard</a>
+    <a class="btn" href="https://github.com/smallchungus/DistTaskQueue" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+    <a class="btn" href="https://github.com/smallchungus/DistTaskQueue/blob/main/docs/WAR-STORIES.md" target="_blank" rel="noopener noreferrer">All eight war stories</a>
+  </div>
+  <p class="note">The dashboard is the real production system. Press <b>Flood</b> and watch 1,000 jobs drain while Kubernetes scales the workers — it's rate-limited, so go ahead.</p>
+
+  <ul class="numbers">
+    <li><b>5,000 jobs / 5.8 s</b><span>4 workers, full pipeline loadtest</span></li>
+    <li><b>21 s</b><span>crash-to-done after a worker is SIGKILLed mid-job</span></li>
+    <li><b>1 → 5</b><span>replicas within ~30 s of a 1,000-job flood</span></li>
+    <li><b>~€8/mo</b><span>replaces a paid email-backup SaaS</span></li>
+  </ul>
+
+  <h2>What it is</h2>
+  <p>Every email that lands in my inbox is fetched from Gmail, rendered to PDF, and filed into a dated folder tree in Google Drive with its attachments. The interesting part is what runs it: a task queue built deliberately without Asynq, Celery, or SQS — raw Redis lists for queues, Postgres as the source of truth, and every delivery, retry, and failure-recovery decision hand-written and tested against real infrastructure.</p>
+<pre><code>scheduler ──polls Gmail──▶ Postgres row + Redis queue
+                              │
+             fetch pool ──▶ render pool ──▶ upload pool     (each scales 1–5 on queue depth)
+                 │              │                │
+             Gmail API     Gotenberg/Chromium   Drive API
+                              │
+     sweeper: revives orphans, promotes retries, reclaims dead workers' jobs</code></pre>
+  <p>Delivery is at-least-once. The only lock in the system is a conditional <code>UPDATE … WHERE status='queued'</code> in Postgres; everything else — duplicate pushes, worker crashes, Redis restarts — is absorbed by that claim plus idempotent side effects. Getting to say that sentence with a straight face required the following incidents.</p>
+
+  <h2>The pipeline was dead for weeks and every pod was green</h2>
+  <p>I moved the cluster from DigitalOcean to Hetzner to save a few dollars. Mid-migration, the copied Google OAuth token failed with <code>invalid_grant</code> — and when I checked the old cluster, it had been failing identically, once a minute, for weeks. Ten pods <code>Running</code>, 77 days of uptime, zero emails backed up. Google expires refresh tokens after 7 days while an OAuth app is in "Testing" mode, and nothing I had built could tell the difference between a healthy pipeline and a corpse with a heartbeat.</p>
+  <p>The fix was one gauge — <code>seconds since last successful poll</code> — shipped to Grafana Cloud with an alert at 30 minutes. The lesson is bigger than the fix: <b>liveness probes measure the process, not the job.</b> Every pipeline needs a freshness signal for the thing it actually exists to do.</p>
+
+  <h2>A queue pop that can't lose the job</h2>
+  <p>The original worker did <code>BRPOP</code> then claimed the row in Postgres. Die between those two steps and the job ID is gone from Redis with nothing coming back for it. The upgrade is the classic reliable-queue pattern, built by hand: <code>BLMOVE</code> into a per-worker processing list, acknowledge with <code>LREM</code> only after the database settles, and let the sweeper move any dead worker's processing list back onto the queue. Both recovery paths can produce duplicates; the conditional claim absorbs them — one worker wins, the rest shrug and drop.</p>
+
+  <h2>The fix that nearly shipped a worse bug</h2>
+  <p>That upgrade required moving heartbeats from per-job goroutines to one process-lifetime loop — which silently broke the invariant orphan recovery depended on: "live heartbeat means the claimed job is being worked." Under the new scheme, one transient Postgres error after a claim would strand a job in <code>running</code> forever, because its owner never stops heartbeating. Adversarial review caught it before merge. The fix is crash-only design: if a worker can't record the outcome of a job it claimed, it exits — the pod restarts, the heartbeat expires, and the ordinary recovery path takes over. <b>When you refactor, enumerate the invariants your recovery machinery assumes; the compiler won't.</b></p>
+
+  <h2>The autoscaler saw a burst my own chart missed</h2>
+  <p>First flood demo: KEDA scaled workers 1→5, and my queue-depth chart stayed flat at zero. The metrics gauge refreshes every 10 seconds from a cache; the burst drained in about ten seconds and fell entirely between two refreshes. KEDA polls Redis directly, so it reacted to a spike my own observability never recorded. Every metric has a freshness, and a cached gauge cannot represent states shorter than its refresh window.</p>
+
+  <figure>
+    <img src="/projects/dtq-flood.png" alt="Two-panel chart: queue depth spiking to ~973 jobs and draining within about 50 seconds, while ready replicas step from 1 to 5 and later back to 1" width="1350" height="825">
+    <figcaption>The captured flood run: 1,000 synthetic jobs, replicas stepping 1→5, the drain accelerating, and the scale-down five minutes later.</figcaption>
+  </figure>
+
+  <h2>Kill a worker mid-job, on purpose</h2>
+  <p>The recovery story, demonstrated rather than claimed — a worker is <code>SIGKILL</code>ed while holding a job, the sweeper notices the expired heartbeat, and a replacement pod finishes the work:</p>
+<pre><code>16:17:33  enqueue slow synthetic job (5s sleep)
+16:17:36  job running on workertest…d71c — killing worker pod now
+16:17:37  running  worker=workertest…d71c  attempts=0
+16:17:49  running  worker=workertest…99bb  attempts=1  err=worker died
+16:17:54  done     worker=workertest…99bb  attempts=1
+16:17:54  job survived the crash</code></pre>
+
+  <h2>What I'd tell you in an interview</h2>
+  <p>Postgres is the source of truth and Redis is just a fast queue, because Redis is superb at throughput and bad at authoritative state. Heartbeats-plus-sweeper beats keyspace notifications because expiry events aren't guaranteed delivery and you end up building the catch-up scan anyway. Three worker pools instead of one because fetch is network-bound, render is CPU-bound (Chromium), and upload is API-bound — independent scaling and surgical retries. And single-node everything, on purpose: at 100 emails a day, high availability would be cosplay. The full reasoning — and the alternatives I rejected — is in <a href="https://github.com/smallchungus/DistTaskQueue/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">ARCHITECTURE.md</a>.</p>
+
+  <footer>
+    <p>Built with Go, pgx, go-redis, k3s, KEDA, cert-manager, Gotenberg, and stubbornness.
+    Runbooks: <a href="https://github.com/smallchungus/DistTaskQueue/blob/main/docs/OPERATIONS.md" target="_blank" rel="noopener noreferrer">OPERATIONS.md</a> ·
+    Incidents: <a href="https://github.com/smallchungus/DistTaskQueue/blob/main/docs/WAR-STORIES.md" target="_blank" rel="noopener noreferrer">WAR-STORIES.md</a> ·
+    <a href="/">← back to willchennn.com</a></p>
+  </footer>
+</main>
+</body>
+</html>
