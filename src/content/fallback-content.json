@@ -52,7 +52,7 @@
       "technologies": ["Go", "Redis", "PostgreSQL", "Docker", "Kubernetes", "GitHub Actions"],
       "impact": "Worker crashes handled by 5-second Redis heartbeat; jobs from workers silent for 30+ seconds get requeued by a sweeper (at-least-once delivery without a separate broker). Containerized with Docker, deployed to Kubernetes with HPA on queue depth, CI/CD via GitHub Actions.",
       "links": {
-        "github": "https://github.com/smallchungus"
+        "live": "https://willchennn.com/projects/disttaskqueue.html"
       },
       "featured": true
     },
