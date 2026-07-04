@@ -19,13 +19,17 @@ export const useTypingAnimation = ({
 }: UseTypingAnimationOptions) => {
   // Check for reduced motion preference
   const prefersReducedMotion = respectReducedMotion
-    ? (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false)
+    ? (typeof window !== 'undefined' &&
+        (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false))
     : false
 
   const [currentStringIndex, setCurrentStringIndex] = useState(0)
   // Show the first string immediately if user prefers reduced motion
+  // or when prerendering (no window), so crawlers see the headline
   const [displayedText, setDisplayedText] = useState(
-    prefersReducedMotion ? (strings[0] ?? '') : ''
+    prefersReducedMotion || typeof window === 'undefined'
+      ? (strings[0] ?? '')
+      : ''
   )
   const [isTyping, setIsTyping] = useState(true)
   const [isDeleting, setIsDeleting] = useState(false)
